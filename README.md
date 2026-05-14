@@ -144,9 +144,15 @@ Part of my Claude Code config series:
 - [`claude-code-rules`](https://github.com/aksheyw/claude-code-rules) — opinionated global rules (honesty / earned-confidence, TDD, branching)
 - [`claude-code-learned-skills`](https://github.com/aksheyw/claude-code-learned-skills) — 3 Docker / SSH / VPS skills auto-extracted from real debugging sessions
 
+## Credits
+
+The `humanizer` skill bundled at `skills/humanizer/SKILL.md` is authored by [@blader](https://github.com/blader/humanizer) and is used here under the MIT license — all credit for that skill goes to them. For the newest version (29+ patterns with voice calibration), pull directly from [github.com/blader/humanizer](https://github.com/blader/humanizer).
+
+The rest of the template is original work derived from a real director-PM job search workflow.
+
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE). The bundled `humanizer/SKILL.md` retains its original MIT terms; attribution above.
 
 ---
 
