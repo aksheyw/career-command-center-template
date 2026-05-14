@@ -59,6 +59,63 @@ No external services. No API keys. Works entirely from your local files.
 
 ---
 
+## Verify install worked
+
+After loading the plugin, in a fresh Claude Code session:
+
+- Check `~/.claude/settings.json` — `enabledPlugins` should list this plugin (or, if you used `claude --plugin-dir`, the plugin shows in the session's plugin list at startup).
+- Type `/` — autocomplete should show the 10 namespaced skills (e.g., `/career-cc:evaluate`, `/career-cc:apply`, `/career-cc:interview`, etc., based on the plugin name you set in `.claude-plugin/plugin.json`).
+- The session-start hook should print a one-line confirmation that `YOUR_PROFILE.md` loaded.
+
+Test without filling in your profile first: run `/career-cc:evaluate` on any JD — it works on JD alone, no profile required. If a 7-block analysis comes back with a GO / CAUTION / SKIP verdict, the plugin is wired correctly.
+
+If something's off, see **Troubleshooting** below.
+
+## Example output
+
+Abbreviated `/career-cc:evaluate` output for a fictional Senior PM job description:
+
+```
+JD: Senior Product Manager, Growth — ExampleCo (SaaS, Series C)
+
+Block 1: CV alignment (60% weight)
+- Strong match: experience with B2B SaaS funnels, activation experiments
+- Gap: no explicit revenue-attribution stack experience (HubSpot/Segment)
+- Score: 7.5/10
+
+Block 2: Compensation reality
+- Public glassdoor range: ₹68-95 LPA fixed + ESOPs (Series C SaaS, India)
+- Your target floor: ₹70 LPA — feasible
+- Score: 8/10
+
+Block 3: Likely interview process
+- 5 rounds: recruiter → HM → case study → panel → leadership
+- Estimated effort: 12-18 hours total prep
+- Score: 6/10
+
+Block 4: Story mapping
+- Lead story: 47% activation lift via onboarding cohort experiments — strong match
+- Weak slot: revenue-attribution narrative — needs reframing from analytics work
+
+[Blocks 5-7 abbreviated]
+
+Verdict: GO with conditions. Apply within 7 days.
+Required prep before applying: rewrite the activation bullet to mirror their language,
+prepare 1 weak-area honesty story for the attribution gap.
+```
+
+The skill never fabricates JD details, never invents salary ranges — it tells you what it knows, flags gaps, and gives a defensible verdict.
+
+## Troubleshooting
+
+- **`/career-cc:<skill>` doesn't autocomplete:** the plugin name in `.claude-plugin/plugin.json` is what gets prefixed. If you kept the default `career-command-center-template`, your skills are `/career-command-center-template:evaluate` (long but functional). Rename the plugin to something shorter (e.g., `career-cc`) before invoking.
+- **Session-start hook isn't loading `YOUR_PROFILE.md`:** check `hooks/hooks.json` references the correct filename. If you renamed `YOUR_PROFILE.md`, update the hook's path.
+- **Generated resume has placeholder text instead of your details:** the skills are designed to flag missing data rather than fabricate. Fill in the section the placeholder points to and regenerate.
+- **`/career-cc:evaluate` works but `/career-cc:apply` doesn't:** `apply` requires `YOUR_PROFILE.md` to have at least the 3 ⭐ MINIMUM VIABLE sections filled. `evaluate` works on JD alone — that's why it's the first skill to test.
+- **Plugin loaded but skills aren't namespaced:** confirm you installed it as a plugin (not by copying individual `SKILL.md` files to `~/.claude/skills/`). Plugin install gives you `/career-cc:apply`; loose-skill install gives bare `/apply` and bypasses the session-start hook.
+
+---
+
 ## Why this exists
 
 Job search done well is iterative work over months. Each application teaches you something: which hook a recruiter responded to, which STAR story landed, what comp range a company actually has. Most people lose that compounding knowledge between applications.
