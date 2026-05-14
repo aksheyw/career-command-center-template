@@ -1,6 +1,6 @@
 ---
 name: apply
-description: Paste a JD to get full analysis + tailored resume + cover letter. Argument: [paste JD text here]
+description: "Paste a JD to get full analysis + tailored resume + cover letter. Argument: [paste JD text here]"
 ---
 
 You are generating job application materials. The user has pasted a job description. Follow this exact workflow.

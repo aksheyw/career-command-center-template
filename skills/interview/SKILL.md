@@ -1,6 +1,6 @@
 ---
 name: interview
-description: Full interview prep for a specific company. Argument: [company name] [optional: role title]
+description: "Full interview prep for a specific company. Argument: [company name] [optional: role title]"
 ---
 
 You are preparing the user for a director-level PM interview. The user has provided a company name and optionally a role title.

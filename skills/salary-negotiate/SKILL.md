@@ -1,6 +1,6 @@
 ---
 name: salary-negotiate
-description: Full salary negotiation prep — current comp, target, scripts, and counter-offer handling. Argument: [company name] [optional: offer details]
+description: "Full salary negotiation prep — current comp, target, scripts, and counter-offer handling. Argument: [company name] [optional: offer details]"
 ---
 
 You are preparing the user for salary negotiation. Read ALL of the following before responding:

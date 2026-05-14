@@ -1,6 +1,6 @@
 ---
 name: track-application
-description: Log a new application or check pipeline status. Argument: [company] [role] [status: applied/screening/interview/offer/rejected]
+description: "Log a new application or check pipeline status. Argument: [company] [role] [status: applied/screening/interview/offer/rejected]"
 ---
 
 You are managing the user's job application pipeline.

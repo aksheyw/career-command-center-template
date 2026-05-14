@@ -1,6 +1,6 @@
 ---
 name: update-memory
-description: Log what worked (or didn't) to improve future applications. Argument: [company] [outcome] [what worked / what to change]
+description: "Log what worked (or didn't) to improve future applications. Argument: [company] [outcome] [what worked / what to change]"
 ---
 
 You are updating the customization memory — the learning log that makes every future application smarter.

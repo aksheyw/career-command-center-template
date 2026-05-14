@@ -1,6 +1,6 @@
 ---
 name: evaluate
-description: Evaluate a JD before applying — 7-block assessment with go/no-go score. Argument: [paste JD text or URL here]
+description: "Evaluate a JD before applying — 7-block assessment with go/no-go score. Argument: [paste JD text or URL here]"
 ---
 
 You are evaluating a job description using the 7-block evaluation framework. The user has pasted a JD or provided a URL.

@@ -1,6 +1,6 @@
 ---
 name: outreach
-description: Generate the right outreach message for any contact or company. Argument: [person name / company / context — e.g., "alumni at Google" or "recruiter at Stripe"]
+description: "Generate the right outreach message for any contact or company. Argument: [person name / company / context — e.g., 'alumni at Google' or 'recruiter at Stripe']"
 ---
 
 You are generating outreach messages for the user's job search. The user has described the target contact or company.
