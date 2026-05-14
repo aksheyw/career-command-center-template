@@ -447,8 +447,12 @@ Provide:
 
 ---
 
-## Reference
+## Credits
 
-This skill is based on [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup. The patterns documented there come from observations of thousands of instances of AI-generated text on Wikipedia.
+This humanizer skill was authored by [@blader](https://github.com/blader) and is published as a Claude Code / OpenCode skill at [github.com/blader/humanizer](https://github.com/blader/humanizer) under the MIT license. This template bundles it for convenience — all credit for the skill itself goes to blader.
+
+The skill's pattern catalogue is in turn based on [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup. The patterns documented there come from observations of thousands of instances of AI-generated text on Wikipedia.
 
 Key insight from Wikipedia: "LLMs use statistical algorithms to guess what should come next. The result tends toward the most statistically likely result that applies to the widest variety of cases."
+
+If you want the newest version of this skill (29+ patterns with voice-calibration features), pull directly from [blader/humanizer](https://github.com/blader/humanizer).

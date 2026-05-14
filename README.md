@@ -21,7 +21,7 @@ Once personalized, the plugin gives you eight commands for the full job-search l
 | `track-application` | Log applications, see your pipeline conversion rates, surface what's working |
 | `update-memory` | Capture what worked (or didn't) per application so future ones get smarter |
 | `resume-customizer` | Auto-loads on any resume or cover letter request — the core engine |
-| `humanizer` | Auto-applied after every document generation to strip AI writing patterns |
+| `humanizer` | Auto-applied after every document generation to strip AI writing patterns. *(Authored by [@blader](https://github.com/blader/humanizer) under MIT — bundled here for convenience.)* |
 
 ---
 
@@ -83,7 +83,7 @@ career-command-center-template/
 │   ├── apply/SKILL.md
 │   ├── evaluate/SKILL.md
 │   ├── generic-letter/SKILL.md
-│   ├── humanizer/SKILL.md               # reusable as-is
+│   ├── humanizer/SKILL.md               # bundled from blader/humanizer (MIT) — see Credits
 │   ├── interview/SKILL.md
 │   ├── outreach/SKILL.md
 │   ├── resume-customizer/
