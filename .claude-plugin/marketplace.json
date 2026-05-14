@@ -1,0 +1,16 @@
+{
+  "name": "aksheyw-cct",
+  "owner": { "name": "Akshey Walia" },
+  "description": "Career Command Center — Claude Code plugin and skills for an AI-native job search workflow",
+  "plugins": [
+    {
+      "name": "career-cc",
+      "source": "./",
+      "description": "Template for an AI-native job-search workflow: resume customization, JD evaluation, interview prep, outreach, salary negotiation, and application tracking. Fork and personalize.",
+      "author": { "name": "Akshey Walia" },
+      "homepage": "https://github.com/aksheyw/career-command-center-template",
+      "license": "MIT",
+      "keywords": ["resume", "career", "pm", "product-management", "job-search", "interview", "template", "claude-code"]
+    }
+  ]
+}

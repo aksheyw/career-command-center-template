@@ -11,20 +11,42 @@ Get from clone to your first generated resume in ~10 minutes.
 
 ## 1. Install the plugin
 
-This is a Claude Code plugin in the standard format (`.claude-plugin/plugin.json` + `skills/` + `hooks/`). Two install paths:
+This is a Claude Code plugin in the standard format (`.claude-plugin/plugin.json` + `skills/` + `hooks/`). Pick the install path that matches how you want to use it:
 
-- **From a marketplace** (if you publish it to one): use `/plugin` from inside Claude Code and add the repo URL.
-- **Local clone**: clone this repo, then point Claude Code at it as a local plugin. The exact mechanism evolves with Claude Code releases — check the [plugins docs](https://docs.claude.com/claude-code/plugins) for the current command.
+### Option A — Marketplace install (recommended, permanent)
 
-Once installed, the plugin's session-start hook auto-loads your `YOUR_PROFILE.md` so every skill sees your background as canonical context.
+The repo ships with a `.claude-plugin/marketplace.json` so it can be installed directly from GitHub. Inside a Claude Code session:
 
-## 2. Confirm the install — run `/evaluate` (no profile required)
+```
+/plugin marketplace add aksheyw/career-command-center-template
+/plugin install career-cc@aksheyw-cct
+```
+
+The marketplace name is `aksheyw-cct` and the plugin name is `career-cc`. Once installed, skills become `/career-cc:evaluate`, `/career-cc:apply`, etc. (See `.claude-plugin/marketplace.json` for the source of these names.)
+
+### Option B — Local dev install (session-only, for forks)
+
+For iterating on a fork before publishing it:
+
+```bash
+git clone https://github.com/aksheyw/career-command-center-template.git
+cd career-command-center-template
+claude --plugin-dir ./
+```
+
+This loads the plugin for the current session only. Re-run each time. Useful while customizing — once you have a working fork, set up your own marketplace using the same `marketplace.json` pattern (point `source` to your repo) and switch to Option A.
+
+### Either way
+
+Once installed, the plugin's session-start hook auto-loads your `references/YOUR_PROFILE.md` so every skill sees your background as canonical context.
+
+## 2. Confirm the install — run `/career-cc:evaluate` (no profile required)
 
 The `evaluate` skill works on a JD alone. Test it first to confirm wiring.
 
 In Claude Code, paste a job description and ask:
 
-> Run `/evaluate` on this JD: [paste here]
+> Run `/career-cc:evaluate` on this JD: [paste here]
 
 You'll get back a 7-block analysis (CV match, compensation research, story mapping, legitimacy, etc.) with a **GO / CAUTION / SKIP** verdict. 2-3 minutes. No profile needed yet.
 
@@ -46,7 +68,7 @@ Leave the rest as placeholders for now. You'll fill them in as your applications
 
 Now run:
 
-> Run `/apply` on this JD: [paste the same JD from step 2]
+> Run `/career-cc:apply` on this JD: [paste the same JD from step 2]
 
 You'll get:
 
@@ -59,7 +81,7 @@ Both documents are auto-passed through the bundled humanizer skill before output
 
 ## 5. Track it (one line)
 
-> Run `/track-application` for [company] [role] applied
+> Run `/career-cc:track-application` for [company] [role] applied
 
 This logs the application to `references/CUSTOMIZATION_MEMORY.md`. After 3-5 applications, the memory file starts surfacing patterns ("which hooks got screens", "which company types respond"). That compounding loop is where the plugin's long-term value lives — it gets smarter per application.
 
@@ -71,11 +93,11 @@ Once your profile has substance and you have a few applications logged:
 
 | Skill | Use it for |
 |-------|-----------|
-| `/interview [company]` | Full prep pack: 2-min pitch + 4 STAR stories + likely questions + 90-day plan + salary prep |
-| `/outreach [target]` | Cold or warm outreach messages, personalized by template |
-| `/salary-negotiate [company]` | Negotiation prep with scripts, counter-offer handling, notice-period strategy |
-| `/generic-letter` | Network forwarding cover letter for warm intros and alumni networks |
-| `/update-memory` | After each application outcome — what worked, what didn't, what to change |
+| `/career-cc:interview [company]` | Full prep pack: 2-min pitch + 4 STAR stories + likely questions + 90-day plan + salary prep |
+| `/career-cc:outreach [target]` | Cold or warm outreach messages, personalized by template |
+| `/career-cc:salary-negotiate [company]` | Negotiation prep with scripts, counter-offer handling, notice-period strategy |
+| `/career-cc:generic-letter` | Network forwarding cover letter for warm intros and alumni networks |
+| `/career-cc:update-memory` | After each application outcome — what worked, what didn't, what to change |
 
 ## Filling in the rest of `YOUR_PROFILE.md`
 
