@@ -4,6 +4,8 @@ A Claude Code plugin template for an AI-native job-search workflow. Resume custo
 
 This is a **template**. Fork it, fill in your profile, and the skills auto-load with your data.
 
+> **➡️ New here?** Start with [QUICKSTART.md](QUICKSTART.md) — get from clone to your first generated resume in ~10 minutes. Fill 3 sections of `YOUR_PROFILE.md` (marked ⭐ MINIMUM VIABLE), run `/evaluate` and `/apply`, and you're producing tailored applications.
+
 ---
 
 ## What this plugin does
@@ -75,8 +77,9 @@ career-command-center-template/
 │   └── plugin.json
 ├── hooks/
 │   └── hooks.json                       # auto-loads YOUR_PROFILE.md at session start
+├── QUICKSTART.md                        # 10-minute setup → first generated resume
 ├── references/                          # FILL THESE IN
-│   ├── YOUR_PROFILE.md
+│   ├── YOUR_PROFILE.md                  # ⭐ start here — 3 sections marked MINIMUM VIABLE
 │   ├── CUSTOMIZATION_MEMORY.md
 │   └── STRATEGIC_GAP_ASSESSMENT.md
 ├── skills/

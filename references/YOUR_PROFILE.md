@@ -4,6 +4,8 @@
 
 **How to fill in:** Replace every `{{PLACEHOLDER}}` and bracketed instruction with your own data. Delete sections that don't apply to your background. Add sections you need that aren't here.
 
+> **⭐ First time?** Fill in only the 3 sections marked **⭐ MINIMUM VIABLE** below to start using the plugin. The rest can stay as placeholders and fill in over time as your application history accumulates. See `QUICKSTART.md` for the full 5-step path.
+
 **Last Updated:** {{DATE}}
 
 ---
@@ -20,7 +22,7 @@
 
 ---
 
-## CURRENT ROLE & RESPONSIBILITIES
+## CURRENT ROLE & RESPONSIBILITIES ⭐ MINIMUM VIABLE
 
 **Position:** {{Title}} at {{Company}}
 **Platform / product line:** {{Product or business unit name}}
@@ -55,7 +57,9 @@
 
 ---
 
-## KEY ACHIEVEMENTS — {{CURRENT COMPANY}} (Verified Metrics)
+## KEY ACHIEVEMENTS — {{CURRENT COMPANY}} (Verified Metrics) ⭐ MINIMUM VIABLE
+
+> **First-pass goal:** 3-5 metrics you can defend in an interview. Skip the strategic-influence section initially if you don't have a clear story for it; revisit after your first interview.
 
 ### Strategic influence (Director-Level Thinking)
 
@@ -233,7 +237,7 @@ CERTIFICATIONS
 
 ---
 
-## CONTACT INFORMATION
+## CONTACT INFORMATION ⭐ MINIMUM VIABLE
 
 - **Email:** {{your@email}}
 - **Phone:** {{phone with country code}}
