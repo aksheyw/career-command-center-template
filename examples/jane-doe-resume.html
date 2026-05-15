@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Jane Doe — Director of Product</title>
+<style>
+  @page {
+    size: A4;
+    margin: 14mm 16mm 14mm 16mm;
+  }
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    font-family: "Calibri", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.2pt;
+    line-height: 1.32;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  header {
+    border-bottom: 1.5pt solid #1a1a1a;
+    padding-bottom: 6pt;
+    margin-bottom: 9pt;
+  }
+  h1 {
+    font-size: 18pt;
+    font-weight: 700;
+    letter-spacing: 0.4pt;
+    margin: 0 0 2pt 0;
+    text-transform: uppercase;
+  }
+  .subtitle {
+    font-size: 10.5pt;
+    color: #444;
+    margin-bottom: 4pt;
+  }
+  .contact {
+    font-size: 9.2pt;
+    color: #444;
+  }
+  .contact span:not(:last-child)::after {
+    content: " · ";
+    color: #999;
+  }
+  h2 {
+    font-size: 10.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6pt;
+    color: #1a1a1a;
+    border-bottom: 0.5pt solid #888;
+    padding-bottom: 1pt;
+    margin: 9pt 0 5pt 0;
+  }
+  .summary {
+    margin-bottom: 4pt;
+  }
+  .role {
+    margin-bottom: 7pt;
+  }
+  .role-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1pt;
+  }
+  .role-title {
+    font-weight: 700;
+    font-size: 10.5pt;
+  }
+  .role-dates {
+    font-size: 9.5pt;
+    color: #444;
+    white-space: nowrap;
+  }
+  .role-company {
+    font-style: italic;
+    color: #444;
+    margin-bottom: 3pt;
+    font-size: 9.8pt;
+  }
+  ul {
+    margin: 0 0 0 14pt;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 2.5pt;
+    text-align: justify;
+  }
+  .bullet-prefix {
+    font-weight: 700;
+  }
+  .edu-row, .cert-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2pt;
+  }
+  .edu-name {
+    font-weight: 700;
+  }
+  .edu-detail {
+    font-size: 9.5pt;
+    color: #444;
+  }
+  .cert-line {
+    font-size: 9.8pt;
+    line-height: 1.4;
+  }
+  .skills-row {
+    display: flex;
+    margin-bottom: 1pt;
+  }
+  .skills-label {
+    font-weight: 700;
+    min-width: 90pt;
+    flex-shrink: 0;
+  }
+  .skills-value {
+    flex: 1;
+  }
+  .footer-note {
+    font-size: 8pt;
+    color: #888;
+    text-align: center;
+    margin-top: 14pt;
+    border-top: 0.5pt solid #ccc;
+    padding-top: 4pt;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Jane Doe</h1>
+  <div class="subtitle">Director of Product · AI Platform &amp; Revenue Infrastructure</div>
+  <div class="contact">
+    <span>jane.doe@example.com</span>
+    <span>+1 (415) 555-0142</span>
+    <span>San Francisco, CA</span>
+    <span>linkedin.com/in/jane-doe-example</span>
+    <span>github.com/jane-doe-example</span>
+  </div>
+</header>
+
+<h2>Summary</h2>
+<p class="summary">
+Director-level product leader with 11 years across B2B SaaS, fintech, and developer tooling. Shipped revenue infrastructure ($12M ARR new line), enterprise partnerships ($8M ARR ecosystem), and production AI/ML features ($4M ARR forecasting model) at production scale with verified ARR attribution per surface. Engineering background (Microsoft SWE, CMU CS); MBA Stanford GSB. Built and grew PM team from 4 to 7 across 3 product lines with zero regretted attrition. Looking for a Director or VP of Product role at a Series A-C AI platform company where AI is the product, not a feature.
+</p>
+
+<h2>Professional Experience</h2>
+
+<div class="role">
+  <div class="role-head">
+    <span class="role-title">Director of Product, Revenue Platform</span>
+    <span class="role-dates">Jan 2023 - Present</span>
+  </div>
+  <div class="role-company">RevenueFlow Inc · San Francisco, CA · Series C fintech SaaS</div>
+  <ul>
+    <li><span class="bullet-prefix">Platform scale-up:</span> Owned Revenue Platform product line P&amp;L across 3 surfaces (Billing, Metering, Rev-Rec). Scaled from $11M to $42M ARR over 14 months across 1,400 enterprise customers processing $2.3B annual customer GMV. Maintained 134% net revenue retention through the scale-up.</li>
+    <li><span class="bullet-prefix">AI Forecasting feature, end-to-end:</span> Shipped AI/ML forecasting surface end-to-end as own PRD + model selection + GTM lead. Added $4M ARR over 3 quarters at 67% attach rate on new enterprise deals. Argued for and got board approval to delay Series D fundraise 6 months to ship the surface; raise then closed at 1.6x initial target valuation.</li>
+    <li><span class="bullet-prefix">Enterprise partnerships:</span> Integrated 3 of Big-4 audit firms (KPMG, EY, Deloitte) as referral and co-sell partners. Generated $8M ARR ecosystem revenue in first 12 months and 27% of new enterprise pipeline. Co-owned the partnership contracts with Head of Partnerships and Legal.</li>
+    <li><span class="bullet-prefix">Pricing rebuild for margin:</span> Reframed pricing from per-seat to usage-based after analyzing 6 months of enterprise renewal data; identified that 73% of churn was driven by misaligned price-to-value. Delivered 18% gross margin lift on renewals over 4 quarters and retained $2.1M ARR from at-risk accounts.</li>
+    <li><span class="bullet-prefix">Team building and leadership:</span> Grew PM team from 4 to 7 direct reports across 3 product lines. Drove 2 internal promotions (PM to Senior PM) and held zero regretted attrition over 18 months. Established structured weekly 1:1 + monthly career-growth cycle that became org standard.</li>
+  </ul>
+</div>
+
+<div class="role">
+  <div class="role-head">
+    <span class="role-title">Group Product Manager, Billing Surface</span>
+    <span class="role-dates">May 2021 - Dec 2022</span>
+  </div>
+  <div class="role-company">RevenueFlow Inc · San Francisco, CA</div>
+  <ul>
+    <li><span class="bullet-prefix">Monolith to API-first migration:</span> Owned Billing surface roadmap during platform transition from monolith to API-first architecture. Cut customer integration time from 6 weeks to 9 days median through new SDK design and migration tooling for the top 200 customer accounts.</li>
+    <li><span class="bullet-prefix">Activation lift:</span> Shipped self-serve onboarding flow as 4-cohort experimental rollout. Drove activation rate from 22% to 38% (38% lift), tracked via weekly cohort dashboards that became GTM standard.</li>
+  </ul>
+</div>
+
+<div class="role">
+  <div class="role-head">
+    <span class="role-title">Senior PM to Principal PM, Data Ingest</span>
+    <span class="role-dates">Mar 2019 - Apr 2021</span>
+  </div>
+  <div class="role-company">MetricFlow · San Francisco, CA · Series A fintech data analytics</div>
+  <ul>
+    <li><span class="bullet-prefix">Throughput doubling at Series B:</span> Owned core data ingestion product through Series B fundraise. Doubled ingest throughput from 1.2K to 2.4K events per second per customer; the throughput claim was the lead exhibit in the Series B pitch.</li>
+    <li><span class="bullet-prefix">dbt-native semantic layer:</span> Launched dbt-native data model layer that 280 enterprise customers adopted in 6 months and contributed 31% of net new ARR over that period.</li>
+    <li><span class="bullet-prefix">Consumption pricing migration:</span> Led pricing migration from per-event to consumption-based across the customer base. Net revenue retention moved from 108% to 134% over 4 quarters of staged rollout.</li>
+  </ul>
+</div>
+
+<div class="role">
+  <div class="role-head">
+    <span class="role-title">Senior PM, Cross-Border Payments</span>
+    <span class="role-dates">Jun 2017 - Feb 2019</span>
+  </div>
+  <div class="role-company">ScalePay · San Francisco, CA</div>
+  <ul>
+    <li><span class="bullet-prefix">Fraud-detection ML:</span> Shipped fraud-detection ML model for cross-border payments; reduced false-positive rate from 4.2% to 1.8%, protecting $560M USD merchant volume from incorrect holds.</li>
+    <li><span class="bullet-prefix">Onboarding rebuild:</span> Owned merchant onboarding redesign; KYC completion rate moved from 41% to 67% via document-validation flow restructure and copy rewrites.</li>
+  </ul>
+</div>
+
+<div class="role">
+  <div class="role-head">
+    <span class="role-title">APM to PM, Cross-Surface</span>
+    <span class="role-dates">Jul 2015 - May 2017</span>
+  </div>
+  <div class="role-company">BlueCart Inc · San Francisco, CA · Series A e-commerce SaaS</div>
+  <ul>
+    <li>First PM hire at Series A e-commerce SaaS; shipped 4 surfaces (catalog, orders, returns, analytics) before scope was split across the growing team. Promoted to PM after 14 months on the strength of returns-flow rebuild that dropped return rate from 19% to 11%.</li>
+  </ul>
+</div>
+
+<div class="role">
+  <div class="role-head">
+    <span class="role-title">Software Engineer, Bing Search Quality</span>
+    <span class="role-dates">Aug 2013 - May 2015</span>
+  </div>
+  <div class="role-company">Microsoft · Redmond, WA</div>
+  <ul>
+    <li>Built and shipped 2 ranking-signal features used by Bing search infrastructure team. Transitioned to product after leading the cross-team triage protocol that became standard for that org.</li>
+  </ul>
+</div>
+
+<h2>Education</h2>
+<div class="edu-row">
+  <span><span class="edu-name">Stanford Graduate School of Business</span> — MBA · Arjay Miller Scholar (top 10%)</span>
+  <span class="edu-detail">2017 - 2019</span>
+</div>
+<div class="edu-row">
+  <span><span class="edu-name">Carnegie Mellon University</span> — B.S. Computer Science, Magna Cum Laude · CS Honors thesis on distributed system fault tolerance</span>
+  <span class="edu-detail">2009 - 2013</span>
+</div>
+
+<h2>Certifications</h2>
+<div class="cert-line">
+  <span class="bullet-prefix">Product:</span> Certified Scrum Product Owner (CSPO) | Pragmatic Marketing Level 4 (PMC-IV) | Reforge Product Strategy
+</div>
+<div class="cert-line">
+  <span class="bullet-prefix">Technical:</span> AWS Solutions Architect Associate | dbt Analytics Engineer
+</div>
+
+<h2>Selected AI Side Projects</h2>
+<div class="cert-line">
+  <span class="bullet-prefix">Forecast Lab</span> — AI-assisted revenue forecasting for early-stage SaaS founders. Python · Claude API · Streamlit. 12 paying users.
+</div>
+<div class="cert-line">
+  <span class="bullet-prefix">Compounder</span> — Daily journaling agent that auto-generates retrospective insights. Next.js · Claude API · Supabase.
+</div>
+
+<div class="footer-note">
+Example resume generated from <code>career-command-center-template</code> · github.com/aksheyw/career-command-center-template · All content fictional · 2026-05
+</div>
+
+</body>
+</html>

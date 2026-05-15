@@ -8,6 +8,21 @@ This is a **template**. Fork it, fill in your profile, and the skills auto-load 
 
 ---
 
+## 👀 Preview the output (no install required)
+
+See exactly what `/career-cc:apply` produces before installing anything. The [`examples/`](examples/) directory ships a complete fictional profile + target JD + generated resume PDF — same plugin, end-to-end:
+
+| File | What it shows |
+|------|---------------|
+| [📄 **`jane-doe-resume.pdf`**](examples/jane-doe-resume.pdf) | 2-page ATS-compliant resume for fictional Director PM Jane Doe, tailored to a fictional Director-AI-Platform role |
+| [📋 `example-jd.md`](examples/example-jd.md) | The fictional Northstar AI job description the resume was tailored against |
+| [👤 `EXAMPLE_PROFILE.md`](examples/EXAMPLE_PROFILE.md) | Jane's fully-filled `YOUR_PROFILE.md` — the input the plugin used |
+| [🌐 `jane-doe-resume.html`](examples/jane-doe-resume.html) | Same resume in HTML if you want to inspect the layout |
+
+**All content is fictional.** Jane Doe, RevenueFlow Inc, MetricFlow, ScalePay, BlueCart — none are real. The example exists so you can evaluate output quality in 10 seconds without installing the plugin.
+
+---
+
 ## What this plugin does
 
 Once personalized, the plugin gives you eight commands for the full job-search loop:
