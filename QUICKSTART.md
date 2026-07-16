@@ -83,7 +83,7 @@ Both documents are auto-passed through the bundled humanizer skill before output
 
 > Run `/career-cc:track-application` for [company] [role] applied
 
-This logs the application to `references/CUSTOMIZATION_MEMORY.md`. After 3-5 applications, the memory file starts surfacing patterns ("which hooks got screens", "which company types respond"). That compounding loop is where the plugin's long-term value lives — it gets smarter per application.
+This logs the application to `references/CUSTOMIZATION_MEMORY.md` (prose learnings) AND appends a row to `references/applications.md` (the structured tracker). After 3-5 applications, the memory file starts surfacing patterns ("which hooks got screens", "which company types respond") — and once 5+ applications have real outcomes, the `patterns` skill can analyze the tracker for score thresholds and targeting changes, while `followup` watches it for applications aging past follow-up cadence. That compounding loop is where the plugin's long-term value lives — it gets smarter per application.
 
 ---
 
@@ -97,6 +97,8 @@ Once your profile has substance and you have a few applications logged:
 | `/career-cc:outreach [target]` | Cold or warm outreach messages, personalized by template |
 | `/career-cc:salary-negotiate [company]` | Negotiation prep with scripts, counter-offer handling, notice-period strategy |
 | `/career-cc:generic-letter` | Network forwarding cover letter for warm intros and alumni networks |
+| `/career-cc:followup` | When applications age — flags overdue/urgent ones and drafts the second-touch message |
+| `/career-cc:patterns` | Once 5+ applications have outcomes — what converts, what wastes time, targeting changes |
 | `/career-cc:update-memory` | After each application outcome — what worked, what didn't, what to change |
 
 ## Filling in the rest of `YOUR_PROFILE.md`

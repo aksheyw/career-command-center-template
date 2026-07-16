@@ -25,7 +25,7 @@ See exactly what `/career-cc:apply` produces before installing anything. The [`e
 
 ## What this plugin does
 
-Once personalized, the plugin gives you eight commands for the full job-search loop:
+Once personalized, the plugin gives you ten commands for the full job-search loop:
 
 | Skill | What it does |
 |-------|--------------|
@@ -35,7 +35,9 @@ Once personalized, the plugin gives you eight commands for the full job-search l
 | `outreach` | The right outreach template for a contact (cold LinkedIn, InMail, recruiter email, warm referral) — personalized |
 | `generic-letter` | Network forwarding cover letter for warm intros and alumni networks |
 | `salary-negotiate` | Compensation prep — target range by company type, scripts, counter-offer handling |
-| `track-application` | Log applications, see your pipeline conversion rates, surface what's working |
+| `track-application` | Log applications to prose memory + a structured tracker; see pipeline conversion rates |
+| `followup` | Cadence tracker — flags overdue/urgent applications and drafts the second-touch message most candidates never send |
+| `patterns` | Rejection-pattern analysis — score thresholds, converting archetypes, blocker buckets, concrete targeting changes |
 | `update-memory` | Capture what worked (or didn't) per application so future ones get smarter |
 | `resume-customizer` | Auto-loads on any resume or cover letter request — the core engine |
 | `humanizer` | Auto-applied after every document generation to strip AI writing patterns. *(Authored by [@blader](https://github.com/blader/humanizer) under MIT — bundled here for convenience.)* |
@@ -46,12 +48,13 @@ Once personalized, the plugin gives you eight commands for the full job-search l
 
 The plugin ships with **skeleton files** in `references/` and `skills/resume-customizer/references/`. Fill these in once with your own background, and every skill picks up your data via the `${CLAUDE_PLUGIN_ROOT}` path variable.
 
-### Files to fill in (5 personal-data files)
+### Files to fill in (6 personal-data files)
 
 | File | What goes here |
 |------|----------------|
 | `references/YOUR_PROFILE.md` | Your background, current role, achievements with verified metrics, contact info, target compensation |
 | `references/CUSTOMIZATION_MEMORY.md` | Application learning log — fills as you log outcomes |
+| `references/applications.md` | Structured pipeline tracker — auto-maintained by `track-application`, queried by `patterns` and `followup` |
 | `references/STRATEGIC_GAP_ASSESSMENT.md` | Your honest assessment of positioning gaps to address |
 | `skills/resume-customizer/references/star-stories.md` | Your STAR stories (success + failure) with selection guide |
 | `skills/resume-customizer/references/detailed-context.md` | Full work history, certifications, side projects, strengths |
@@ -79,7 +82,7 @@ No external services. No API keys. Works entirely from your local files.
 After loading the plugin, in a fresh Claude Code session:
 
 - Check `~/.claude/settings.json` — `enabledPlugins` should list this plugin (or, if you used `claude --plugin-dir`, the plugin shows in the session's plugin list at startup).
-- Type `/` — autocomplete should show the 10 namespaced skills (e.g., `/career-cc:evaluate`, `/career-cc:apply`, `/career-cc:interview`, etc., based on the plugin name you set in `.claude-plugin/plugin.json`).
+- Type `/` — autocomplete should show the 12 namespaced skills (e.g., `/career-cc:evaluate`, `/career-cc:apply`, `/career-cc:interview`, etc., based on the plugin name you set in `.claude-plugin/plugin.json`).
 - The session-start hook should print a one-line confirmation that `YOUR_PROFILE.md` loaded.
 
 Test without filling in your profile first: run `/career-cc:evaluate` on any JD — it works on JD alone, no profile required. If a 7-block analysis comes back with a GO / CAUTION / SKIP verdict, the plugin is wired correctly.
@@ -135,7 +138,7 @@ The skill never fabricates JD details, never invents salary ranges — it tells 
 
 Job search done well is iterative work over months. Each application teaches you something: which hook a recruiter responded to, which STAR story landed, what comp range a company actually has. Most people lose that compounding knowledge between applications.
 
-This plugin's value isn't the resume templates — it's the **memory loop**. `update-memory` and `track-application` make every future application smarter than the last. After 10 applications you have your own personal model of what works for which company type.
+This plugin's value isn't the resume templates — it's the **memory loop**. `update-memory` and `track-application` make every future application smarter than the last. `patterns` turns the accumulated tracker into targeting changes (which score floor, which archetypes, which blockers), and `followup` catches the second touch most candidates never send. After 10 applications you have your own personal model of what works for which company type.
 
 The methodology (STAR weaving, narrative-arc cover letters, ATS compliance rules, per-claim defensibility audits, humanizer pass) is preserved from a real director-PM job search. You bring your own substance.
 
@@ -149,18 +152,22 @@ career-command-center-template/
 │   └── plugin.json
 ├── hooks/
 │   └── hooks.json                       # auto-loads YOUR_PROFILE.md at session start
+├── CHANGELOG.md
 ├── QUICKSTART.md                        # 10-minute setup → first generated resume
 ├── references/                          # FILL THESE IN
 │   ├── YOUR_PROFILE.md                  # ⭐ start here — 3 sections marked MINIMUM VIABLE
 │   ├── CUSTOMIZATION_MEMORY.md
+│   ├── applications.md                  # structured tracker — auto-maintained by track-application
 │   └── STRATEGIC_GAP_ASSESSMENT.md
 ├── skills/
 │   ├── apply/SKILL.md
 │   ├── evaluate/SKILL.md
+│   ├── followup/SKILL.md                # follow-up cadence tracker + second-touch drafts
 │   ├── generic-letter/SKILL.md
 │   ├── humanizer/SKILL.md               # bundled from blader/humanizer (MIT) — see Credits
 │   ├── interview/SKILL.md
 │   ├── outreach/SKILL.md
+│   ├── patterns/SKILL.md                # rejection-pattern / conversion analysis
 │   ├── resume-customizer/
 │   │   ├── SKILL.md                     # core engine
 │   │   └── references/
@@ -193,6 +200,7 @@ The plugin enforces these every time it generates a document:
 6. ATS compliance: INR not currency symbol, "to" not arrow, standard hyphens only
 7. STAR structure is woven into bullets — never labeled with `(S) (T) (A) (R)` prefixes
 8. Per-claim defensibility audit before declaring any document "final"
+9. Once you maintain a canonical generic resume, tailored resumes start from it (copy + targeted edits + programmatic diff) — never rebuilt from templates, and the generic wins on any conflict with the skill
 
 These rules are codified in `skills/resume-customizer/SKILL.md` and apply to every generation.
 
@@ -222,6 +230,8 @@ Part of my Claude Code config series:
 ## Credits
 
 The `humanizer` skill bundled at `skills/humanizer/SKILL.md` is authored by [@blader](https://github.com/blader/humanizer) and is used here under the MIT license — all credit for that skill goes to them. For the newest version (29+ patterns with voice calibration), pull directly from [github.com/blader/humanizer](https://github.com/blader/humanizer).
+
+The cadence and analysis models in the `followup` and `patterns` skills are adapted from the corresponding modes of santifer/career-ops, rebuilt to run on this plugin's tracker.
 
 The rest of the template is original work derived from a real director-PM job search workflow.
 

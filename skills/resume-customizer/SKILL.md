@@ -5,6 +5,15 @@ description: Director-level / senior PM resume + cover letter toolkit. Generates
 
 # Resume Customizer — Senior PM Toolkit
 
+> **BEFORE BUILDING, MIRROR YOUR GENERIC RESUME.**
+> Once you have one, your maintained generic resume (a real `.docx` you keep current — see STEP 0
+> below) is the authoritative design benchmark. Build every tailored resume by mirroring that file —
+> render it and diff against it — NOT by copying a prior company's build script. A copied build
+> script is a *styling* starting point, never the spec; it silently drifts from your current standard.
+> **When this skill and your generic resume conflict, the GENERIC WINS** (it is maintained more
+> recently than any template). This skill's templates teach STYLE and RULES; your canonical artifact
+> is the TRUTH about content.
+
 ## QUICK REFERENCE
 
 **Core function:** Generate ATS-optimized resumes and cover letters for director-level PM roles.
@@ -20,6 +29,36 @@ description: Director-level / senior PM resume + cover letter toolkit. Generates
 - `references/referral_email_pattern.md` — forwardable referral email pattern
 
 **Profile source:** `${CLAUDE_PLUGIN_ROOT}/references/YOUR_PROFILE.md` is the single source of truth for the user's background.
+
+---
+
+## STEP 0 — START FROM CANONICAL ARTIFACT (BLOCKING)
+
+**Before generating ANY resume, find and read the user's canonical generic resume on disk. Customize via minimal targeted edits to that canonical. Do not rebuild from this skill's templates.**
+
+The skill's templates and `detailed-context.md` teach STYLE and RULES. The canonical artifact on disk is the TRUTH about content — current end dates, availability tags, header links, latest side projects, exact metric values, partner-specific phrasing already validated with real referrers. Templates drift; the canonical does not.
+
+**Canonical paths (fill in once, keep in priority order):**
+
+1. `{{path/to/your/generic-resume.docx}}` — primary canonical (`.docx`, editable)
+2. `{{path/to/your/generic-resume.pdf}}` — PDF sibling for fast read via `pypdf`
+3. `{{path/to/prior-applications/}}<company>/` — most recent shipped customization for a similar role type
+4. If files have moved: `find {{your resume folder}} -iname "*Resume*Generic*"`
+
+**Procedure:**
+
+1. Open the canonical (`.docx` via `python-docx` or `.pdf` via `pypdf`). READ IT IN FULL, do not skim.
+2. **If the canonical at path 1 is missing or out of date:** check path 2, then path 3, then the `find` in path 4. If ALL fail, STOP and ask the user: *"Canonical resume not found at expected paths. Where is the current one, or has it been replaced?"* Only fall back to template-based generation from `detailed-context.md` with an explicit warning: *"WARNING: no canonical found, building from template summary. This will likely miss recent items like updated end dates, new side projects, and exact metric values. Proceed?"* (A fresh install with no canonical yet is the one legitimate template-first case — the first generated resume then BECOMES the canonical once the user approves it.)
+3. Copy the canonical to the target filename (`{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`).
+4. Apply minimal targeted edits for the JD. Typical edits:
+   - Promote one bullet to lead position if the JD demands it (e.g., the activation bullet first for a Growth PM role).
+   - Sharpen 1-2 bullet prefixes for JD-specific keywords.
+   - Swap 2-3 Expertise keywords for JD-specific terms.
+   - Adjust the Summary anchor line if positioning needs a tilt (rarely the whole Summary).
+5. After edits, programmatic diff against the canonical (`unzip -p` both `.docx` files' `word/document.xml` and `diff`). Verify nothing valuable was dropped.
+6. Verify ATS-clean (0 em dashes, 0 arrows, 0 currency symbols, 0 curly quotes), 2 pages, hyperlinks preserved.
+
+**Why this is BLOCKING:** Skipping this step causes systematic loss of validated content that a summary file cannot recover — most-recent end dates, availability tags, header links, latest side projects, exact metric values, phrasing already battle-tested with referrers. Build-from-context introduces drift; copy-and-edit preserves what is already validated.
 
 ---
 
@@ -187,6 +226,8 @@ If exceeding 2 pages, cut in this order:
 - Always verify percent calculations against the underlying numbers. AND specify the metric type when a percent could be ambiguous. Example: "$10 to $15 (+25% YoY)" — clear that the percent is annualized growth, not the math result of the lifetime $5 increase. Without "YoY," readers will calculate $10→$15 lifetime as +50% and the parenthetical reads as a math error.
 - Always verify multiplier claims. Arithmetic: "{start} to N×{start}" is N times, not whatever sounds bigger. Example: "20% to 80%" is 4X (not 60% better — that's a different operation). When numbers are inherited from prior resumes, RE-VERIFY against `YOUR_PROFILE.md`. Do not trust.
 - When numbers are inherited from prior resumes, RE-VERIFY. Do not trust.
+- Keep the unit label attached to every figure (devices vs users vs DAU vs sessions vs revenue). Unit confusion is how a wrong metric becomes *self-reinforcing*: a "6M" that silently changes units survives weeks of reuse because every copy looks internally consistent.
+- **A verification rule can itself be wrong.** If a metric's guard-rule in this skill and your canonical resume / `YOUR_PROFILE.md` disagree, re-derive the number from the primary source — never let a metric's own guard become the source of truth. A wrong rule enforces the wrong number on every future generation until someone checks it against the primary.
 
 **2. Scope overclaims — verbs that overstate role**
 
@@ -223,6 +264,16 @@ If a referrer is reviewing the artifacts before forwarding, expect 4-7 iteration
 ## PRE-GENERATION CHECKLIST
 
 Before generating ANY resume or cover letter:
+
+### Step 0: Locate Canonical Artifact (MANDATORY FIRST STEP)
+
+- [ ] Read the canonical at `{{path/to/your/generic-resume.docx}}` (or `.pdf` sibling)
+- [ ] If the canonical moved or is unclear, run `find {{your resume folder}} -iname "*Resume*Generic*"`
+- [ ] READ the canonical in full via `python-docx` or `pypdf` — do NOT skim, do NOT rebuild from `detailed-context.md` memory
+- [ ] Copy the canonical to the target filename `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`
+- [ ] All subsequent steps apply TARGETED EDITS to the canonical, not rebuilds from templates
+- [ ] After final edits: programmatic diff against the canonical (`unzip -p` both `word/document.xml` and `diff`), confirm nothing valuable lost
+- [ ] See the STEP 0 section above for the full procedure + canonical path hierarchy (and the one legitimate no-canonical-yet exception)
 
 ### Step 1: JD Analysis
 
@@ -638,10 +689,16 @@ Every numeric claim in a generated resume MUST trace to a row in `YOUR_PROFILE.m
 2. Ask the user whether to add it (with source) or omit it from the bullet.
 3. If the user adds it, update `YOUR_PROFILE.md`'s verified-metrics table at the same time.
 
+**Every claim traces to a source.** The verified-metrics table is a table of claims each traced to where it was verified — a profile row, a canonical-resume bullet, or explicit user input. Two rules keep it from rotting:
+
+- **When a metric is corrected, correct it EVERYWHERE in the same pass** — the profile table, this skill's examples, and any prior drafts you intend to reuse. A stale copy left behind becomes the next self-reinforcing error (it will be inherited by the next resume and re-verified against itself).
+- **On any conflict between this skill, the profile, and the canonical resume: do not silently pick one.** Re-derive from the most primary source available, fix all copies, and flag the conflict to the user.
+
 ---
 
 ## VERSION HISTORY
 
+- **v2.0** (Template refresh): Ported the generic mechanisms that evolved upstream: STEP 0 canonical-artifact-first generation (BLOCKING), generic-resume-as-authoritative-benchmark banner (mirror + render + diff; never copy a prior build script as spec; generic wins on conflict), and anti-self-reinforcing metric rules (unit labels stay attached; a metric's guard-rule is never its own source; corrections propagate everywhere in one pass).
 - **v1.0** (Template): Generic version extracted from a real director-PM job search workflow. All personal data replaced with placeholders. Methodology preserved verbatim.
 
 ---

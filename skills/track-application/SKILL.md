@@ -49,9 +49,33 @@ Result: [screen / reject / offer / pending]
 Learning: [what this tells us for future applications]
 ```
 
-## STEP 4: Output pipeline summary
+## STEP 4: Persist the structured tracker (machine-readable — required)
 
-Always end with a pipeline summary table:
+`CUSTOMIZATION_MEMORY.md` holds the *prose* learnings. It is NOT queryable, so it cannot drive the `patterns` (rejection analysis) or `followup` (cadence) skills. Those skills read a structured tracker instead. Maintain it here.
+
+Read (create if missing) `${CLAUDE_PLUGIN_ROOT}/references/applications.md`. It has exactly one table with this schema — keep the columns in this order:
+
+```markdown
+# Application Tracker
+
+| Num | Company | Role | Type | Status | Applied | Source | Score | Outcome reason | Contact | Last follow-up |
+|-----|---------|------|------|--------|---------|--------|-------|----------------|---------|----------------|
+| 1   | Northstar AI | Director of Product | AI | applied | 2026-06-30 | referral | 4.2 | — | jane.recruiter@northstar.example | — |
+```
+
+Field rules:
+- **Num** — sequential, never reused.
+- **Type** — AI / Consumer / Enterprise / Fintech / Telco / Other.
+- **Status** — one of: `evaluated`, `applied`, `screening`, `responded`, `interview`, `offer`, `rejected`, `discarded`, `skip`. Use these exact tokens (the `patterns`/`followup` skills classify on them). `discarded` = went dead with no formal rejection; `skip` = self-filtered before applying.
+- **Applied / Last follow-up** — `YYYY-MM-DD`.
+- **Score** — the evaluation score (X.X/5) if the role was evaluated; else `—`.
+- **Outcome reason** — on `rejected`/`discarded`/`skip`, the stated or inferred reason (e.g. "geo-restricted", "stack mismatch", "seniority gap"). This is what `patterns` mines — never leave it blank on a negative outcome.
+
+On a new application: append a row. On an update: rewrite the existing row in place (build the new row as a fresh line, don't mutate columns piecemeal). Write the file back. If the file still contains the shipped fictional example rows, delete them when appending the first real row.
+
+## STEP 5: Output pipeline summary
+
+Always end with a pipeline summary table (derived from `applications.md`):
 
 ```
 APPLICATION PIPELINE
@@ -70,3 +94,5 @@ Patterns to Change: [what's not working]
 ```
 
 If there are fewer than 5 applications, note: "Pipeline is thin — consider expanding outreach or applying to more roles."
+
+When the tracker has 5+ outcomes, suggest: "Run the `patterns` skill to analyze what's converting." When any application is aging past its cadence, suggest: "Run the `followup` skill to check follow-up cadence."
