@@ -56,7 +56,9 @@ Why this works:
 | Fintech / consumer apps | {{your shipped fintech-flavored repo}} | {{portfolio}} |
 | Content / video / brand | {{your content-flavored repo}} | {{portfolio}} |
 
-Fill in your own repo names above. Re-rank as you ship new repos.
+The repo names above are placeholders that stay as illustration — swap in your own when *generating* a resume or
+email (pull them from your profile / data files), not by editing this committed methodology file. Re-rank as you
+ship new repos.
 
 ---
 

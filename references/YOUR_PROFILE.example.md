@@ -247,6 +247,18 @@ CERTIFICATIONS
 
 ---
 
+## REFERENCES
+
+Your actual reference contacts are private — keep them here (this file is git-ignored), never in the committed
+methodology files. See `skills/resume-customizer/references/career-tools.md` → "Reference Management" for who to
+use, how to prepare them, and when to provide.
+
+| Person | Relationship | Best For |
+|--------|--------------|----------|
+| {{Name / role}} | {{Current manager / skip-level / cross-functional peer / direct report}} | {{What they can speak to}} |
+
+---
+
 ## CONTACT INFORMATION ⭐ MINIMUM VIABLE
 
 - **Email:** {{your@email}}

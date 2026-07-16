@@ -50,17 +50,18 @@ The plugin ships each personal-data file as a committed **`*.example.md` placeho
 
 > **The safest path is your own PRIVATE repo — not a fork.** This is a job-search template; your filled copy holds private data. A GitHub fork of a public repo is always public, so instead clone this template into a brand-new **private** repo (see **Privacy** for the exact commands), and everything below is moot — you can fill and version freely. The `*.example.md` + git-ignore machinery is the belt-and-suspenders for anyone who keeps their repo public.
 
-### Files to fill in (7 personal-data files — copy the `.example.md`, fill the `.md`)
+### Files to fill in (8 personal-data files — copy the `.example.md`, fill the `.md`)
 
 | Copy this (committed) → to this (git-ignored, you fill) | What goes here |
 |------|----------------|
-| `references/YOUR_PROFILE.example.md` → `references/YOUR_PROFILE.md` | Your background, current role, achievements with verified metrics, contact info, target compensation |
+| `references/YOUR_PROFILE.example.md` → `references/YOUR_PROFILE.md` | Your background, current role, achievements with verified metrics, contact info, target compensation, references |
 | `references/CUSTOMIZATION_MEMORY.example.md` → `references/CUSTOMIZATION_MEMORY.md` | Application learning log — fills as you log outcomes |
 | `references/applications.example.md` → `references/applications.md` | Structured pipeline tracker — auto-created/maintained by `track-application` (you rarely copy this by hand), queried by `patterns` and `followup` |
 | `references/STRATEGIC_GAP_ASSESSMENT.example.md` → `references/STRATEGIC_GAP_ASSESSMENT.md` | Your honest assessment of positioning gaps to address |
 | `skills/resume-customizer/references/star-stories.example.md` → `.../star-stories.md` | Your STAR stories (success + failure) with selection guide |
 | `skills/resume-customizer/references/detailed-context.example.md` → `.../detailed-context.md` | Full work history, certifications, side projects, strengths |
 | `skills/resume-customizer/references/story-bank-index.example.md` → `.../story-bank-index.md` | Cross-index of your STAR stories by company type and question |
+| `skills/resume-customizer/references/interview-prep.example.md` → `.../interview-prep.md` | Your filled interview prep — 2-min pitch, STAR selection, company angles (generic RCA/guesstimate/case-study frameworks stay as-is) |
 
 Plus one binary you drop in (not a skeleton): `references/generic-resume.docx` — your maintained generic resume, the canonical the resume skills copy from (also git-ignored). See **Setup** step 4 and `resume-customizer` STEP 0.
 
@@ -72,7 +73,7 @@ Everything else is methodology — the rules, frameworks, templates, language gu
 
 ## Privacy — don't publish your own job-search data
 
-Your filled files hold private job-search data: contact details and compensation (`YOUR_PROFILE.md`, `detailed-context.md`), the companies and recruiters in your pipeline (`applications.md`, `CUSTOMIZATION_MEMORY.md`), your positioning gaps and network (`STRATEGIC_GAP_ASSESSMENT.md`), your real stories (`star-stories.md`, `story-bank-index.md`), your maintained resume (`generic-resume.docx`), and every tailored resume and cover letter you generate (in `output/`). None of that should reach a public repo.
+Your filled files hold private job-search data: contact details and compensation (`YOUR_PROFILE.md`, `detailed-context.md`), the companies and recruiters in your pipeline (`applications.md`, `CUSTOMIZATION_MEMORY.md`), your positioning gaps and network (`STRATEGIC_GAP_ASSESSMENT.md`), your real stories and filled interview prep (`star-stories.md`, `story-bank-index.md`, `interview-prep.md`), your maintained resume (`generic-resume.docx`), and every tailored resume and cover letter you generate (in `output/`). None of that should reach a public repo.
 
 ### 1. Recommended: personalize in a PRIVATE standalone repo (NOT a fork)
 
@@ -225,11 +226,11 @@ career-command-center-template/
 │   ├── resume-customizer/
 │   │   ├── SKILL.md                     # core engine
 │   │   └── references/
-│   │       ├── career-tools.md           # templates with placeholders (methodology — don't fill)
+│   │       ├── career-tools.md           # outreach + negotiation + 90-day methodology (don't fill; your comp/refs live in YOUR_PROFILE.md)
 │   │       ├── detailed-context.example.md   # committed skeleton → detailed-context.md (git-ignored)
 │   │       ├── evaluation-framework.md   # 7-block JD scoring (methodology)
 │   │       ├── github_in_resume_pattern.md
-│   │       ├── interview-prep.md         # RCA, guesstimate, case study frameworks (methodology)
+│   │       ├── interview-prep.example.md     # committed skeleton → interview-prep.md (git-ignored); generic frameworks stay as-is
 │   │       ├── referral_email_pattern.md
 │   │       ├── star-stories.example.md       # committed skeleton → star-stories.md (git-ignored)
 │   │       └── story-bank-index.example.md   # committed skeleton → story-bank-index.md (git-ignored)
@@ -264,7 +265,7 @@ These rules are codified in `skills/resume-customizer/SKILL.md` and apply to eve
 
 The default templates assume a director / principal PM job search in India. To use this for a different role or geography:
 
-- **Different geography:** edit currency formatting + phone format in `skills/resume-customizer/SKILL.md` ATS rules; update target compensation table in `skills/resume-customizer/references/career-tools.md`
+- **Different geography:** edit currency formatting + phone format in `skills/resume-customizer/SKILL.md` ATS rules; set your actual target in `references/YOUR_PROFILE.md` (git-ignored), and re-theme the company-type calibration buckets in `skills/resume-customizer/references/career-tools.md` if needed
 - **Different role family:** rewrite the company-type strategies in `SKILL.md` (`AI`, `Consumer Scale`, `Enterprise/B2B`, `Fintech`, `Telco`) to match the role archetypes you target
 - **Different seniority:** adjust bullet length norms (40-55 words is calibrated for senior PM)
 

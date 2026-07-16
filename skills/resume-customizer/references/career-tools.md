@@ -122,26 +122,27 @@ Best,
 
 ## SALARY NEGOTIATION
 
-### Current compensation (fill from `YOUR_PROFILE.md`)
+> **Your real numbers live in `YOUR_PROFILE.md` (git-ignored), not here.** This is committed methodology —
+> it holds the scripts and principles, not your data. Your **current compensation** table and your **stated
+> target** both live in `YOUR_PROFILE.md` → "Job Search Status" (Current compensation / Target compensation),
+> along with your leverage note (the "Key point" field). Pull them from there when generating a negotiation
+> brief; never type your real comp into this tracked file. The `salary-negotiate` skill reads current + target
+> from `YOUR_PROFILE.md` and the company-type calibration below from here.
 
-| Component | Value | Notes |
-|-----------|-------|-------|
-| Base | {{Amount}} | {{Bonus structure if any}} |
-| Equity | {{Units / value}} | {{Public / private, liquid / illiquid}} |
-| Vested | {{%}} | {{Already owned}} |
-| Unvested | {{%}} | {{Would forfeit if leaving}} |
+### Target compensation — company-type calibration (methodology scaffold)
 
-**Key negotiation point:** {{Your specific leverage — e.g., "RSUs are illiquid with no clear exit path. Need liquid compensation or publicly-traded equity to offset."}}
+A rough calibration of where each company type tends to land, so you can sanity-check an offer. These are
+**illustrative buckets, not your data** — your actual stated target lives in `YOUR_PROFILE.md`. Re-theme the
+buckets if you adapt the methodology to a different geography.
 
-### Target compensation (calibrate for your geography + role)
+| Company Type | Where comp tends to land |
+|--------------|--------------------------|
+| MNCs / Big Tech | Highest base + liquid equity; structured bands, base less negotiable |
+| Top Local Co's | Competitive base, ESOPs often illiquid; title more negotiable |
+| Growth-Stage Startups | Lower base, meaningful equity upside; most negotiable overall |
 
-| Company Type | Base Target | Total Comp Target |
-|--------------|-------------|-------------------|
-| MNCs / Big Tech | {{Range}} | {{Range}} |
-| Top Local Co's | {{Range}} | {{Range}} |
-| Growth-Stage Startups | {{Range}} | {{Range + meaningful equity}} |
-
-**Your stated target:** {{Number}}
+**Key negotiation point (leverage):** your specific leverage is recorded in `YOUR_PROFILE.md` (e.g. an
+illiquid-equity argument). Pull it from there; the scripts below show how to deploy it.
 
 ### When asked about salary
 
@@ -190,11 +191,12 @@ not matching my current package dollar-for-dollar. What's the range for this rol
 3. **Cross-functional peer** (Engineering, Design, or Business)
 4. **Direct report** (shows leadership style)
 
-### Your potential references (fill in)
+### Your actual reference list — keep it in `YOUR_PROFILE.md` (git-ignored)
 
-| Person | Relationship | Best For |
-|--------|--------------|----------|
-| {{Name / role}} | {{Current manager / etc}} | {{What they can speak to}} |
+Your real reference contacts are private data — names, relationships, and who can speak to what. Keep them in
+`YOUR_PROFILE.md` → "References" (git-ignored), or in any `.local.md` file. **Never list them in this committed
+methodology file.** The guidance above (who to use) and below (how to prepare, when to provide) is the reusable
+part; your named contacts are not.
 
 ### How to prepare references
 

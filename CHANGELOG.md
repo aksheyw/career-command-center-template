@@ -1,5 +1,36 @@
 # Changelog — Career Command Center Template
 
+## 2.0.5 — 2026-07
+
+Comprehensive, converging privacy sweep. Prior rounds fixed personal-data files one batch at a time and an
+independent reviewer kept finding more tracked files that solicited real data. This release enumerates and
+classifies **every** tracked file into DATA / METHODOLOGY / SKILL-INSTRUCTION, so no tracked file can lead a
+user to commit real personal data.
+
+### Privacy (the convergence fix) — no tracked file solicits real data anymore
+
+- **`interview-prep.md` is now a DATA file.** It told users to "replace placeholders with your own pitch and
+  examples," so a public-repo user filling it in place would commit their real pitch, story mapping, and worked
+  examples. It now ships as `skills/resume-customizer/references/interview-prep.example.md` (placeholders only,
+  committed) with the standard copy-to-fill privacy banner; the real `interview-prep.md` is git-ignored. The
+  generic RCA / guesstimate / case-study frameworks stay in the committed `.example` as reusable methodology.
+- **`career-tools.md` stays committed methodology, with its two data-soliciting sections moved out.** The
+  "Current compensation (fill from YOUR_PROFILE.md)" table, the "Your stated target" line, and the "Your
+  potential references (fill in)" table all invited real comp and reference contacts into a tracked file. They
+  now point to `YOUR_PROFILE.md` (git-ignored): comp + target already lived there, and a new **References**
+  section was added to `YOUR_PROFILE.example.md` as the git-ignored home for reference contacts. What remains in
+  `career-tools.md` is pure methodology — outreach templates, negotiation scripts + principles, a company-type
+  compensation *calibration scaffold* (illustrative buckets, not your data), 90-day plans, LinkedIn optimization.
+- **`github_in_resume_pattern.md`** no longer says "fill in your own repo names above" — the placeholders are
+  reframed as illustration you swap in when *generating* output, not by editing the committed file.
+
+### Consistency
+
+- `.gitignore` adds `skills/resume-customizer/references/interview-prep.md`.
+- README "Files to fill in" is now **8 personal-data files** (was 7), with the interview-prep row added; the
+  Privacy enumeration, the plugin structure tree, and the "different geography" customization note all updated to
+  the new state. No instruction anywhere routes real comp, references, or interview substance into a tracked file.
+
 ## 2.0.3 — 2026-07
 
 Third independent-review pass (Codex). The 2.0.2 fixes were confirmed working; this release closes the

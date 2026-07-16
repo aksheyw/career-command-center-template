@@ -1,8 +1,20 @@
-# Interview Preparation — Template
+# Interview Preparation — EXAMPLE skeleton (committed)
 
 **Purpose:** Frameworks and preparation guides for director-level PM interviews.
 **Contents:** 2-minute pitch template, common questions, RCA framework, guesstimate framework, case study framework, questions to ask.
-**Personalize:** Replace placeholders with your own pitch and examples.
+
+> **This is the committed EXAMPLE skeleton — placeholders only, safe to commit.** Your real file lives at
+> `skills/resume-customizer/references/interview-prep.md`, which is **git-ignored** so your real data never reaches a public repo.
+>
+> **To use it:** copy this file to `interview-prep.md` in the same folder and fill in the copy —
+> `cp skills/resume-customizer/references/interview-prep.example.md skills/resume-customizer/references/interview-prep.md`.
+> Fill the `.md`, never this `.example.md`.
+
+**How to fill in (the copy):** Replace the `{{placeholders}}` with your own pitch and worked examples. The RCA, guesstimate, and case-study frameworks are generic methodology — leave them as-is; personalize the pitch, the STAR selection table, and the company-specific angles by pulling your real stories from `star-stories.md`.
+
+> ⚠️ **PRIVACY.** Once filled, `interview-prep.md` holds your real pitch, your story mapping, and worked
+> examples naming real employers and metrics. The git-ignore keeps it local even in a public repo. If you want to
+> version your filled files, keep the whole clone in a **private standalone repo** — not a fork; GitHub forks of a public repo stay public (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
 
 ---
 
