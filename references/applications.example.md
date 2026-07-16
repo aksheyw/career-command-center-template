@@ -9,7 +9,7 @@ and maintains `applications.md` for you; copy this file to `applications.md` if 
 > ⚠️ **PRIVACY — read before you fork.** Once filled, `references/applications.md` holds PRIVATE
 > job-search data: companies you applied to, recruiter names, and contact details. **Never commit that
 > to a public repo.** Two safe options:
-> 1. **Private fork** — keep your whole personalized copy in a private repository, or
+> 1. **Private standalone repo** — clone (don't fork; forks of a public repo stay public) into a private repository and keep your whole personalized copy there, or
 > 2. **Git-ignore (default here)** — `references/applications.md` and `references/pattern-analysis-*.md`
 >    are already in `.gitignore`, so your real tracker and generated reports stay local and untracked.
 >

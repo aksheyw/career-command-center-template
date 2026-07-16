@@ -68,7 +68,7 @@ release closes 6 remaining issues.
   commit real data, because `.gitignore` can't suppress edits to already-tracked files. They are now
   `*.example.md` (placeholders only, committed) and you **copy to the real filename** (git-ignored) and
   fill the copy. The documented happy path can no longer commit real personal data on a public fork.
-- **Primary guidance is a PRIVATE fork,** stated prominently in the README and QUICKSTART. The
+- **Primary guidance is a PRIVATE standalone repo** (clone, don't fork — GitHub forks of a public repo stay public), stated prominently in the README and QUICKSTART. The
   `.example.md` + git-ignore machinery is the belt-and-suspenders for public forks. README documents
   `git rm --cached <file>` for anyone upgrading whose real-named skeleton is already tracked.
 - Session-start hook, `track-application`, and `update-memory` degrade gracefully when a real file

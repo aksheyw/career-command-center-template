@@ -9,12 +9,12 @@
 node_modules/
 *.log
 
-# ── Private job-search data (git-ignored so a PUBLIC fork can't leak it) ──────
+# ── Private job-search data (git-ignored so a PUBLIC repo can't leak it) ──────
 # Every file below holds REAL personal data once you fill it. Each ships as a
 # committed `*.example.md` placeholder skeleton; you copy that to the real
 # filename here and fill the copy. These real filenames are git-ignored, so the
 # documented happy path can never commit your real data to a public repo.
-# (In a PRIVATE fork, remove the lines you want to version — see README "Privacy".)
+# (To version your filled files, keep the whole clone in a PRIVATE standalone repo — not a fork; see README "Privacy".)
 
 # The structured tracker + generated analysis reports (example: applications.example.md)
 references/applications.md

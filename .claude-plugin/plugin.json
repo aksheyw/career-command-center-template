@@ -1,6 +1,15 @@
 {
   "name": "career-cc",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Template for an AI-native job-search workflow built with Claude Code. Skills for resume customization, JD evaluation, interview prep, outreach, salary negotiation, and application tracking. Clone into a private repo and personalize.",
-  "keywords": ["resume", "career", "pm", "product-management", "job-search", "interview", "template", "claude-code"]
+  "keywords": [
+    "resume",
+    "career",
+    "pm",
+    "product-management",
+    "job-search",
+    "interview",
+    "template",
+    "claude-code"
+  ]
 }

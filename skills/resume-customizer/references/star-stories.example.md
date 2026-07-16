@@ -14,7 +14,7 @@
 **How to fill in (the copy):** Replace the example stories below with your own. Add as many more as you need, following the same structure. Keep the SELECTION GUIDE table at the bottom updated so future interview prep can grab the right story fast.
 
 > ⚠️ **PRIVACY.** Once filled, `star-stories.md` names real employers, colleagues, and specific numbers. The
-> git-ignore keeps it local on a public fork. If you want to version your filled files, use a **private fork**
+> git-ignore keeps it local even in a public repo. If you want to version your filled files, keep the whole clone in a **private standalone repo** (not a fork)
 > (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
 
 ---

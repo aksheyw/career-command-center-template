@@ -13,8 +13,8 @@
 **How to fill in (the copy):** Replace placeholders with your real history. This file is the long-form version of `YOUR_PROFILE.md`'s tables — same data, more depth per achievement.
 
 > ⚠️ **PRIVACY.** Once filled, `detailed-context.md` holds your full work history, certifications, and exact
-> metrics. The git-ignore keeps it local on a public fork. If you want to version your filled files, use a
-> **private fork** (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
+> metrics. The git-ignore keeps it local even in a public repo. If you want to version your filled files, use a
+> **private standalone repo** — not a fork; GitHub forks of a public repo stay public (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
 
 ---
 

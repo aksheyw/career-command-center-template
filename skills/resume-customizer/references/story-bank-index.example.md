@@ -11,7 +11,7 @@
 > Fill the `.md`, never this `.example.md`.
 >
 > ⚠️ **PRIVACY.** Once filled, `story-bank-index.md` names your real stories and their headline metrics. The
-> git-ignore keeps it local on a public fork. If you want to version your filled files, use a **private fork**
+> git-ignore keeps it local even in a public repo. If you want to version your filled files, keep the whole clone in a **private standalone repo** (not a fork)
 > (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
 
 **How to fill in (the copy):** As you add stories to `star-stories.md`, update the priority tables below. The `evaluate` and `interview` skills read this file to pick the right story for the right company type fast.

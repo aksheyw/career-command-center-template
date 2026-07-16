@@ -11,8 +11,8 @@
 **Update (the copy):** After each application outcome (screen / reject / interview / offer). Use the `update-memory` skill to add entries.
 
 > ⚠️ **PRIVACY.** Once filled, `CUSTOMIZATION_MEMORY.md` accumulates real company names, recruiter
-> interactions, and what worked for whom. The git-ignore keeps it local on a public fork. If you want to
-> version your filled files, use a **private fork** (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
+> interactions, and what worked for whom. The git-ignore keeps it local even in a public repo. If you want to
+> version your filled files, keep the whole clone in a **private standalone repo** — not a fork; GitHub forks of a public repo stay public (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
 
 ---
 

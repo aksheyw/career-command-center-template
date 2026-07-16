@@ -11,8 +11,8 @@
 **How to fill in (the copy):** Replace every `{{PLACEHOLDER}}` and bracketed instruction with your own data. Delete sections that don't apply. Add sections you need that aren't here.
 
 > ⚠️ **PRIVACY.** Once filled, `YOUR_PROFILE.md` holds PRIVATE data — real name, contact details, employer,
-> compensation, verified metrics. The git-ignore keeps it local on a public fork. If you want to version your
-> filled files, use a **private fork** (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
+> compensation, verified metrics. The git-ignore keeps it local even in a public repo. If you want to version your
+> filled files, keep the whole clone in a **private standalone repo** — not a fork; GitHub forks of a public repo stay public (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
 
 > **⭐ First time?** Fill in only the 3 sections marked **⭐ MINIMUM VIABLE** below to start using the plugin. The rest can stay as placeholders and fill in over time as your application history accumulates. See `QUICKSTART.md` for the full 5-step path.
 
