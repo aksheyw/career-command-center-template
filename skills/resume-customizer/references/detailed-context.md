@@ -5,6 +5,10 @@
 
 **How to fill in:** Replace placeholders with your real history. This file is the long-form version of `YOUR_PROFILE.md`'s tables — same data, more depth per achievement.
 
+> ⚠️ **PRIVACY — once filled, this is PRIVATE.** It holds your full work history, certifications, and
+> exact metrics. **Do not commit it to a public repo** — use a **private fork** or git-ignore your real
+> data files (see the README "Privacy" section).
+
 ---
 
 ## COMPLETE WORK HISTORY

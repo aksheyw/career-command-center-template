@@ -10,9 +10,16 @@ description: Director-level / senior PM resume + cover letter toolkit. Generates
 > below) is the authoritative design benchmark. Build every tailored resume by mirroring that file —
 > render it and diff against it — NOT by copying a prior company's build script. A copied build
 > script is a *styling* starting point, never the spec; it silently drifts from your current standard.
-> **When this skill and your generic resume conflict, the GENERIC WINS** (it is maintained more
-> recently than any template). This skill's templates teach STYLE and RULES; your canonical artifact
-> is the TRUTH about content.
+>
+> **The one conflict rule, split by domain (these two clauses do not overlap):**
+> - **FORMAT / layout / voice / structure** — your maintained generic resume is the benchmark of
+>   record. It is a real `.docx` you keep current, so on any disagreement about how the resume looks
+>   or reads, **the generic wins** over this skill's templates. Templates teach style; the canonical
+>   is the truth about form.
+> - **A contested factual METRIC** (a number that differs between the generic, `YOUR_PROFILE.md`, and
+>   this skill) — do NOT silently pick the generic, or any copy. Re-derive the figure from the most
+>   primary source (your own evidence / the verified-metrics table), fix every copy in one pass, and
+>   flag the conflict to the user. A resume can carry a stale number; the primary source settles it.
 
 ## QUICK REFERENCE
 
@@ -55,8 +62,9 @@ The skill's templates and `detailed-context.md` teach STYLE and RULES. The canon
    - Sharpen 1-2 bullet prefixes for JD-specific keywords.
    - Swap 2-3 Expertise keywords for JD-specific terms.
    - Adjust the Summary anchor line if positioning needs a tilt (rarely the whole Summary).
-5. After edits, programmatic diff against the canonical (`unzip -p` both `.docx` files' `word/document.xml` and `diff`). Verify nothing valuable was dropped.
-6. Verify ATS-clean (0 em dashes, 0 arrows, 0 currency symbols, 0 curly quotes), 2 pages, hyperlinks preserved.
+5. After edits, diff against the canonical (`unzip -p` both `.docx` files' `word/document.xml` and `diff`). A diff **surfaces** what changed — it flags unexpected drops so you can eyeball them; it does NOT by itself prove the resume is semantically complete or that layout and hyperlinks survived.
+6. **Render the edited `.docx` to PDF and look at it** (e.g. LibreOffice `soffice --headless --convert-to pdf`, or open it). Confirm visually: 2 pages, every section present and in order, LinkedIn/portfolio hyperlinks still clickable, no layout break. This render-and-look step is what actually catches a dropped section or a broken link; the XML diff only points you at candidates.
+7. Verify ATS-clean (0 em dashes, 0 arrows, 0 currency symbols, 0 curly quotes).
 
 **Why this is BLOCKING:** Skipping this step causes systematic loss of validated content that a summary file cannot recover — most-recent end dates, availability tags, header links, latest side projects, exact metric values, phrasing already battle-tested with referrers. Build-from-context introduces drift; copy-and-edit preserves what is already validated.
 
@@ -272,7 +280,7 @@ Before generating ANY resume or cover letter:
 - [ ] READ the canonical in full via `python-docx` or `pypdf` — do NOT skim, do NOT rebuild from `detailed-context.md` memory
 - [ ] Copy the canonical to the target filename `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`
 - [ ] All subsequent steps apply TARGETED EDITS to the canonical, not rebuilds from templates
-- [ ] After final edits: programmatic diff against the canonical (`unzip -p` both `word/document.xml` and `diff`), confirm nothing valuable lost
+- [ ] After final edits: diff against the canonical (`unzip -p` both `word/document.xml` and `diff`) to SURFACE unexpected drops, THEN render the `.docx` to PDF and visually confirm 2 pages, section order, and clickable hyperlinks (the diff alone does not prove completeness or layout)
 - [ ] See the STEP 0 section above for the full procedure + canonical path hierarchy (and the one legitimate no-canonical-yet exception)
 
 ### Step 1: JD Analysis
@@ -692,7 +700,7 @@ Every numeric claim in a generated resume MUST trace to a row in `YOUR_PROFILE.m
 **Every claim traces to a source.** The verified-metrics table is a table of claims each traced to where it was verified — a profile row, a canonical-resume bullet, or explicit user input. Two rules keep it from rotting:
 
 - **When a metric is corrected, correct it EVERYWHERE in the same pass** — the profile table, this skill's examples, and any prior drafts you intend to reuse. A stale copy left behind becomes the next self-reinforcing error (it will be inherited by the next resume and re-verified against itself).
-- **On any conflict between this skill, the profile, and the canonical resume: do not silently pick one.** Re-derive from the most primary source available, fix all copies, and flag the conflict to the user.
+- **On a contested factual METRIC (this skill vs the profile vs the canonical resume): do not silently pick one** — not even the generic. Re-derive from the most primary source available, fix all copies, and flag the conflict to the user. (This is the metric half of the STEP 0 conflict rule; FORMAT/layout/voice disagreements resolve the other way — the generic resume wins.)
 
 ---
 

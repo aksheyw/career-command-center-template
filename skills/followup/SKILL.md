@@ -5,25 +5,27 @@ description: "Follow-up cadence tracker. Flags overdue and urgent applications, 
 
 You are managing follow-up cadence for the user's active applications. Most candidates leak opportunities by never sending the second touch — this skill catches the aging ones and drafts the follow-up.
 
-Cadence model adapted from career-ops's `followup` mode (santifer/career-ops), rebuilt to read this plugin's tracker and to write in the user's own voice.
+Cadence model adapted from the `followup` mode of [santifer/career-ops](https://github.com/santifer/career-ops) (MIT), rebuilt to read this plugin's tracker and to write in the user's own voice.
 
 ## STEP 1: Load the data
 
-Read `${CLAUDE_PLUGIN_ROOT}/references/applications.md` (the structured tracker maintained by the `track-application` skill). If it does not exist, or contains only the shipped example rows, say: "No tracker yet — log applications with `track-application` first." Stop.
+Read `${CLAUDE_PLUGIN_ROOT}/references/applications.md` (the user's real tracker, maintained by `track-application`; it is git-ignored). If it does not exist, or contains only the shipped fictional example rows, say: "No tracker yet — log applications with `track-application` first." Stop. (The committed `applications.example.md` is a schema reference only — never treat its rows as real.)
 
-Today's date is the system date. Use it for all aging math.
+Today's date is the system date. Use it for all aging math. The columns this skill keys off are **Status**, **Applied**, **Responded**, **Interview**, **Follow-ups**, and **Last follow-up**.
 
 ## STEP 2: Apply cadence rules
 
-For each row, compute **days since the relevant date** (last follow-up if present, else applied date) and assign urgency by status:
+Assign urgency per row using the status and the relevant date column. "Days since" always uses the **Last follow-up** date if present, otherwise the driving date named below:
 
-| Status | Cadence | Becomes... |
-|--------|---------|-----------|
-| `responded` | 3 days | **URGENT** — they replied; respond within 24h regardless |
-| `interview` | 1 day | **URGENT** — keep momentum |
-| `applied` / `screening` | 7 days | **OVERDUE** once past 7 days with no follow-up |
-| any, 2+ follow-ups sent | — | **COLD** — suggest closing, do not draft a third |
-| within cadence window | — | **waiting** (on track) |
+| Status | Driving date | Rule | Becomes... |
+|--------|--------------|------|-----------|
+| `responded` | Responded | reply within 24h of their response | **URGENT** — always actionable until you log a follow-up dated on/after the Responded date |
+| `interview` | Interview (else Applied) | follow up within 1 day of the interview | **URGENT** — keep momentum |
+| `applied` / `screening` | Last follow-up, else Applied | past 7 days with no follow-up | **OVERDUE** |
+| any status, **Follow-ups ≥ 2** | — | don't draft a third | **COLD** — suggest closing |
+| within the window above | — | on track | **waiting** |
+
+Precedence when more than one row applies: **COLD** (Follow-ups ≥ 2) overrides everything — never draft a third touch. Otherwise `responded`/`interview` → URGENT, `applied`/`screening` past 7 days → OVERDUE.
 
 Skip rows with status `offer`, `rejected`, `discarded`, `skip`, `evaluated`.
 
@@ -73,7 +75,7 @@ Present each draft as:
 
 ## STEP 5: Record only what was actually sent
 
-After the user confirms they sent one, update that row's **Last follow-up** date in `applications.md` (rewrite the row) and bump an implicit follow-up count in the Notes/Outcome column (e.g. "fu1 2026-06-30"). **Never** record a draft as sent. Only the user's confirmation counts.
+After the user confirms they sent one, rewrite that row in `applications.md`: set **Last follow-up** to today's date and increment the **Follow-ups** count by 1 (0 → 1, 1 → 2). Once **Follow-ups** reaches 2, the row is COLD on the next run and this skill will stop drafting. **Never** record a draft as sent. Only the user's confirmation counts.
 
 ## Boundaries
 

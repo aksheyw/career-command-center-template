@@ -73,7 +73,7 @@ Now run:
 You'll get:
 
 - JD analysis with fit score
-- Tailored resume (`.docx`) — 2 pages, Calibri, ATS-compliant, 35-word bullets, mirrored JD keywords
+- Tailored resume (`.docx`) — 2 pages, Calibri, ATS-compliant, 40-55-word senior bullets, mirrored JD keywords
 - Cover letter (`.docx`) — 250-300 words, narrative arc, no passive language
 - 3 interview-prep "quick hits" (suggested STAR stories + likely questions)
 

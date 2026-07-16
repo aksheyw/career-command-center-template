@@ -25,7 +25,7 @@ See exactly what `/career-cc:apply` produces before installing anything. The [`e
 
 ## What this plugin does
 
-Once personalized, the plugin gives you ten commands for the full job-search loop:
+Once personalized, the plugin gives you twelve skills for the full job-search loop (ten you invoke by name, plus `resume-customizer` and `humanizer` which run automatically):
 
 | Skill | What it does |
 |-------|--------------|
@@ -36,8 +36,8 @@ Once personalized, the plugin gives you ten commands for the full job-search loo
 | `generic-letter` | Network forwarding cover letter for warm intros and alumni networks |
 | `salary-negotiate` | Compensation prep — target range by company type, scripts, counter-offer handling |
 | `track-application` | Log applications to prose memory + a structured tracker; see pipeline conversion rates |
-| `followup` | Cadence tracker — flags overdue/urgent applications and drafts the second-touch message most candidates never send |
-| `patterns` | Rejection-pattern analysis — score thresholds, converting archetypes, blocker buckets, concrete targeting changes |
+| `followup` | Cadence tracker — flags overdue/urgent applications and drafts the second-touch message most candidates never send. *(Adapted from [santifer/career-ops](https://github.com/santifer/career-ops) under MIT.)* |
+| `patterns` | Rejection-pattern analysis — score thresholds, converting archetypes, blocker buckets, concrete targeting changes. *(Adapted from [santifer/career-ops](https://github.com/santifer/career-ops) under MIT.)* |
 | `update-memory` | Capture what worked (or didn't) per application so future ones get smarter |
 | `resume-customizer` | Auto-loads on any resume or cover letter request — the core engine |
 | `humanizer` | Auto-applied after every document generation to strip AI writing patterns. *(Authored by [@blader](https://github.com/blader/humanizer) under MIT — bundled here for convenience.)* |
@@ -54,7 +54,7 @@ The plugin ships with **skeleton files** in `references/` and `skills/resume-cus
 |------|----------------|
 | `references/YOUR_PROFILE.md` | Your background, current role, achievements with verified metrics, contact info, target compensation |
 | `references/CUSTOMIZATION_MEMORY.md` | Application learning log — fills as you log outcomes |
-| `references/applications.md` | Structured pipeline tracker — auto-maintained by `track-application`, queried by `patterns` and `followup` |
+| `references/applications.md` | Structured pipeline tracker — auto-maintained by `track-application`, queried by `patterns` and `followup`. **Git-ignored** (holds real companies/recruiters); the committed fictional reference is `references/applications.example.md`. See **Privacy** below. |
 | `references/STRATEGIC_GAP_ASSESSMENT.md` | Your honest assessment of positioning gaps to address |
 | `skills/resume-customizer/references/star-stories.md` | Your STAR stories (success + failure) with selection guide |
 | `skills/resume-customizer/references/detailed-context.md` | Full work history, certifications, side projects, strengths |
@@ -65,11 +65,24 @@ Everything else is methodology — the rules, frameworks, templates, language gu
 
 ---
 
+## Privacy — don't publish your own job-search data
+
+This is a **public** fork-and-personalize template. The moment you fill the 6 personal-data files with real content, they hold private job-search information: your contact details and compensation (`YOUR_PROFILE.md`, `detailed-context.md`), the companies and recruiters in your pipeline (`applications.md`, `CUSTOMIZATION_MEMORY.md`), your positioning gaps and network (`STRATEGIC_GAP_ASSESSMENT.md`), and your real stories (`star-stories.md`). Don't commit any of that to a public repo. Two safe ways to work:
+
+1. **Private fork (simplest, safest).** Fork this repo as **private**, then fill everything in place. Nothing is public.
+2. **Public fork + git-ignore your real data.** If your fork must stay public, keep your real data out of git:
+   - `references/applications.md` and `references/pattern-analysis-*.md` are **already git-ignored** by default — your real tracker and generated reports never get committed. The committed, safe-to-share reference is `references/applications.example.md` (fictional rows only). `track-application` creates and maintains your real `applications.md` locally.
+   - For the hand-filled skeletons (`YOUR_PROFILE.md`, `CUSTOMIZATION_MEMORY.md`, `STRATEGIC_GAP_ASSESSMENT.md`, `star-stories.md`, `detailed-context.md`), uncomment the matching lines in `.gitignore` before you add real data, or give your personalized copy a `.local.md` name (also git-ignored) — then wire the skill/hook path to it.
+
+As shipped, every file is safe to commit (placeholders and fictional rows only). The risk starts when you add real data — so decide on private-fork vs git-ignore **before** your first real entry.
+
+---
+
 ## Setup
 
 1. **Fork or clone** this template into your Claude Code plugins folder, or wherever your harness loads plugins from.
 2. **Rename the plugin** in `.claude-plugin/plugin.json` (`name`, `version`, `description`, `author`) to be yours.
-3. **Fill in your data** in the 5 files listed above. Each ships as a skeleton with placeholders and section headings.
+3. **Fill in your data** in the 6 personal-data files listed above. Each ships as a skeleton with placeholders and section headings (`applications.md` is the one you don't hand-fill — `track-application` maintains it).
 4. **Update `hooks/hooks.json`** if you renamed `YOUR_PROFILE.md` to something else (this file is auto-loaded at session start).
 5. **Try a skill.** Paste any JD into `apply` and watch the workflow run end-to-end.
 
@@ -157,7 +170,8 @@ career-command-center-template/
 ├── references/                          # FILL THESE IN
 │   ├── YOUR_PROFILE.md                  # ⭐ start here — 3 sections marked MINIMUM VIABLE
 │   ├── CUSTOMIZATION_MEMORY.md
-│   ├── applications.md                  # structured tracker — auto-maintained by track-application
+│   ├── applications.example.md          # committed fictional reference (safe to share)
+│   ├── applications.md                  # YOUR real tracker — git-ignored, auto-maintained by track-application
 │   └── STRATEGIC_GAP_ASSESSMENT.md
 ├── skills/
 │   ├── apply/SKILL.md
@@ -196,11 +210,11 @@ The plugin enforces these every time it generates a document:
 2. Only verified metrics from your profile go in — no fabricated numbers
 3. Humanizer pass runs on every generated document
 4. Resume is exactly 2 pages
-5. Bullets max ~55 words for senior roles, ~20 for early career
+5. Bullets 40-55 words for senior roles, 12-20 for early career
 6. ATS compliance: INR not currency symbol, "to" not arrow, standard hyphens only
 7. STAR structure is woven into bullets — never labeled with `(S) (T) (A) (R)` prefixes
 8. Per-claim defensibility audit before declaring any document "final"
-9. Once you maintain a canonical generic resume, tailored resumes start from it (copy + targeted edits + programmatic diff) — never rebuilt from templates, and the generic wins on any conflict with the skill
+9. Once you maintain a canonical generic resume, tailored resumes start from it (copy + targeted edits + diff to surface drops + render to confirm layout) — never rebuilt from templates. On a FORMAT/layout/voice conflict the generic wins; on a contested factual metric, re-derive from the primary source instead of silently picking either
 
 These rules are codified in `skills/resume-customizer/SKILL.md` and apply to every generation.
 
@@ -231,13 +245,13 @@ Part of my Claude Code config series:
 
 The `humanizer` skill bundled at `skills/humanizer/SKILL.md` is authored by [@blader](https://github.com/blader/humanizer) and is used here under the MIT license — all credit for that skill goes to them. For the newest version (29+ patterns with voice calibration), pull directly from [github.com/blader/humanizer](https://github.com/blader/humanizer).
 
-The cadence and analysis models in the `followup` and `patterns` skills are adapted from the corresponding modes of santifer/career-ops, rebuilt to run on this plugin's tracker.
+The cadence and analysis models in the `followup` and `patterns` skills are adapted from the corresponding modes of [santifer/career-ops](https://github.com/santifer/career-ops), used here under the MIT license, and rebuilt to run on this plugin's own tracker schema. Credit for those two models goes to that project.
 
 The rest of the template is original work derived from a real director-PM job search workflow.
 
 ## License
 
-MIT — see [LICENSE](LICENSE). The bundled `humanizer/SKILL.md` retains its original MIT terms; attribution above.
+MIT — see [LICENSE](LICENSE). Two components are third-party MIT and stay under their original terms, with attribution in Credits above: the bundled `humanizer/SKILL.md` ([@blader/humanizer](https://github.com/blader/humanizer)) and the cadence/analysis models adapted into the `followup` and `patterns` skills ([santifer/career-ops](https://github.com/santifer/career-ops)). MIT-into-MIT adaptation is clean; this repo's MIT license covers the combined work.
 
 ---
 

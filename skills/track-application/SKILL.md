@@ -53,25 +53,34 @@ Learning: [what this tells us for future applications]
 
 `CUSTOMIZATION_MEMORY.md` holds the *prose* learnings. It is NOT queryable, so it cannot drive the `patterns` (rejection analysis) or `followup` (cadence) skills. Those skills read a structured tracker instead. Maintain it here.
 
-Read (create if missing) `${CLAUDE_PLUGIN_ROOT}/references/applications.md`. It has exactly one table with this schema — keep the columns in this order:
+`${CLAUDE_PLUGIN_ROOT}/references/applications.md` is the user's REAL tracker. It is **git-ignored**
+(so private job-search data never reaches a public repo). Read it; if it does not exist, create it —
+seed it from `${CLAUDE_PLUGIN_ROOT}/references/applications.example.md` if that exists, and put the
+privacy header at the top (see the example file). It has exactly one table with this schema — keep the
+columns in this order:
 
 ```markdown
 # Application Tracker
 
-| Num | Company | Role | Type | Status | Applied | Source | Score | Outcome reason | Contact | Last follow-up |
-|-----|---------|------|------|--------|---------|--------|-------|----------------|---------|----------------|
-| 1   | Northstar AI | Director of Product | AI | applied | 2026-06-30 | referral | 4.2 | — | jane.recruiter@northstar.example | — |
+| Num | Company | Role | Type | Status | Applied | Responded | Interview | Source | Score | Outcome reason | Contact | Follow-ups | Last follow-up |
+|-----|---------|------|------|--------|---------|-----------|-----------|--------|-------|----------------|---------|-----------|----------------|
+| 1   | Northstar AI | Director of Product | AI | applied | 2026-06-30 | — | — | referral | 4.2 | — | jane.recruiter@northstar.example | 0 | — |
 ```
 
 Field rules:
 - **Num** — sequential, never reused.
 - **Type** — AI / Consumer / Enterprise / Fintech / Telco / Other.
 - **Status** — one of: `evaluated`, `applied`, `screening`, `responded`, `interview`, `offer`, `rejected`, `discarded`, `skip`. Use these exact tokens (the `patterns`/`followup` skills classify on them). `discarded` = went dead with no formal rejection; `skip` = self-filtered before applying.
-- **Applied / Last follow-up** — `YYYY-MM-DD`.
+- **Applied** — `YYYY-MM-DD` you submitted the application.
+- **Responded** — `YYYY-MM-DD` the company/recruiter first responded with a real reply (not an auto-ack); `—` until it happens. Set this the moment a reply lands (even if you also move Status to `screening`/`responded`). `followup` keys its urgency off it, and `patterns` reads it as proof the row reached the screening stage.
+- **Interview** — `YYYY-MM-DD` of the first interview (scheduled or held); `—` until it happens. `followup` keys momentum off it, and `patterns` reads it as proof the row reached the interview stage.
+- **Source** — `referral` / `direct` / `recruiter`.
 - **Score** — the evaluation score (X.X/5) if the role was evaluated; else `—`.
 - **Outcome reason** — on `rejected`/`discarded`/`skip`, the stated or inferred reason (e.g. "geo-restricted", "stack mismatch", "seniority gap"). This is what `patterns` mines — never leave it blank on a negative outcome.
+- **Follow-ups** — integer count of follow-ups actually SENT (not drafted); starts at `0`. `followup` bumps it on a confirmed send and treats `2+` as COLD.
+- **Last follow-up** — `YYYY-MM-DD` of the most recent follow-up sent, else `—`.
 
-On a new application: append a row. On an update: rewrite the existing row in place (build the new row as a fresh line, don't mutate columns piecemeal). Write the file back. If the file still contains the shipped fictional example rows, delete them when appending the first real row.
+On a new application: append a row (Responded, Interview `—`; Follow-ups `0`). On an update: rewrite the existing row in place (build the new row as a fresh line, don't mutate columns piecemeal) — and when a reply or interview happens, fill the **Responded** / **Interview** date, don't just change Status. Write the file back. If the file still contains the shipped fictional example rows, delete them when appending the first real row.
 
 ## STEP 5: Output pipeline summary
 

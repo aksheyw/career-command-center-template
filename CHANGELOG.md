@@ -1,5 +1,40 @@
 # Changelog — Career Command Center Template
 
+## 2.0.1 — 2026-07
+
+Fixes to the 2.0.0 refresh from an independent review — a user-privacy flaw, tracker/skill schema
+mismatches, and a few doc contradictions.
+
+### Privacy (critical)
+
+- **The tracker no longer leads users to publish their own job-search data.** `references/applications.md`
+  (real companies, recruiters, contacts) is now **git-ignored** and untracked; the committed reference is
+  the new **`references/applications.example.md`** (fictional rows only). `track-application` creates and
+  maintains the real, local tracker. Generated `references/pattern-analysis-*.md` reports are git-ignored too.
+- Added prominent privacy warnings to every personal-data skeleton (`YOUR_PROFILE.md`,
+  `CUSTOMIZATION_MEMORY.md`, `STRATEGIC_GAP_ASSESSMENT.md`, `star-stories.md`, `detailed-context.md`) and a
+  new **Privacy** section in the README (private-fork vs git-ignore, with a documented `.local.md` convention).
+
+### Tracker schema + skill logic (bug fixes)
+
+- **One authoritative schema, now 14 columns** (was 11): added **Responded** date, **Interview** date, and a
+  **Follow-ups** sent-count. Applied across `applications.example.md`, `track-application`, `followup`, and `patterns`.
+- **`followup`** now keys urgency off the real Responded/Interview dates and the Follow-ups count, and records a
+  send by incrementing that count. Removed the `responded` contradiction (was both "3 days" and "within 24h").
+- **`patterns`** funnel is now correct: it counts **"reached at least stage X"** (cumulative, using status ordering
+  plus the Responded/Interview dates as stage evidence), so an `interview` row still counts toward the stages it
+  passed. The minimum-data gate no longer counts a bare `applied` (no response) as a positive conversion — "converted"
+  now means an actual forward signal (screening/responded/interview/offer), which corrects every downstream rate.
+
+### Docs
+
+- **`resume-customizer`**: resolved the conflict-rule contradiction into one two-domain rule (generic wins on
+  FORMAT/layout/voice; contested metrics re-derive from the primary source). Softened the XML-diff overclaim and
+  added an explicit render-to-PDF-and-look step (diff surfaces drops; the render proves layout/links).
+- Reconciled bullet word-counts to one set (40-55 senior / 12-20 early) across QUICKSTART/README/skills.
+- Reconciled counts (twelve skills; six personal-data files). Added `santifer/career-ops` (MIT) attribution to the
+  `followup`/`patterns` skills, the README skill table, Credits, and the License note.
+
 ## 2.0.0 — 2026-07
 
 Content refresh porting the generic mechanisms that evolved in the upstream (private) plugin since the template was first extracted. Everything ported is methodology only — all personal data replaced with this repo's `{{PLACEHOLDER}}` conventions and the fictional `examples/` world (Jane Doe, Northstar AI, BlueCart).

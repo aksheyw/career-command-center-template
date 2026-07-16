@@ -4,6 +4,10 @@
 
 This worksheet helps you find the 5-7 strategic gaps that need addressing OUTSIDE the resume to get on recruiter radars.
 
+> ⚠️ **PRIVACY — once filled, this is PRIVATE.** It records your honest positioning gaps, warm-intro
+> map, and network contacts. **Do not commit real entries to a public repo** — use a **private fork** or
+> git-ignore your real data files (see the README "Privacy" section).
+
 ---
 
 ## HOW RECRUITERS ACTUALLY WORK

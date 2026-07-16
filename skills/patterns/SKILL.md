@@ -5,37 +5,47 @@ description: "Analyze the application tracker for what converts and what wastes 
 
 You are running rejection-pattern analysis on the user's job search. The goal is a feedback loop: stop applying to the patterns that reject them, double down on the ones that convert.
 
-Analysis model adapted from career-ops's `patterns` mode (santifer/career-ops), rebuilt to read this plugin's tracker. No external scripts — reason over the data directly.
+Analysis model adapted from the `patterns` mode of [santifer/career-ops](https://github.com/santifer/career-ops) (MIT), rebuilt to read this plugin's tracker. No external scripts — reason over the data directly.
 
 ## STEP 1: Load the data
 
-Read `${CLAUDE_PLUGIN_ROOT}/references/applications.md` (the structured tracker maintained by the `track-application` skill). Also read `${CLAUDE_PLUGIN_ROOT}/references/CUSTOMIZATION_MEMORY.md` for prose context.
+Read `${CLAUDE_PLUGIN_ROOT}/references/applications.md` (the user's real tracker, maintained by `track-application`; git-ignored). Also read `${CLAUDE_PLUGIN_ROOT}/references/CUSTOMIZATION_MEMORY.md` for prose context.
 
-If `applications.md` does not exist, or contains only the shipped example rows, tell the user: "No structured tracker yet. Log outcomes with `track-application` first." Stop.
+If `applications.md` does not exist, or contains only the shipped fictional example rows, tell the user: "No structured tracker yet. Log outcomes with `track-application` first." Stop. (The committed `applications.example.md` is a schema reference only — never analyze its rows as real.)
 
-## STEP 2: Minimum-data gate (do not skip)
+## STEP 2: Classify each row, then apply the minimum-data gate (do not skip)
 
-Classify each row's status into an outcome group:
-- **positive** → `applied`, `screening`, `responded`, `interview`, `offer`
-- **negative** → `rejected`, `discarded`
-- **self_filtered** → `skip`
-- **pending** → `evaluated`
+First classify each row into an outcome group. **A bare `applied` with no response is NOT a conversion** — it is still in flight and tells you nothing yet. Use the **Responded** and **Interview** date columns as the forward-signal evidence, since a terminal row (rejected/discarded) still carries the date of how far it got:
 
-Count rows with status beyond `evaluated` (i.e. any positive, negative, or self_filtered). If that count is **< 5**, stop and say:
+- **converted (forward signal)** → status ∈ {`screening`, `responded`, `interview`, `offer`}, **or** the row has a **Responded** date, **or** it has an **Interview** date. (An actual reply/interview happened.)
+- **negative** → status ∈ {`rejected`, `discarded`}.
+- **self_filtered** → status = `skip`.
+- **in_flight** → status = `applied` with no Responded/Interview date (submitted, no reply yet).
+- **pending** → status = `evaluated` (not yet applied).
 
-> "Not enough signal yet — {N}/5 applications have progressed beyond evaluation. Pattern analysis on fewer than 5 outcomes is noise, not signal. Keep applying and come back."
+**Minimum-data gate:** count the rows that carry a real signal — `converted` + `negative` + `self_filtered` (this deliberately EXCLUDES `in_flight` bare-applied and `pending` rows, which are not outcomes yet). If that count is **< 5**, stop and say:
+
+> "Not enough signal yet — {N}/5 applications have a real outcome (a reply, interview, rejection, or self-filter). Bare 'applied, no response yet' rows don't count. Pattern analysis on fewer than 5 outcomes is noise, not signal. Keep applying and come back."
 
 This gate is the whole point. Never hand-wave an analysis on thin data — a vague report built on 3 data points is worse than no report.
 
 ## STEP 3: Compute the dimensions
 
-From the tracker rows, compute:
+The tracker stores only each row's CURRENT status, so compute the funnel as **"reached at least stage X"** (cumulative, monotonic), using status ordering plus the Responded/Interview dates as stage evidence — an `interview` row still counts toward the `applied` and `screening` stages it passed through, and a `rejected` row with an Interview date reached interview before it died.
 
-1. **Conversion funnel** — count per stage (evaluated → applied → screening → interview → offer), each as a count and % of total.
-2. **Score thresholds** — average / min / max evaluation **Score** for the positive group vs the negative group. If positives cluster above a score that negatives rarely clear, that score is the recommended GO floor.
-3. **Archetype / company-type breakdown** — per **Type** (AI / Consumer / Enterprise / Fintech / Telco / Other): total, positive, negative, and conversion rate (positive ÷ total). Rank by conversion.
+Per row, mark the furthest stage reached:
+- **reached applied** — any row that was actually submitted: status ∈ {`applied`, `screening`, `responded`, `interview`, `offer`, `rejected`, `discarded`} (everything except `evaluated` and `skip`).
+- **reached screening** — status ∈ {`screening`, `responded`, `interview`, `offer`}, **or** a Responded date is present, **or** an Interview date is present.
+- **reached interview** — status ∈ {`interview`, `offer`}, **or** an Interview date is present.
+- **reached offer** — status = `offer`.
+
+Then compute:
+
+1. **Conversion funnel** — count of rows that reached at least each stage: applied → screening → interview → offer. Show each count and its % of the applied count (the top of the funnel), plus the step-to-step conversion (screening/applied, interview/screening, offer/interview). `evaluated`-only and `skip` rows sit above the funnel and are reported separately, not inside these counts.
+2. **Score thresholds** — average / min / max evaluation **Score** for the `converted` group vs the `negative` group. (Bare `in_flight` rows are excluded — no outcome yet.) If converted rows cluster above a score that negatives rarely clear, that score is the recommended GO floor.
+3. **Archetype / company-type breakdown** — per **Type** (AI / Consumer / Enterprise / Fintech / Telco / Other): applied count, converted, negative, and conversion rate = converted ÷ (applied count for that type, i.e. converted + negative + in_flight). Rank by conversion.
 4. **Blocker analysis** — tally the **Outcome reason** column across negatives + self_filtered. Group into buckets (geo-restriction, stack/skill mismatch, seniority mismatch, onsite/relocation, comp, timing). Rank most-frequent first.
-5. **Source breakdown** — conversion rate by **Source** (referral vs direct vs recruiter). Referrals usually convert higher; quantify the gap.
+5. **Source breakdown** — conversion rate by **Source** (referral vs direct vs recruiter), same converted ÷ applied denominator. Referrals usually convert higher; quantify the gap.
 
 ## STEP 4: Write the report
 
@@ -44,19 +54,23 @@ Write to `${CLAUDE_PLUGIN_ROOT}/references/pattern-analysis-{YYYY-MM-DD}.md`:
 ```markdown
 # Pattern Analysis — {YYYY-MM-DD}
 
-**Applications analyzed:** {total} ({positive} positive, {negative} negative, {self_filtered} self-filtered, {pending} pending)
+**Applications analyzed:** {total} ({converted} converted, {negative} negative, {self_filtered} self-filtered, {in_flight} in flight, {pending} evaluated-only)
 **Date range:** {earliest applied} to {latest}
 
-## Conversion Funnel
-| Stage | Count | % |
-|-------|-------|---|
+## Conversion Funnel (reached at least each stage)
+| Stage | Count | % of applied | Step conversion |
+|-------|-------|--------------|-----------------|
+| Applied | {a} | 100% | — |
+| Screening | {s} | {s/a}% | {s/a}% |
+| Interview | {i} | {i/a}% | {i/s}% |
+| Offer | {o} | {o/a}% | {o/i}% |
 
 ## Score Threshold
-Positives average {X.X}, negatives {Y.Y}. Recommended GO floor: {Z.Z}/5 — {one-line reasoning}.
+Converted rows average {X.X}, negatives {Y.Y}. Recommended GO floor: {Z.Z}/5 — {one-line reasoning}.
 
 ## What Converts (by company type)
-| Type | Total | Positive | Conversion |
-Ranked best-first. Name the top archetype to lean into.
+| Type | Applied | Converted | Conversion |
+Conversion = converted ÷ applied. Ranked best-first. Name the top archetype to lean into.
 
 ## What Wastes Time (top blockers)
 | Blocker | Count | Example |

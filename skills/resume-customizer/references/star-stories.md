@@ -6,6 +6,10 @@
 
 **How to fill in:** Replace the 2 example stories below with your own. Add as many more as you need, following the same structure. Keep the SELECTION GUIDE table at the bottom updated so future interview prep can grab the right story fast.
 
+> ⚠️ **PRIVACY — once filled, this is PRIVATE.** Your real stories name employers, colleagues, and
+> specific numbers. **Do not commit them to a public repo** — use a **private fork** or git-ignore your
+> real data files (see the README "Privacy" section).
+
 ---
 
 ## SUCCESS STORIES

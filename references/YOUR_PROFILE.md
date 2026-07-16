@@ -4,6 +4,11 @@
 
 **How to fill in:** Replace every `{{PLACEHOLDER}}` and bracketed instruction with your own data. Delete sections that don't apply to your background. Add sections you need that aren't here.
 
+> ⚠️ **PRIVACY — once filled, this file is PRIVATE.** It carries your real name, contact details,
+> employer, compensation, and verified metrics. **Do not commit it to a public repo.** Either keep your
+> personalized copy in a **private fork**, or git-ignore your real data files — see the "Privacy" section
+> in the README. As shipped (all placeholders), it is safe to commit; the moment you add real data, it isn't.
+
 > **⭐ First time?** Fill in only the 3 sections marked **⭐ MINIMUM VIABLE** below to start using the plugin. The rest can stay as placeholders and fill in over time as your application history accumulates. See `QUICKSTART.md` for the full 5-step path.
 
 **Last Updated:** {{DATE}}

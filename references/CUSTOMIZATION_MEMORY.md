@@ -4,6 +4,10 @@
 
 **Update:** After each application outcome (screen / reject / interview / offer). Use the `update-memory` skill to add entries.
 
+> ⚠️ **PRIVACY — this fills with PRIVATE data.** As you log outcomes it accumulates real company names,
+> recruiter interactions, and what worked for whom. **Do not commit real entries to a public repo** —
+> use a **private fork** or git-ignore your real data files (see the README "Privacy" section).
+
 ---
 
 ## PERMANENT SESSION LEARNINGS

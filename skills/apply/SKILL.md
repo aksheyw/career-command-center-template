@@ -73,7 +73,7 @@ Work through ALL steps of the pre-generation checklist from `SKILL.md` (Step 0 t
    - **Fintech:** consider promoting the GMV / TPV / payments bullet earlier in its role section.
    - **Telco:** consider promoting telco-partnership work to the lead bullet; explicit category match in the cover letter.
    - **Growth roles:** promote the activation / retention bullet to first in the current role.
-3. Programmatic diff against the canonical (`unzip -p` both files' `word/document.xml` and `diff`). Confirm nothing valuable was dropped.
+3. Diff against the canonical (`unzip -p` both files' `word/document.xml` and `diff`) to SURFACE unexpected drops, then render the edited `.docx` to PDF and look at it to confirm 2 pages, section order, and clickable hyperlinks. The diff flags candidates; the render is what actually proves layout and links survived.
 
 **Rules that are never optional (verified against the canonical, not regenerated):**
 
