@@ -77,7 +77,7 @@
 |-------------|--------|
 | {{Insight or analysis that changed company direction}} | {{Quantified or qualified business impact}} |
 
-**Always include in resume KEY ACHIEVEMENTS section — shows strategic impact, not just execution.**
+**This "KEY ACHIEVEMENTS" heading is a PROFILE storage bucket, not a resume section.** Feed this strategic-influence material into your resume's Summary and Professional Experience bullets — it shows strategic impact, not just execution. The resume itself has **no standalone "Key Achievements" section** (it duplicates Experience); the `resume-customizer` skill is authoritative on resume structure — see its "MISTAKES TO AVOID → No Key Achievements section."
 
 ### {{Current Role}} (e.g., Group PM, Jan 2023-Present)
 

@@ -57,7 +57,7 @@ The skill's templates and `detailed-context.md` teach STYLE and RULES. The canon
 
 1. Open the canonical (`.docx` via `python-docx` or `.pdf` via `pypdf`). READ IT IN FULL, do not skim.
 2. **If the default canonical (path 1) is missing or out of date:** check path 2, then the optional override (path 3), then path 4, then the `find` in path 5. If ALL fail, STOP and ask the user: *"Canonical resume not found at `references/generic-resume.docx` or the other paths. Where is the current one, or should I generate the first one now?"* Only then fall back to template-based generation from `detailed-context.md`, with an explicit warning: *"WARNING: no canonical found, building from the template summary. This will likely miss recent items like updated end dates, new side projects, and exact metric values. Proceed?"* **This is the one legitimate template-first case (a fresh install with no canonical yet). When the user approves that first resume, SAVE the approved `.docx` to `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx` — it becomes the canonical every later run reads.**
-3. Copy the canonical to the target filename (`{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`).
+3. Copy the canonical to the target filename in the output directory (`${CLAUDE_PLUGIN_ROOT}/output/{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`).
 4. Apply minimal targeted edits for the JD. Typical edits:
    - Promote one bullet to lead position if the JD demands it (e.g., the activation bullet first for a Growth PM role).
    - Sharpen 1-2 bullet prefixes for JD-specific keywords.
@@ -177,6 +177,7 @@ Before outputting ANY resume or cover letter, Claude MUST:
 - **File Type:** .docx (primary), PDF if requested
 - **Font:** Calibri (not Arial)
 - **Filename:** `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`
+- **Save location:** the git-ignored `${CLAUDE_PLUGIN_ROOT}/output/` directory — always. Generated resumes and cover letters hold real personal data and must never land in a tracked path. The cover letter uses the same directory: `output/{{LastName}}_{{FirstName}}_CoverLetter_{{Company}}.docx`.
 - **Hyperlinks:** LinkedIn and portfolio must be clickable
 
 **Exact styling (match these values for golden-standard output):**
@@ -280,7 +281,7 @@ Before generating ANY resume or cover letter:
 - [ ] If it is missing or unclear, run `find ${CLAUDE_PLUGIN_ROOT}/references {{your resume folder}} -iname "*[Rr]esume*[Gg]eneric*" -o -iname "generic-resume.*"`
 - [ ] READ the canonical in full via `python-docx` or `pypdf` — do NOT skim, do NOT rebuild from `detailed-context.md` memory
 - [ ] If none exists (fresh install), generate from templates ONCE, and on approval SAVE it to `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx` so it becomes the canonical
-- [ ] Copy the canonical to the target filename `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`
+- [ ] Copy the canonical to the target filename in the git-ignored output directory: `${CLAUDE_PLUGIN_ROOT}/output/{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`
 - [ ] All subsequent steps apply TARGETED EDITS to the canonical, not rebuilds from templates
 - [ ] After final edits: diff against the canonical (`unzip -p` both `word/document.xml` and `diff`) to SURFACE unexpected drops, THEN render the `.docx` to PDF and visually confirm 2 pages, section order, and clickable hyperlinks (the diff alone does not prove completeness or layout)
 - [ ] See the STEP 0 section above for the full procedure + canonical path hierarchy (and the one legitimate no-canonical-yet exception)
@@ -380,7 +381,7 @@ Pull from `YOUR_PROFILE.md`'s verified metrics tables. **If a metric is NOT in t
 - [ ] LinkedIn and Portfolio are clickable hyperlinks
 - [ ] Font: Calibri
 - [ ] Dates: "January 2023 - Present" format
-- [ ] Filename: `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`
+- [ ] Filename: `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`, saved into the git-ignored `${CLAUDE_PLUGIN_ROOT}/output/` directory
 - [ ] Section heading: "PROFESSIONAL EXPERIENCE"
 
 ### Step 6: Page Check

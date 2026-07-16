@@ -102,6 +102,8 @@ Patterns Working: [what's getting responses]
 Patterns to Change: [what's not working]
 ```
 
+**Zero-denominator guard (mandatory — same rule as the `patterns` skill):** each conversion rate above is `numerator ÷ denominator`. If a denominator is 0 (e.g. no screens yet, so "screens to interviews" has nothing to divide), print "insufficient data for this rate" for that line — never divide by zero, and never print `0%` when what you mean is "no data yet". A `0%` reported on a zero denominator reads as a real failure signal when it is really just absence of data.
+
 If there are fewer than 5 applications, note: "Pipeline is thin — consider expanding outreach or applying to more roles."
 
 When the tracker has 5+ outcomes, suggest: "Run the `patterns` skill to analyze what's converting." When any application is aging past its cadence, suggest: "Run the `followup` skill to check follow-up cadence."

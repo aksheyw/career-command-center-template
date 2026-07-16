@@ -2,9 +2,9 @@
 
 A Claude Code plugin template for an AI-native job-search workflow. Resume customization, JD evaluation, interview prep, outreach, salary negotiation, and application tracking — all driven by Claude Code skills and a structured profile of your own background.
 
-This is a **template**. Fork it, fill in your profile, and the skills auto-load with your data.
+This is a **template**. Clone it into your own private repo, fill in your profile, and the skills auto-load with your data. (For a job search, clone into a private repo rather than forking — a fork of a public repo stays public; see **Privacy**.)
 
-> **➡️ New here?** Start with [QUICKSTART.md](QUICKSTART.md) — get from clone to your first generated resume in ~10 minutes. Install via `/plugin marketplace add aksheyw/career-command-center-template` then `/plugin install career-cc@aksheyw-cct`, copy `YOUR_PROFILE.example.md` to `YOUR_PROFILE.md` and fill its 3 sections marked ⭐ MINIMUM VIABLE, run `/career-cc:evaluate` and `/career-cc:apply`, and you're producing tailored applications. (For a job search, a **private fork** is the recommended way to personalize — see **Privacy**.)
+> **➡️ New here?** Start with [QUICKSTART.md](QUICKSTART.md) — get from clone to your first generated resume in ~10 minutes. Install via `/plugin marketplace add aksheyw/career-command-center-template` then `/plugin install career-cc@aksheyw-cct`, copy `YOUR_PROFILE.example.md` to `YOUR_PROFILE.md` and fill its 3 sections marked ⭐ MINIMUM VIABLE, run `/career-cc:evaluate` and `/career-cc:apply`, and you're producing tailored applications. (For a job search, cloning into your own **private repo** is the recommended way to personalize — a GitHub fork of a public repo stays public, so don't rely on forking; see **Privacy**.)
 
 ---
 
@@ -46,9 +46,9 @@ Once personalized, the plugin gives you twelve skills for the full job-search lo
 
 ## What you customize
 
-The plugin ships each personal-data file as a committed **`*.example.md` placeholder skeleton**. You **copy it to the real filename** (which is **git-ignored**) and fill the copy — every skill then picks up your data via the `${CLAUDE_PLUGIN_ROOT}` path variable. Because the real filenames are git-ignored, following this path on a public fork can never commit your real data. (In a private fork you can version them — see **Privacy** below.)
+The plugin ships each personal-data file as a committed **`*.example.md` placeholder skeleton**. You **copy it to the real filename** (which is **git-ignored**) and fill the copy — every skill then picks up your data via the `${CLAUDE_PLUGIN_ROOT}` path variable. Because the real filenames are git-ignored, following this path in a public repo can never commit your real data. (In your own private repo you can version them freely — see **Privacy** below.)
 
-> **The safest path is a PRIVATE fork.** This is a job-search template; your filled copy holds private data. Fork it **private**, and everything below is moot — you can fill and version freely. The `*.example.md` + git-ignore machinery is the belt-and-suspenders for anyone who keeps their fork public.
+> **The safest path is your own PRIVATE repo — not a fork.** This is a job-search template; your filled copy holds private data. A GitHub fork of a public repo is always public, so instead clone this template into a brand-new **private** repo (see **Privacy** for the exact commands), and everything below is moot — you can fill and version freely. The `*.example.md` + git-ignore machinery is the belt-and-suspenders for anyone who keeps their repo public.
 
 ### Files to fill in (7 personal-data files — copy the `.example.md`, fill the `.md`)
 
@@ -72,28 +72,47 @@ Everything else is methodology — the rules, frameworks, templates, language gu
 
 ## Privacy — don't publish your own job-search data
 
-Your filled files hold private job-search data: contact details and compensation (`YOUR_PROFILE.md`, `detailed-context.md`), the companies and recruiters in your pipeline (`applications.md`, `CUSTOMIZATION_MEMORY.md`), your positioning gaps and network (`STRATEGIC_GAP_ASSESSMENT.md`), your real stories (`star-stories.md`, `story-bank-index.md`), and your maintained resume (`generic-resume.docx`). None of that should reach a public repo.
+Your filled files hold private job-search data: contact details and compensation (`YOUR_PROFILE.md`, `detailed-context.md`), the companies and recruiters in your pipeline (`applications.md`, `CUSTOMIZATION_MEMORY.md`), your positioning gaps and network (`STRATEGIC_GAP_ASSESSMENT.md`), your real stories (`star-stories.md`, `story-bank-index.md`), your maintained resume (`generic-resume.docx`), and every tailored resume and cover letter you generate (in `output/`). None of that should reach a public repo.
 
-### 1. Recommended: personalize in a PRIVATE fork
+### 1. Recommended: personalize in a PRIVATE standalone repo (NOT a fork)
 
-For a job-search template this is the right default. **Fork this repo as private** (`gh repo fork --clone` from a private mirror, or create a private repo and push into it). Then fill everything in place and version it freely — nothing is ever public. If you go this route you can ignore the git-ignore machinery entirely.
+**A GitHub fork of a public repo is always public — you cannot make a fork private.** So the safe way to personalize is to clone this template into a brand-new **private repository of your own**, not to fork it:
 
-### 2. If your fork must stay public: the `.example.md` + git-ignore machinery (default here)
+```bash
+git clone https://github.com/aksheyw/career-command-center-template.git my-job-search
+cd my-job-search
+git remote remove origin
+# create a new PRIVATE repo and push into it (GitHub CLI shown; or make one in the UI and add it as origin):
+gh repo create my-job-search --private --source=. --remote=origin
+git push -u origin main
+```
 
-The template is built so the documented happy path **cannot** commit your real data even on a public fork:
+Now your repo is private and disconnected from the public template, so you can fill every file in place and version it freely — nothing is ever public. If you go this route the git-ignore machinery below is just a backstop. (You can still pull template updates later: `git remote add template https://github.com/aksheyw/career-command-center-template.git`, then `git pull template main`.)
+
+### 2. If your repo must stay public: the `.example.md` + git-ignore machinery (default here)
+
+The template is built so the documented happy path **cannot** commit your real data even in a public repo:
 
 - Every personal-data file ships as a committed **`*.example.md` placeholder skeleton**. You **copy it to the real filename** and fill the copy. The real filenames (`references/YOUR_PROFILE.md`, `.../star-stories.md`, `references/generic-resume.docx`, etc.) are all listed in `.gitignore`, so git never tracks them — filling and committing normally leaves your real data untouched on disk and out of every commit.
 - `references/applications.md` is created for you by `track-application` from `applications.example.md`; it (and generated `references/pattern-analysis-*.md` reports) are git-ignored too.
-- **Upgrading from an older version?** If a real-named skeleton (e.g. `references/YOUR_PROFILE.md`) is already tracked in your fork's history, git-ignore alone won't stop future commits of it. Untrack it once: `git rm --cached references/YOUR_PROFILE.md` (repeat per file), commit that removal, then copy from the `.example.md` and fill. From then on your filled version stays local.
+- **Generated resumes and cover letters are git-ignored by design.** `apply` writes every tailored resume and cover letter into `output/`, which is git-ignored (only its `README.md` is tracked); the generated-document filename patterns (`*_Resume_*.docx`, `*_CoverLetter_*.docx`, and their `.pdf` siblings) are ignored as a backstop too, so a `git add .` can never stage a generated application even if you save it elsewhere.
 - The `.local.md` suffix is also git-ignored, for any extra personal copy you want to keep out of git.
 
-As shipped, every committed file is safe (placeholders and fictional rows only). Decide private-fork vs public-fork **before** your first real entry.
+### 3. If you ALREADY committed or pushed real data
+
+Git-ignore only stops files that were **never** tracked. If a real-named file (a filled `YOUR_PROFILE.md`, a generated resume in `output/`, etc.) is already in your repo's history, you have to actively remove it — and if it was pushed to a public remote, treat it as exposed:
+
+- **Committed locally, never pushed?** Untrack it and commit the removal: `git rm --cached references/YOUR_PROFILE.md` (repeat per file / per generated doc), then commit. Copy from the `.example.md` and refill; from then on it stays local. If it also sits in older commits, use the history purge below to remove it fully.
+- **Already pushed to a public remote?** The data was publicly visible — **treat it as compromised** (assume it was crawled, cached, or forked while public). Then purge it from history: [`git filter-repo`](https://github.com/newren/git-filter-repo) (`git filter-repo --path references/YOUR_PROFILE.md --invert-paths`) or [BFG](https://rtyley.github.io/bfg-repo-cleaner/) strips the file from every commit, after which you force-push. Often the simplest, safest option is to **delete the public repo entirely and recreate a private one** from a clean clone (section 1).
+- A history rewrite or repo deletion does **not** un-expose what was already seen while the data was public. That is why section 1 (private from the start) is the recommendation — cleanup is damage control, not prevention.
+
+As shipped, every committed file is safe (placeholders and fictional rows only). Decide private-standalone-repo vs public-repo **before** your first real entry — it is far cheaper than cleaning up after.
 
 ---
 
 ## Setup
 
-1. **Fork or clone** this template — ideally a **private fork** (see **Privacy** above) — into your Claude Code plugins folder, or wherever your harness loads plugins from.
+1. **Clone** this template — ideally into your own **private repo** (see **Privacy** above; forking a public repo keeps it public, so clone-into-private instead) — under your Claude Code plugins folder, or wherever your harness loads plugins from.
 2. **Rename the plugin** in `.claude-plugin/plugin.json` (`name`, `version`, `description`, `author`) to be yours.
 3. **Copy each `*.example.md` to its real filename, then fill the copy.** Every personal-data file ships as a committed placeholder skeleton; you fill the git-ignored real file, not the `.example.md`. At minimum, start with your profile:
    ```bash
@@ -186,6 +205,8 @@ career-command-center-template/
 │   └── hooks.json                       # auto-loads YOUR_PROFILE.md at session start
 ├── CHANGELOG.md
 ├── QUICKSTART.md                        # 10-minute setup → first generated resume
+├── output/                              # generated resumes + cover letters land here — git-ignored (only README.md tracked)
+│   └── README.md
 ├── references/                          # copy each .example.md → real name, fill the copy
 │   ├── YOUR_PROFILE.example.md          # ⭐ committed skeleton — copy to YOUR_PROFILE.md, fill 3 MINIMUM VIABLE sections
 │   ├── CUSTOMIZATION_MEMORY.example.md  # committed skeleton → CUSTOMIZATION_MEMORY.md (git-ignored)

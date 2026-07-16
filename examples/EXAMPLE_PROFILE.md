@@ -105,7 +105,7 @@
 
 ### ScalePay (fictional payments) — Senior PM (June 2017 - February 2019)
 
-- Shipped fraud-detection ML model for cross-border payments; reduced false-positive rate from 4.2% to 1.8% (₹560M USD merchant volume protected)
+- Shipped fraud-detection ML model for cross-border payments; reduced false-positive rate from 4.2% to 1.8% ($560M merchant volume protected)
 - Owned merchant onboarding redesign; KYC completion rate 41% → 67%
 
 ### BlueCart Inc (fictional e-commerce) — APM (July 2015 - May 2017)

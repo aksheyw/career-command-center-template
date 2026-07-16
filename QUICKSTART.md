@@ -24,9 +24,9 @@ The repo ships with a `.claude-plugin/marketplace.json` so it can be installed d
 
 The marketplace name is `aksheyw-cct` and the plugin name is `career-cc`. Once installed, skills become `/career-cc:evaluate`, `/career-cc:apply`, etc. (See `.claude-plugin/marketplace.json` for the source of these names.)
 
-### Option B — Local dev install (session-only, for forks)
+### Option B — Local dev install (session-only, for customizing)
 
-For iterating on a fork before publishing it:
+For iterating on your own clone before publishing it:
 
 ```bash
 git clone https://github.com/aksheyw/career-command-center-template.git
@@ -34,7 +34,7 @@ cd career-command-center-template
 claude --plugin-dir ./
 ```
 
-This loads the plugin for the current session only. Re-run each time. Useful while customizing — once you have a working fork, set up your own marketplace using the same `marketplace.json` pattern (point `source` to your repo) and switch to Option A.
+This loads the plugin for the current session only. Re-run each time. Useful while customizing — once you have a working copy, set up your own marketplace using the same `marketplace.json` pattern (point `source` to your **private** repo) and switch to Option A. For a real job search, do this customizing inside your own private repo, not a public fork — see the README "Privacy" section for why and how.
 
 ### Either way
 
@@ -60,7 +60,7 @@ First **copy the committed skeleton to the real (git-ignored) filename**, then f
 cp references/YOUR_PROFILE.example.md references/YOUR_PROFILE.md
 ```
 
-> **Doing a real job search?** Personalize in a **private fork** so your filled files are safe to version. On a public fork, the real filenames are git-ignored so filling them can't leak your data — see the README "Privacy" section. Either way you fill `YOUR_PROFILE.md`, not `YOUR_PROFILE.example.md`.
+> **Doing a real job search?** Personalize in **your own private repo** so your filled files are safe to version. A GitHub fork of a public repo is always public, so don't fork to personalize — clone this template into a brand-new private repo instead (exact commands in the README "Privacy" section). In a public repo, the real filenames (and everything the skills generate into `output/`) are git-ignored so filling them can't leak your data. Either way you fill `YOUR_PROFILE.md`, not `YOUR_PROFILE.example.md`.
 
 Open `references/YOUR_PROFILE.md`. The full template has many sections — for your first real application you only need three. Fill in the sections marked with **`⭐ MINIMUM VIABLE`**:
 
@@ -85,7 +85,7 @@ You'll get:
 - Cover letter (`.docx`) — 250-300 words, narrative arc, no passive language
 - 3 interview-prep "quick hits" (suggested STAR stories + likely questions)
 
-Both documents are auto-passed through the bundled humanizer skill before output.
+Both documents are auto-passed through the bundled humanizer skill before output, and both are saved into the git-ignored `output/` directory — they carry your real name, history, and target company, so they are git-ignored by design and never reach a public repo.
 
 ## 5. Track it (one line)
 

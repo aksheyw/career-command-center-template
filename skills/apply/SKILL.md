@@ -5,6 +5,8 @@ description: "Paste a JD to get full analysis + tailored resume + cover letter. 
 
 You are generating job application materials. The user has pasted a job description. Follow this exact workflow.
 
+**OUTPUT LOCATION (mandatory):** every generated document — the tailored resume and the cover letter — is saved into the git-ignored `${CLAUDE_PLUGIN_ROOT}/output/` directory. These files carry the user's real name, history, and target company; `output/` is git-ignored so they never reach a public repo. Never save a generated resume/cover letter to the repo root.
+
 ## STEP 0: Quick evaluation (go/no-go check)
 
 Read the evaluation framework first:
@@ -65,7 +67,7 @@ Work through ALL steps of the pre-generation checklist from `SKILL.md` (Step 0 t
 
 **Procedure:**
 
-1. Copy the canonical (default path `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx`, or the user's override path per `SKILL.md` STEP 0) to the target `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`.
+1. Copy the canonical (default path `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx`, or the user's override path per `SKILL.md` STEP 0) to the target `${CLAUDE_PLUGIN_ROOT}/output/{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`.
 2. Apply company-type-specific tilts as targeted edits ON the canonical copy:
    - **AI Companies:** verify the AI / side-projects section position; consider promoting a shipped-AI bullet to first in the current role; portfolio link prominent in header.
    - **Consumer Scale:** verify the headline scale metric + best growth multiplier are prominent.
@@ -85,7 +87,7 @@ Work through ALL steps of the pre-generation checklist from `SKILL.md` (Step 0 t
 - Current end dates and availability tags preserved exactly as the canonical has them (do NOT regress a real end date to "Present")
 - Only use verified metrics that exist in the canonical and `YOUR_PROFILE.md`'s verified-metrics tables
 
-Save the resume as a `.docx` file named: `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`
+Save the resume as a `.docx` file into the output directory: `${CLAUDE_PLUGIN_ROOT}/output/{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`
 
 ## STEP 5: Generate the cover letter
 
@@ -99,7 +101,7 @@ Save the resume as a `.docx` file named: `{{LastName}}_{{FirstName}}_Resume_{{Co
 - Confident close WITH phone number ("Let's connect — {{phone}}")
 - NO passive phrases: never use "I would welcome", "Please feel free", "I am open to"
 
-Save as: `{{LastName}}_{{FirstName}}_CoverLetter_{{Company}}.docx`
+Save as: `${CLAUDE_PLUGIN_ROOT}/output/{{LastName}}_{{FirstName}}_CoverLetter_{{Company}}.docx`
 
 ## STEP 6: Apply humanizer
 
@@ -141,9 +143,9 @@ Customizations Made:
 - [which company-type template used]
 - [any special sections added/removed]
 
-Files Generated:
-- {{LastName}}_{{FirstName}}_Resume_{{Company}}.docx
-- {{LastName}}_{{FirstName}}_CoverLetter_{{Company}}.docx
+Files Generated (in the git-ignored output/ directory):
+- output/{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx
+- output/{{LastName}}_{{FirstName}}_CoverLetter_{{Company}}.docx
 
 EVALUATION SCORE: [X.X/5] — [GO/CAUTION/SKIP]
 

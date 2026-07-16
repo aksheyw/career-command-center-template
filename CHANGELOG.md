@@ -1,5 +1,59 @@
 # Changelog — Career Command Center Template
 
+## 2.0.3 — 2026-07
+
+Third independent-review pass (Codex). The 2.0.2 fixes were confirmed working; this release closes the
+generated-document leak plus residual privacy, cadence, and consistency issues.
+
+### Privacy (critical) — generated resumes + cover letters could still be committed
+
+- **Generated application documents are now git-ignored by design.** 2.0.2 protected the hand-filled
+  input files but not the tool's *output*: the tailored resumes and cover letters `apply` /
+  `resume-customizer` produce (`{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`, `..._CoverLetter_...`)
+  carry the user's real name, history, and target company, yet only `references/generic-resume.*` was
+  ignored — a `git add .` could stage them. Fixed: all generated documents now write into a new,
+  git-ignored `output/` directory (only its `README.md` is tracked), and the generated-document
+  filename patterns (`*_Resume_*.docx`, `*_CoverLetter_*.docx`, `.pdf` siblings) are ignored as a
+  backstop. `apply` and `resume-customizer` "Save as" instructions now target `output/`. README Privacy
+  + QUICKSTART state the output is git-ignored by design.
+
+- **"Private fork" guidance corrected to "private standalone repo."** A GitHub fork of a public repo is
+  always public — fork visibility cannot be changed — so the previous primary recommendation was wrong.
+  README + QUICKSTART now recommend cloning the template into a brand-new **private** repository (with the
+  exact `git clone` + `gh repo create --private` commands), and the word "fork" is reserved for where it
+  is technically accurate (e.g. contributing improvements back to the template).
+
+- **New "if you already committed or pushed real data" recovery branch** in the README Privacy section:
+  untrack-and-commit for local-only, history purge via `git filter-repo` / BFG (or delete-and-recreate
+  the repo) for already-pushed, plus an exposure-response note that anything pushed public must be treated
+  as compromised. Previously the guidance only covered untracking, which does not remove pushed history.
+
+### Cadence correctness (`followup`)
+
+- **Interview urgency now has a bounded lifecycle.** An interview with no logged thank-you was URGENT
+  forever, so a months-old interview stayed permanently URGENT. Now: URGENT (24h thank-you) applies only
+  when the interview is today or within ~1 day; past that window with no logged thank-you it ages to
+  OVERDUE (late thank-you), not perpetual URGENT; and an interview more than ~30 days past with no
+  progression ages into COLD (stale). Every interview state now has a dated exit, matching how
+  `responded` already worked.
+
+### Analysis correctness (`track-application`)
+
+- **Zero-denominator guard added to the pipeline conversion rates.** `patterns` had this guard; the
+  `track-application` STEP 5 summary (applications→screens, screens→interviews, interviews→offers) did
+  not. It now prints "insufficient data for this rate" on a zero denominator instead of dividing by zero
+  or printing a misleading `0%`.
+
+### Consistency fixes
+
+- **Reconciled contradictory KEY ACHIEVEMENTS guidance.** `references/YOUR_PROFILE.example.md` said
+  "always include in resume KEY ACHIEVEMENTS section" while `resume-customizer` says the resume has **no**
+  Key Achievements section. The profile now clarifies that its "KEY ACHIEVEMENTS" heading is a profile
+  storage bucket (feed it into Summary + Experience bullets) and defers to `resume-customizer` as
+  authoritative on resume structure.
+- **Fixed a mixed-currency figure** in `examples/EXAMPLE_PROFILE.md` ("₹560M USD" → "$560M"), consistent
+  with the example's USD figures elsewhere. Fictional, cosmetic.
+
 ## 2.0.2 — 2026-07
 
 Second independent-review pass (Codex). The 2.0.1 privacy + funnel fixes were confirmed working; this
