@@ -54,15 +54,23 @@ If this works, the plugin is wired correctly.
 
 ## 3. Minimum viable profile (3 minutes)
 
-Open `references/YOUR_PROFILE.md`. The full template has many sections — for your first real application you only need three.
+First **copy the committed skeleton to the real (git-ignored) filename**, then fill the copy — never edit the `.example.md`:
 
-Fill in the sections marked with **`⭐ MINIMUM VIABLE`** in `YOUR_PROFILE.md`:
+```bash
+cp references/YOUR_PROFILE.example.md references/YOUR_PROFILE.md
+```
+
+> **Doing a real job search?** Personalize in a **private fork** so your filled files are safe to version. On a public fork, the real filenames are git-ignored so filling them can't leak your data — see the README "Privacy" section. Either way you fill `YOUR_PROFILE.md`, not `YOUR_PROFILE.example.md`.
+
+Open `references/YOUR_PROFILE.md`. The full template has many sections — for your first real application you only need three. Fill in the sections marked with **`⭐ MINIMUM VIABLE`**:
 
 1. **Contact info** — name, email, phone, LinkedIn, location, optional portfolio
 2. **Current role & responsibilities** — title, company, scope, what you actually own
 3. **Verified achievements** — 3-5 specific metrics from your current or past roles, each with the verbatim phrasing you'd defend in an interview
 
-Leave the rest as placeholders for now. You'll fill them in as your applications create real data (STAR stories surface during interview prep, regulatory expertise gets added per JD, etc.).
+Leave the rest as placeholders for now. You'll fill them in as your applications create real data (STAR stories surface during interview prep, regulatory expertise gets added per JD, etc.). Copy the other `*.example.md` files to their real names the same way when you need them.
+
+**Optional but recommended:** if you already keep a maintained generic resume, drop it in at `references/generic-resume.docx` (git-ignored). Once it exists, `apply` builds every tailored resume by copying it and applying targeted edits — not from templates. No canonical yet? The first resume you generate and approve is saved there and becomes it.
 
 ## 4. Generate your first resume + cover letter
 

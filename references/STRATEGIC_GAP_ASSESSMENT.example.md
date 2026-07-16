@@ -1,12 +1,18 @@
-# STRATEGIC GAP ASSESSMENT — Worksheet
+# STRATEGIC GAP ASSESSMENT — EXAMPLE skeleton (committed)
 
 **Core insight:** The resume customizer generates excellent documents, but recruiters call based on **positioning, narrative, and visibility** — not just resume quality. The skill handles applications you submit; it won't generate unsolicited recruiter outreach.
 
 This worksheet helps you find the 5-7 strategic gaps that need addressing OUTSIDE the resume to get on recruiter radars.
 
-> ⚠️ **PRIVACY — once filled, this is PRIVATE.** It records your honest positioning gaps, warm-intro
-> map, and network contacts. **Do not commit real entries to a public repo** — use a **private fork** or
-> git-ignore your real data files (see the README "Privacy" section).
+> **This is the committed EXAMPLE skeleton — placeholders only, safe to commit.** Your real file lives at
+> `references/STRATEGIC_GAP_ASSESSMENT.md`, which is **git-ignored** so your real data never reaches a public repo.
+>
+> **To use it:** copy this file to `references/STRATEGIC_GAP_ASSESSMENT.md` and fill in the copy —
+> `cp references/STRATEGIC_GAP_ASSESSMENT.example.md references/STRATEGIC_GAP_ASSESSMENT.md`. Fill the `.md`, never this `.example.md`.
+
+> ⚠️ **PRIVACY.** Once filled, `STRATEGIC_GAP_ASSESSMENT.md` records your honest positioning gaps, warm-intro
+> map, and network contacts. The git-ignore keeps it local on a public fork. If you want to version your filled
+> files, use a **private fork** (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
 
 ---
 

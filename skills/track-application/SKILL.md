@@ -7,7 +7,7 @@ You are managing the user's job application pipeline.
 
 ## STEP 1: Read current memory
 
-Read `${CLAUDE_PLUGIN_ROOT}/references/CUSTOMIZATION_MEMORY.md` to understand current patterns and what has been learned.
+Read `${CLAUDE_PLUGIN_ROOT}/references/CUSTOMIZATION_MEMORY.md` to understand current patterns and what has been learned. This is the user's real (git-ignored) file. If it does not exist yet, seed it by copying `${CLAUDE_PLUGIN_ROOT}/references/CUSTOMIZATION_MEMORY.example.md` to that path, then proceed.
 
 ## STEP 2: Determine the action
 

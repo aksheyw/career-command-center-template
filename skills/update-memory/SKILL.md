@@ -7,7 +7,7 @@ You are updating the customization memory — the learning log that makes every 
 
 ## STEP 1: Read the current memory file
 
-Read `${CLAUDE_PLUGIN_ROOT}/references/CUSTOMIZATION_MEMORY.md` fully. Understand the existing patterns before adding anything.
+Read `${CLAUDE_PLUGIN_ROOT}/references/CUSTOMIZATION_MEMORY.md` fully (the user's real, git-ignored file). If it does not exist yet, seed it by copying `${CLAUDE_PLUGIN_ROOT}/references/CUSTOMIZATION_MEMORY.example.md` to that path first. Understand the existing patterns before adding anything.
 
 ## STEP 2: Gather information
 

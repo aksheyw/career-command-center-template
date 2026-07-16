@@ -1,14 +1,21 @@
-# STAR Stories — Template
+# STAR Stories — EXAMPLE skeleton (committed)
 
 **Purpose:** Your complete behavioral examples for interview preparation.
 **Aim for:** 15-25 stories total. Mix of success (~80%) and failure (~20%).
 **Format:** Situation / Task / Action / Result. Each story should be tellable in 60 seconds, with optional 2-minute depth on probe.
 
-**How to fill in:** Replace the 2 example stories below with your own. Add as many more as you need, following the same structure. Keep the SELECTION GUIDE table at the bottom updated so future interview prep can grab the right story fast.
+> **This is the committed EXAMPLE skeleton — placeholders only, safe to commit.** Your real file lives at
+> `skills/resume-customizer/references/star-stories.md`, which is **git-ignored** so your real data never reaches a public repo.
+>
+> **To use it:** copy this file to `star-stories.md` in the same folder and fill in the copy —
+> `cp skills/resume-customizer/references/star-stories.example.md skills/resume-customizer/references/star-stories.md`.
+> Fill the `.md`, never this `.example.md`.
 
-> ⚠️ **PRIVACY — once filled, this is PRIVATE.** Your real stories name employers, colleagues, and
-> specific numbers. **Do not commit them to a public repo** — use a **private fork** or git-ignore your
-> real data files (see the README "Privacy" section).
+**How to fill in (the copy):** Replace the example stories below with your own. Add as many more as you need, following the same structure. Keep the SELECTION GUIDE table at the bottom updated so future interview prep can grab the right story fast.
+
+> ⚠️ **PRIVACY.** Once filled, `star-stories.md` names real employers, colleagues, and specific numbers. The
+> git-ignore keeps it local on a public fork. If you want to version your filled files, use a **private fork**
+> (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
 
 ---
 

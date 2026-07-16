@@ -45,17 +45,18 @@ description: Director-level / senior PM resume + cover letter toolkit. Generates
 
 The skill's templates and `detailed-context.md` teach STYLE and RULES. The canonical artifact on disk is the TRUTH about content — current end dates, availability tags, header links, latest side projects, exact metric values, partner-specific phrasing already validated with real referrers. Templates drift; the canonical does not.
 
-**Canonical paths (fill in once, keep in priority order):**
+**Canonical paths (checked in priority order — the default needs no setup beyond dropping your file in):**
 
-1. `{{path/to/your/generic-resume.docx}}` — primary canonical (`.docx`, editable)
-2. `{{path/to/your/generic-resume.pdf}}` — PDF sibling for fast read via `pypdf`
-3. `{{path/to/prior-applications/}}<company>/` — most recent shipped customization for a similar role type
-4. If files have moved: `find {{your resume folder}} -iname "*Resume*Generic*"`
+1. `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx` — **the default canonical.** Drop your maintained generic resume here (it is git-ignored). This fixed path is read first, so a fresh user is never blocked on an unfilled placeholder.
+2. `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.pdf` — PDF sibling at the same location, for a fast read via `pypdf`.
+3. `{{path/to/your/generic-resume.docx}}` — OPTIONAL override, only if you keep your canonical somewhere else. Leave the placeholder as-is to use the default path above.
+4. `{{path/to/prior-applications/}}<company>/` — most recent shipped customization for a similar role type.
+5. If files have moved: `find ${CLAUDE_PLUGIN_ROOT}/references {{your resume folder}} -iname "*[Rr]esume*[Gg]eneric*" -o -iname "generic-resume.*"`
 
 **Procedure:**
 
 1. Open the canonical (`.docx` via `python-docx` or `.pdf` via `pypdf`). READ IT IN FULL, do not skim.
-2. **If the canonical at path 1 is missing or out of date:** check path 2, then path 3, then the `find` in path 4. If ALL fail, STOP and ask the user: *"Canonical resume not found at expected paths. Where is the current one, or has it been replaced?"* Only fall back to template-based generation from `detailed-context.md` with an explicit warning: *"WARNING: no canonical found, building from template summary. This will likely miss recent items like updated end dates, new side projects, and exact metric values. Proceed?"* (A fresh install with no canonical yet is the one legitimate template-first case — the first generated resume then BECOMES the canonical once the user approves it.)
+2. **If the default canonical (path 1) is missing or out of date:** check path 2, then the optional override (path 3), then path 4, then the `find` in path 5. If ALL fail, STOP and ask the user: *"Canonical resume not found at `references/generic-resume.docx` or the other paths. Where is the current one, or should I generate the first one now?"* Only then fall back to template-based generation from `detailed-context.md`, with an explicit warning: *"WARNING: no canonical found, building from the template summary. This will likely miss recent items like updated end dates, new side projects, and exact metric values. Proceed?"* **This is the one legitimate template-first case (a fresh install with no canonical yet). When the user approves that first resume, SAVE the approved `.docx` to `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx` — it becomes the canonical every later run reads.**
 3. Copy the canonical to the target filename (`{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`).
 4. Apply minimal targeted edits for the JD. Typical edits:
    - Promote one bullet to lead position if the JD demands it (e.g., the activation bullet first for a Growth PM role).
@@ -275,9 +276,10 @@ Before generating ANY resume or cover letter:
 
 ### Step 0: Locate Canonical Artifact (MANDATORY FIRST STEP)
 
-- [ ] Read the canonical at `{{path/to/your/generic-resume.docx}}` (or `.pdf` sibling)
-- [ ] If the canonical moved or is unclear, run `find {{your resume folder}} -iname "*Resume*Generic*"`
+- [ ] Read the canonical at `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx` (the default path; or its `.pdf` sibling, or your optional override path)
+- [ ] If it is missing or unclear, run `find ${CLAUDE_PLUGIN_ROOT}/references {{your resume folder}} -iname "*[Rr]esume*[Gg]eneric*" -o -iname "generic-resume.*"`
 - [ ] READ the canonical in full via `python-docx` or `pypdf` — do NOT skim, do NOT rebuild from `detailed-context.md` memory
+- [ ] If none exists (fresh install), generate from templates ONCE, and on approval SAVE it to `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx` so it becomes the canonical
 - [ ] Copy the canonical to the target filename `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`
 - [ ] All subsequent steps apply TARGETED EDITS to the canonical, not rebuilds from templates
 - [ ] After final edits: diff against the canonical (`unzip -p` both `word/document.xml` and `diff`) to SURFACE unexpected drops, THEN render the `.docx` to PDF and visually confirm 2 pages, section order, and clickable hyperlinks (the diff alone does not prove completeness or layout)

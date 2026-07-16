@@ -5,7 +5,7 @@
       "hooks": [
         {
           "type": "command",
-          "command": "cat '${CLAUDE_PLUGIN_ROOT}/references/YOUR_PROFILE.md'",
+          "command": "cat '${CLAUDE_PLUGIN_ROOT}/references/YOUR_PROFILE.md' 2>/dev/null || echo 'career-cc: no references/YOUR_PROFILE.md yet — copy references/YOUR_PROFILE.example.md to references/YOUR_PROFILE.md and fill it in (see QUICKSTART step 3).'",
           "timeout": 10
         }
       ]

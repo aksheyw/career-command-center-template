@@ -4,7 +4,7 @@ A Claude Code plugin template for an AI-native job-search workflow. Resume custo
 
 This is a **template**. Fork it, fill in your profile, and the skills auto-load with your data.
 
-> **➡️ New here?** Start with [QUICKSTART.md](QUICKSTART.md) — get from clone to your first generated resume in ~10 minutes. Install via `/plugin marketplace add aksheyw/career-command-center-template` then `/plugin install career-cc@aksheyw-cct`, fill 3 sections of `YOUR_PROFILE.md` (marked ⭐ MINIMUM VIABLE), run `/career-cc:evaluate` and `/career-cc:apply`, and you're producing tailored applications.
+> **➡️ New here?** Start with [QUICKSTART.md](QUICKSTART.md) — get from clone to your first generated resume in ~10 minutes. Install via `/plugin marketplace add aksheyw/career-command-center-template` then `/plugin install career-cc@aksheyw-cct`, copy `YOUR_PROFILE.example.md` to `YOUR_PROFILE.md` and fill its 3 sections marked ⭐ MINIMUM VIABLE, run `/career-cc:evaluate` and `/career-cc:apply`, and you're producing tailored applications. (For a job search, a **private fork** is the recommended way to personalize — see **Privacy**.)
 
 ---
 
@@ -46,18 +46,23 @@ Once personalized, the plugin gives you twelve skills for the full job-search lo
 
 ## What you customize
 
-The plugin ships with **skeleton files** in `references/` and `skills/resume-customizer/references/`. Fill these in once with your own background, and every skill picks up your data via the `${CLAUDE_PLUGIN_ROOT}` path variable.
+The plugin ships each personal-data file as a committed **`*.example.md` placeholder skeleton**. You **copy it to the real filename** (which is **git-ignored**) and fill the copy — every skill then picks up your data via the `${CLAUDE_PLUGIN_ROOT}` path variable. Because the real filenames are git-ignored, following this path on a public fork can never commit your real data. (In a private fork you can version them — see **Privacy** below.)
 
-### Files to fill in (6 personal-data files)
+> **The safest path is a PRIVATE fork.** This is a job-search template; your filled copy holds private data. Fork it **private**, and everything below is moot — you can fill and version freely. The `*.example.md` + git-ignore machinery is the belt-and-suspenders for anyone who keeps their fork public.
 
-| File | What goes here |
+### Files to fill in (7 personal-data files — copy the `.example.md`, fill the `.md`)
+
+| Copy this (committed) → to this (git-ignored, you fill) | What goes here |
 |------|----------------|
-| `references/YOUR_PROFILE.md` | Your background, current role, achievements with verified metrics, contact info, target compensation |
-| `references/CUSTOMIZATION_MEMORY.md` | Application learning log — fills as you log outcomes |
-| `references/applications.md` | Structured pipeline tracker — auto-maintained by `track-application`, queried by `patterns` and `followup`. **Git-ignored** (holds real companies/recruiters); the committed fictional reference is `references/applications.example.md`. See **Privacy** below. |
-| `references/STRATEGIC_GAP_ASSESSMENT.md` | Your honest assessment of positioning gaps to address |
-| `skills/resume-customizer/references/star-stories.md` | Your STAR stories (success + failure) with selection guide |
-| `skills/resume-customizer/references/detailed-context.md` | Full work history, certifications, side projects, strengths |
+| `references/YOUR_PROFILE.example.md` → `references/YOUR_PROFILE.md` | Your background, current role, achievements with verified metrics, contact info, target compensation |
+| `references/CUSTOMIZATION_MEMORY.example.md` → `references/CUSTOMIZATION_MEMORY.md` | Application learning log — fills as you log outcomes |
+| `references/applications.example.md` → `references/applications.md` | Structured pipeline tracker — auto-created/maintained by `track-application` (you rarely copy this by hand), queried by `patterns` and `followup` |
+| `references/STRATEGIC_GAP_ASSESSMENT.example.md` → `references/STRATEGIC_GAP_ASSESSMENT.md` | Your honest assessment of positioning gaps to address |
+| `skills/resume-customizer/references/star-stories.example.md` → `.../star-stories.md` | Your STAR stories (success + failure) with selection guide |
+| `skills/resume-customizer/references/detailed-context.example.md` → `.../detailed-context.md` | Full work history, certifications, side projects, strengths |
+| `skills/resume-customizer/references/story-bank-index.example.md` → `.../story-bank-index.md` | Cross-index of your STAR stories by company type and question |
+
+Plus one binary you drop in (not a skeleton): `references/generic-resume.docx` — your maintained generic resume, the canonical the resume skills copy from (also git-ignored). See **Setup** step 4 and `resume-customizer` STEP 0.
 
 ### Files you usually don't touch
 
@@ -67,24 +72,38 @@ Everything else is methodology — the rules, frameworks, templates, language gu
 
 ## Privacy — don't publish your own job-search data
 
-This is a **public** fork-and-personalize template. The moment you fill the 6 personal-data files with real content, they hold private job-search information: your contact details and compensation (`YOUR_PROFILE.md`, `detailed-context.md`), the companies and recruiters in your pipeline (`applications.md`, `CUSTOMIZATION_MEMORY.md`), your positioning gaps and network (`STRATEGIC_GAP_ASSESSMENT.md`), and your real stories (`star-stories.md`). Don't commit any of that to a public repo. Two safe ways to work:
+Your filled files hold private job-search data: contact details and compensation (`YOUR_PROFILE.md`, `detailed-context.md`), the companies and recruiters in your pipeline (`applications.md`, `CUSTOMIZATION_MEMORY.md`), your positioning gaps and network (`STRATEGIC_GAP_ASSESSMENT.md`), your real stories (`star-stories.md`, `story-bank-index.md`), and your maintained resume (`generic-resume.docx`). None of that should reach a public repo.
 
-1. **Private fork (simplest, safest).** Fork this repo as **private**, then fill everything in place. Nothing is public.
-2. **Public fork + git-ignore your real data.** If your fork must stay public, keep your real data out of git:
-   - `references/applications.md` and `references/pattern-analysis-*.md` are **already git-ignored** by default — your real tracker and generated reports never get committed. The committed, safe-to-share reference is `references/applications.example.md` (fictional rows only). `track-application` creates and maintains your real `applications.md` locally.
-   - For the hand-filled skeletons (`YOUR_PROFILE.md`, `CUSTOMIZATION_MEMORY.md`, `STRATEGIC_GAP_ASSESSMENT.md`, `star-stories.md`, `detailed-context.md`), uncomment the matching lines in `.gitignore` before you add real data, or give your personalized copy a `.local.md` name (also git-ignored) — then wire the skill/hook path to it.
+### 1. Recommended: personalize in a PRIVATE fork
 
-As shipped, every file is safe to commit (placeholders and fictional rows only). The risk starts when you add real data — so decide on private-fork vs git-ignore **before** your first real entry.
+For a job-search template this is the right default. **Fork this repo as private** (`gh repo fork --clone` from a private mirror, or create a private repo and push into it). Then fill everything in place and version it freely — nothing is ever public. If you go this route you can ignore the git-ignore machinery entirely.
+
+### 2. If your fork must stay public: the `.example.md` + git-ignore machinery (default here)
+
+The template is built so the documented happy path **cannot** commit your real data even on a public fork:
+
+- Every personal-data file ships as a committed **`*.example.md` placeholder skeleton**. You **copy it to the real filename** and fill the copy. The real filenames (`references/YOUR_PROFILE.md`, `.../star-stories.md`, `references/generic-resume.docx`, etc.) are all listed in `.gitignore`, so git never tracks them — filling and committing normally leaves your real data untouched on disk and out of every commit.
+- `references/applications.md` is created for you by `track-application` from `applications.example.md`; it (and generated `references/pattern-analysis-*.md` reports) are git-ignored too.
+- **Upgrading from an older version?** If a real-named skeleton (e.g. `references/YOUR_PROFILE.md`) is already tracked in your fork's history, git-ignore alone won't stop future commits of it. Untrack it once: `git rm --cached references/YOUR_PROFILE.md` (repeat per file), commit that removal, then copy from the `.example.md` and fill. From then on your filled version stays local.
+- The `.local.md` suffix is also git-ignored, for any extra personal copy you want to keep out of git.
+
+As shipped, every committed file is safe (placeholders and fictional rows only). Decide private-fork vs public-fork **before** your first real entry.
 
 ---
 
 ## Setup
 
-1. **Fork or clone** this template into your Claude Code plugins folder, or wherever your harness loads plugins from.
+1. **Fork or clone** this template — ideally a **private fork** (see **Privacy** above) — into your Claude Code plugins folder, or wherever your harness loads plugins from.
 2. **Rename the plugin** in `.claude-plugin/plugin.json` (`name`, `version`, `description`, `author`) to be yours.
-3. **Fill in your data** in the 6 personal-data files listed above. Each ships as a skeleton with placeholders and section headings (`applications.md` is the one you don't hand-fill — `track-application` maintains it).
-4. **Update `hooks/hooks.json`** if you renamed `YOUR_PROFILE.md` to something else (this file is auto-loaded at session start).
-5. **Try a skill.** Paste any JD into `apply` and watch the workflow run end-to-end.
+3. **Copy each `*.example.md` to its real filename, then fill the copy.** Every personal-data file ships as a committed placeholder skeleton; you fill the git-ignored real file, not the `.example.md`. At minimum, start with your profile:
+   ```bash
+   cp references/YOUR_PROFILE.example.md references/YOUR_PROFILE.md
+   # then copy the rest as you need them (see the "Files to fill in" table above)
+   ```
+   (`applications.md` is the exception — you don't copy it by hand; `track-application` creates it from `applications.example.md`.)
+4. **Drop in your canonical resume.** Once you maintain a generic resume, save it as `references/generic-resume.docx` (git-ignored). The `resume-customizer` / `apply` skills copy from this fixed path and apply targeted edits — they never rebuild from templates once it exists. No canonical yet? The first resume you generate and approve is saved there and becomes the canonical (see `resume-customizer` STEP 0).
+5. **Update `hooks/hooks.json`** only if you renamed `YOUR_PROFILE.md` to something else (this file is auto-loaded at session start; it prints a copy-me hint until the real file exists).
+6. **Try a skill.** Paste any JD into `apply` and watch the workflow run end-to-end.
 
 No external services. No API keys. Works entirely from your local files.
 
@@ -167,12 +186,12 @@ career-command-center-template/
 │   └── hooks.json                       # auto-loads YOUR_PROFILE.md at session start
 ├── CHANGELOG.md
 ├── QUICKSTART.md                        # 10-minute setup → first generated resume
-├── references/                          # FILL THESE IN
-│   ├── YOUR_PROFILE.md                  # ⭐ start here — 3 sections marked MINIMUM VIABLE
-│   ├── CUSTOMIZATION_MEMORY.md
-│   ├── applications.example.md          # committed fictional reference (safe to share)
-│   ├── applications.md                  # YOUR real tracker — git-ignored, auto-maintained by track-application
-│   └── STRATEGIC_GAP_ASSESSMENT.md
+├── references/                          # copy each .example.md → real name, fill the copy
+│   ├── YOUR_PROFILE.example.md          # ⭐ committed skeleton — copy to YOUR_PROFILE.md, fill 3 MINIMUM VIABLE sections
+│   ├── CUSTOMIZATION_MEMORY.example.md  # committed skeleton → CUSTOMIZATION_MEMORY.md (git-ignored)
+│   ├── STRATEGIC_GAP_ASSESSMENT.example.md  # committed skeleton → STRATEGIC_GAP_ASSESSMENT.md (git-ignored)
+│   └── applications.example.md          # committed fictional reference; track-application makes applications.md (git-ignored)
+│                                        # (the real YOUR_PROFILE.md, generic-resume.docx, …  are all git-ignored)
 ├── skills/
 │   ├── apply/SKILL.md
 │   ├── evaluate/SKILL.md
@@ -185,14 +204,14 @@ career-command-center-template/
 │   ├── resume-customizer/
 │   │   ├── SKILL.md                     # core engine
 │   │   └── references/
-│   │       ├── career-tools.md           # templates with placeholders
-│   │       ├── detailed-context.md       # FILL THIS IN
-│   │       ├── evaluation-framework.md   # 7-block JD scoring
+│   │       ├── career-tools.md           # templates with placeholders (methodology — don't fill)
+│   │       ├── detailed-context.example.md   # committed skeleton → detailed-context.md (git-ignored)
+│   │       ├── evaluation-framework.md   # 7-block JD scoring (methodology)
 │   │       ├── github_in_resume_pattern.md
-│   │       ├── interview-prep.md         # RCA, guesstimate, case study frameworks
+│   │       ├── interview-prep.md         # RCA, guesstimate, case study frameworks (methodology)
 │   │       ├── referral_email_pattern.md
-│   │       ├── star-stories.md           # FILL THIS IN
-│   │       └── story-bank-index.md       # FILL THIS IN
+│   │       ├── star-stories.example.md       # committed skeleton → star-stories.md (git-ignored)
+│   │       └── story-bank-index.example.md   # committed skeleton → story-bank-index.md (git-ignored)
 │   ├── salary-negotiate/SKILL.md
 │   ├── track-application/SKILL.md
 │   └── update-memory/SKILL.md

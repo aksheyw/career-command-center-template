@@ -1,13 +1,18 @@
-# YOUR PROFILE — Template
+# YOUR PROFILE — EXAMPLE skeleton (committed)
 
-**Purpose:** Single source of truth for your background, current role, and verified achievements. Auto-loaded at session start so every skill sees the same canonical you.
+**Purpose:** Single source of truth for your background, current role, and verified achievements. Your real copy is auto-loaded at session start so every skill sees the same canonical you.
 
-**How to fill in:** Replace every `{{PLACEHOLDER}}` and bracketed instruction with your own data. Delete sections that don't apply to your background. Add sections you need that aren't here.
+> **This is the committed EXAMPLE skeleton — placeholders only, safe to commit.** Your real file lives at
+> `references/YOUR_PROFILE.md`, which is **git-ignored** so your real data never reaches a public repo.
+>
+> **To use it:** copy this file to `references/YOUR_PROFILE.md` and fill in the copy —
+> `cp references/YOUR_PROFILE.example.md references/YOUR_PROFILE.md`. Fill the `.md`, never this `.example.md`.
 
-> ⚠️ **PRIVACY — once filled, this file is PRIVATE.** It carries your real name, contact details,
-> employer, compensation, and verified metrics. **Do not commit it to a public repo.** Either keep your
-> personalized copy in a **private fork**, or git-ignore your real data files — see the "Privacy" section
-> in the README. As shipped (all placeholders), it is safe to commit; the moment you add real data, it isn't.
+**How to fill in (the copy):** Replace every `{{PLACEHOLDER}}` and bracketed instruction with your own data. Delete sections that don't apply. Add sections you need that aren't here.
+
+> ⚠️ **PRIVACY.** Once filled, `YOUR_PROFILE.md` holds PRIVATE data — real name, contact details, employer,
+> compensation, verified metrics. The git-ignore keeps it local on a public fork. If you want to version your
+> filled files, use a **private fork** (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
 
 > **⭐ First time?** Fill in only the 3 sections marked **⭐ MINIMUM VIABLE** below to start using the plugin. The rest can stay as placeholders and fill in over time as your application history accumulates. See `QUICKSTART.md` for the full 5-step path.
 

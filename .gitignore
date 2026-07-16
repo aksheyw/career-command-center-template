@@ -9,22 +9,30 @@
 node_modules/
 *.log
 
-# ── Private job-search data ──────────────────────────────────────────────
-# These accumulate REAL data (companies, recruiters, contacts, outcomes) as you
-# use the skills, so they are git-ignored by default — your real tracker and any
-# generated analysis reports stay local and never reach a public repo. The
-# safe-to-commit fictional reference is references/applications.example.md.
+# ── Private job-search data (git-ignored so a PUBLIC fork can't leak it) ──────
+# Every file below holds REAL personal data once you fill it. Each ships as a
+# committed `*.example.md` placeholder skeleton; you copy that to the real
+# filename here and fill the copy. These real filenames are git-ignored, so the
+# documented happy path can never commit your real data to a public repo.
+# (In a PRIVATE fork, remove the lines you want to version — see README "Privacy".)
+
+# The structured tracker + generated analysis reports (example: applications.example.md)
 references/applications.md
 references/pattern-analysis-*.md
 
-# Any file you rename with a .local.md suffix is kept out of git — use this for a
-# personal copy of any skeleton below that you don't want committed.
-*.local.md
+# The hand-filled skeletons (each has a committed `*.example.md` to copy from)
+references/YOUR_PROFILE.md
+references/CUSTOMIZATION_MEMORY.md
+references/STRATEGIC_GAP_ASSESSMENT.md
+skills/resume-customizer/references/star-stories.md
+skills/resume-customizer/references/detailed-context.md
+skills/resume-customizer/references/story-bank-index.md
 
-# If you fork PUBLICLY and fill these skeletons with your real background, either
-# move to a PRIVATE fork or uncomment the lines below to keep them out of git:
-# references/YOUR_PROFILE.md
-# references/CUSTOMIZATION_MEMORY.md
-# references/STRATEGIC_GAP_ASSESSMENT.md
-# skills/resume-customizer/references/star-stories.md
-# skills/resume-customizer/references/detailed-context.md
+# Your maintained canonical generic resume (a real .docx/.pdf you drop in — see
+# resume-customizer STEP 0). Personal, never committed.
+references/generic-resume.docx
+references/generic-resume.pdf
+
+# Any file you rename with a .local.md suffix is also kept out of git — use this
+# for any extra personal copy you don't want committed.
+*.local.md

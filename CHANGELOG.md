@@ -1,5 +1,56 @@
 # Changelog — Career Command Center Template
 
+## 2.0.2 — 2026-07
+
+Second independent-review pass (Codex). The 2.0.1 privacy + funnel fixes were confirmed working; this
+release closes 6 remaining issues.
+
+### Privacy (critical) — the other personal-data files could still be committed on a public fork
+
+- **Every hand-filled personal-data file now ships as a committed `*.example.md` skeleton; the real
+  filename is git-ignored.** 2.0.1 fixed only `applications.md`. The other files (`YOUR_PROFILE.md`,
+  `CUSTOMIZATION_MEMORY.md`, `STRATEGIC_GAP_ASSESSMENT.md`, `star-stories.md`, `detailed-context.md`,
+  and `story-bank-index.md`) were tracked skeletons — a public-fork user who filled them in place would
+  commit real data, because `.gitignore` can't suppress edits to already-tracked files. They are now
+  `*.example.md` (placeholders only, committed) and you **copy to the real filename** (git-ignored) and
+  fill the copy. The documented happy path can no longer commit real personal data on a public fork.
+- **Primary guidance is a PRIVATE fork,** stated prominently in the README and QUICKSTART. The
+  `.example.md` + git-ignore machinery is the belt-and-suspenders for public forks. README documents
+  `git rm --cached <file>` for anyone upgrading whose real-named skeleton is already tracked.
+- Session-start hook, `track-application`, and `update-memory` degrade gracefully when a real file
+  doesn't exist yet (hook prints a copy-me hint; the write skills seed from the `.example.md`).
+
+### Analysis correctness (`patterns`)
+
+- **Outcome classes are now mutually exclusive** — `offer` / `rejected` / `self_filtered` / `in_flight`
+  (+ `pending` for evaluated-only). 2.0.1 let a progressed-then-rejected row count as both "converted"
+  and "negative," double-counting it. The FUNNEL stays separate and cumulative ("reached at least stage
+  X"), so a rejected-after-interview row still counts toward reached-interview but its OUTCOME is exactly
+  `rejected`. No row is ever in two outcome buckets.
+- **The minimum-data gate now requires real signal** — ≥5 rows that are terminal (`rejected`/`offer`)
+  OR reached a forward stage (a Responded/Interview date). Pure `in_flight` and `self_filtered` rows no
+  longer satisfy it, so 5 skips can't pass a gate that then produces zero-denominator rates.
+- **Every rate denominator is zero-guarded** — s/a, i/s, o/i and all per-type/per-source rates report
+  "insufficient data for this rate" instead of dividing by zero.
+
+### Resume canonical path (`resume-customizer`, `apply`)
+
+- **The canonical generic resume now has a real default path** — `references/generic-resume.docx`
+  (git-ignored). 2.0.1's `{{path/to/your/generic-resume.docx}}` placeholder was never wired, so the
+  BLOCKING canonical lookup had nothing to read. The skills read the fixed path first; the optional
+  `{{…}}` override remains for a custom location; and the "first generated resume becomes canonical"
+  fallback now actually saves there.
+
+### Follow-up cadence (`followup`)
+
+- **Interview urgency is now dated, with an exit.** It was permanently URGENT. Now: a future Interview
+  date is `upcoming` (not actionable); a just-held interview is URGENT for a 24h thank-you that exits
+  once a follow-up dated on/after the interview is logged; then a 5-7 business-day status-check (OVERDUE);
+  then COLD at 2 touches.
+- **Write-boundary contradiction resolved** — a confirmed send writes BOTH the Last-follow-up date AND
+  the incremented Follow-ups count (the Boundaries note wrongly said "the only write is the Last
+  follow-up date").
+
 ## 2.0.1 — 2026-07
 
 Fixes to the 2.0.0 refresh from an independent review — a user-privacy flaw, tracker/skill schema

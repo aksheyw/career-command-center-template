@@ -15,17 +15,19 @@ Today's date is the system date. Use it for all aging math. The columns this ski
 
 ## STEP 2: Apply cadence rules
 
-Assign urgency per row using the status and the relevant date column. "Days since" always uses the **Last follow-up** date if present, otherwise the driving date named below:
+Assign urgency per row using the status and the relevant date column. "Days since" always uses the **Last follow-up** date if present, otherwise the driving date named below. For the interview rows, "thank-you already logged" means a follow-up dated **on or after** the Interview date exists (Last follow-up ≥ Interview date) — that is the dated exit out of the thank-you window.
 
 | Status | Driving date | Rule | Becomes... |
 |--------|--------------|------|-----------|
-| `responded` | Responded | reply within 24h of their response | **URGENT** — always actionable until you log a follow-up dated on/after the Responded date |
-| `interview` | Interview (else Applied) | follow up within 1 day of the interview | **URGENT** — keep momentum |
+| `responded` | Responded | reply within 24h of their response | **URGENT** — actionable until you log a follow-up dated on/after the Responded date |
+| `interview`, **Interview date in the FUTURE** | Interview | the interview hasn't happened — nothing to send yet | **upcoming** — not actionable |
+| `interview`, Interview date today/past, **no thank-you logged yet** (Last follow-up empty or before the Interview date) | Interview | send a thank-you within 24h of the interview | **URGENT** (thank-you) — exits the moment you log a follow-up dated on/after the Interview date |
+| `interview`, **thank-you already logged**, ~5-7 business days since the last touch, no reply | Last follow-up | send one status-check | **OVERDUE** (status-check) |
 | `applied` / `screening` | Last follow-up, else Applied | past 7 days with no follow-up | **OVERDUE** |
 | any status, **Follow-ups ≥ 2** | — | don't draft a third | **COLD** — suggest closing |
-| within the window above | — | on track | **waiting** |
+| within a window above, or an upcoming interview waiting to happen | — | on track | **waiting** / **upcoming** |
 
-Precedence when more than one row applies: **COLD** (Follow-ups ≥ 2) overrides everything — never draft a third touch. Otherwise `responded`/`interview` → URGENT, `applied`/`screening` past 7 days → OVERDUE.
+Precedence when more than one rule could apply: **COLD** (Follow-ups ≥ 2) overrides everything — never draft a third touch. A **future-dated interview is `upcoming`, never urgent** — there is nothing to follow up on until it happens. Otherwise `responded` and a just-held interview still inside its 24h thank-you window → URGENT; an interview past its thank-you window (thank-you logged, 5-7 business days quiet) or an `applied`/`screening` row past 7 days → OVERDUE. Every interview state has a dated exit: future → upcoming; held → 24h thank-you (URGENT) → exits on the logged thank-you → 5-7 day status-check (OVERDUE) → COLD at 2 touches.
 
 Skip rows with status `offer`, `rejected`, `discarded`, `skip`, `evaluated`.
 
@@ -40,7 +42,7 @@ Follow-up Cadence — {date}   ({N} active, {M} actionable)
 |---|---------|------|--------|------|-----------|---------|---------|
 ```
 
-Sort URGENT → OVERDUE → waiting → COLD. If nothing is actionable, say so and stop.
+Sort URGENT → OVERDUE → waiting → upcoming → COLD. Only URGENT and OVERDUE are actionable (STEP 4 drafts those); upcoming (future interview), waiting, and COLD are shown but not drafted. If nothing is actionable, say so and stop.
 
 ## STEP 4: Draft follow-ups (URGENT and OVERDUE only)
 
@@ -79,4 +81,4 @@ After the user confirms they sent one, rewrite that row in `applications.md`: se
 
 ## Boundaries
 
-Reads the tracker + references; the only write is the **Last follow-up** date on confirmed sends. Drafts are proposals — the user reviews every one before it goes out.
+Reads the tracker + references; on a confirmed send it writes exactly two fields on that row — the **Last follow-up** date (today) and the incremented **Follow-ups** count (per STEP 5). Nothing else is written. Drafts are proposals — the user reviews every one before it goes out, and a draft is never recorded as sent.

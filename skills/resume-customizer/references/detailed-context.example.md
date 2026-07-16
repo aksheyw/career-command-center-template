@@ -1,13 +1,20 @@
-# DETAILED CONTEXT — Template
+# DETAILED CONTEXT — EXAMPLE skeleton (committed)
 
 **When to read:** For comprehensive background — work history depth, certifications, side projects, personality assessments.
 **Core skill file:** `${CLAUDE_PLUGIN_ROOT}/skills/resume-customizer/SKILL.md`
 
-**How to fill in:** Replace placeholders with your real history. This file is the long-form version of `YOUR_PROFILE.md`'s tables — same data, more depth per achievement.
+> **This is the committed EXAMPLE skeleton — placeholders only, safe to commit.** Your real file lives at
+> `skills/resume-customizer/references/detailed-context.md`, which is **git-ignored** so your real data never reaches a public repo.
+>
+> **To use it:** copy this file to `detailed-context.md` in the same folder and fill in the copy —
+> `cp skills/resume-customizer/references/detailed-context.example.md skills/resume-customizer/references/detailed-context.md`.
+> Fill the `.md`, never this `.example.md`.
 
-> ⚠️ **PRIVACY — once filled, this is PRIVATE.** It holds your full work history, certifications, and
-> exact metrics. **Do not commit it to a public repo** — use a **private fork** or git-ignore your real
-> data files (see the README "Privacy" section).
+**How to fill in (the copy):** Replace placeholders with your real history. This file is the long-form version of `YOUR_PROFILE.md`'s tables — same data, more depth per achievement.
+
+> ⚠️ **PRIVACY.** Once filled, `detailed-context.md` holds your full work history, certifications, and exact
+> metrics. The git-ignore keeps it local on a public fork. If you want to version your filled files, use a
+> **private fork** (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
 
 ---
 

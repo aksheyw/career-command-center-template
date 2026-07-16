@@ -61,11 +61,11 @@ Work through ALL steps of the pre-generation checklist from `SKILL.md` (Step 0 t
 
 ## STEP 4: Generate the resume from the user's canonical (NOT from templates)
 
-**This is BLOCKING.** Per `SKILL.md` STEP 0 — once the user has a canonical generic resume on disk, the tailored resume MUST be built by copying that canonical and applying minimal targeted edits. NEVER rebuild from `detailed-context.md`, `star-stories.md`, or this skill's templates. (Only if no canonical exists yet — a fresh install — generate from the templates with an explicit warning, per `SKILL.md` STEP 0.)
+**This is BLOCKING.** Per `SKILL.md` STEP 0 — once the user has a canonical generic resume on disk, the tailored resume MUST be built by copying that canonical and applying minimal targeted edits. NEVER rebuild from `detailed-context.md`, `star-stories.md`, or this skill's templates. (Only if no canonical exists yet — a fresh install — generate from the templates with an explicit warning, then save the approved result as the canonical, per `SKILL.md` STEP 0.)
 
 **Procedure:**
 
-1. Copy the canonical (`{{path/to/your/generic-resume.docx}}`) to the target `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`.
+1. Copy the canonical (default path `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx`, or the user's override path per `SKILL.md` STEP 0) to the target `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`.
 2. Apply company-type-specific tilts as targeted edits ON the canonical copy:
    - **AI Companies:** verify the AI / side-projects section position; consider promoting a shipped-AI bullet to first in the current role; portfolio link prominent in header.
    - **Consumer Scale:** verify the headline scale metric + best growth multiplier are prominent.
