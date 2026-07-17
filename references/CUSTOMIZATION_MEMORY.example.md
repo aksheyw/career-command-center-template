@@ -1,8 +1,18 @@
-# CUSTOMIZATION MEMORY — Application Learning Log
+# CUSTOMIZATION MEMORY — EXAMPLE skeleton (committed)
 
-**Purpose:** Remember what works for which types of roles. Every application teaches you something — this file is where the learning compounds.
+**Purpose:** Remember what works for which types of roles. Every application teaches you something — your real copy is where the learning compounds.
 
-**Update:** After each application outcome (screen / reject / interview / offer). Use the `update-memory` skill to add entries.
+> **This is the committed EXAMPLE skeleton — placeholders only, safe to commit.** Your real file lives at
+> `references/CUSTOMIZATION_MEMORY.md`, which is **git-ignored** so your real data never reaches a public repo.
+>
+> **To use it:** copy this file to `references/CUSTOMIZATION_MEMORY.md` and fill in the copy —
+> `cp references/CUSTOMIZATION_MEMORY.example.md references/CUSTOMIZATION_MEMORY.md`. Fill the `.md`, never this `.example.md`.
+
+**Update (the copy):** After each application outcome (screen / reject / interview / offer). Use the `update-memory` skill to add entries.
+
+> ⚠️ **PRIVACY.** Once filled, `CUSTOMIZATION_MEMORY.md` accumulates real company names, recruiter
+> interactions, and what worked for whom. The git-ignore keeps it local even in a public repo. If you want to
+> version your filled files, keep the whole clone in a **private standalone repo** — not a fork; GitHub forks of a public repo stay public (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
 
 ---
 

@@ -8,3 +8,45 @@
 .vscode/
 node_modules/
 *.log
+
+# ── Private job-search data (git-ignored so a PUBLIC repo can't leak it) ──────
+# Every file below holds REAL personal data once you fill it. Each ships as a
+# committed `*.example.md` placeholder skeleton; you copy that to the real
+# filename here and fill the copy. These real filenames are git-ignored, so the
+# documented happy path can never commit your real data to a public repo.
+# (To version your filled files, keep the whole clone in a PRIVATE standalone repo — not a fork; see README "Privacy".)
+
+# The structured tracker + generated analysis reports (example: applications.example.md)
+references/applications.md
+references/pattern-analysis-*.md
+
+# The hand-filled skeletons (each has a committed `*.example.md` to copy from)
+references/YOUR_PROFILE.md
+references/CUSTOMIZATION_MEMORY.md
+references/STRATEGIC_GAP_ASSESSMENT.md
+skills/resume-customizer/references/star-stories.md
+skills/resume-customizer/references/detailed-context.md
+skills/resume-customizer/references/story-bank-index.md
+skills/resume-customizer/references/interview-prep.md
+
+# Your maintained canonical generic resume (a real .docx/.pdf you drop in — see
+# resume-customizer STEP 0). Personal, never committed.
+references/generic-resume.docx
+references/generic-resume.pdf
+
+# ── Generated application documents (the tailored resumes + cover letters) ────
+# Every file the `apply` / `resume-customizer` skills generate is written into
+# `output/` and holds your real name, history, and the target company. The whole
+# directory is git-ignored (only its committed README survives), so a `git add .`
+# can never stage a generated application. The filename patterns below are a
+# backstop — they keep a generated doc out of git even if you save it elsewhere.
+output/*
+!output/README.md
+*_Resume_*.docx
+*_CoverLetter_*.docx
+*_Resume_*.pdf
+*_CoverLetter_*.pdf
+
+# Any file you rename with a .local.md suffix is also kept out of git — use this
+# for any extra personal copy you don't want committed.
+*.local.md

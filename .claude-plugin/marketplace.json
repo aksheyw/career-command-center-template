@@ -6,7 +6,7 @@
     {
       "name": "career-cc",
       "source": "./",
-      "description": "Template for an AI-native job-search workflow: resume customization, JD evaluation, interview prep, outreach, salary negotiation, and application tracking. Fork and personalize.",
+      "description": "Template for an AI-native job-search workflow: resume customization, JD evaluation, interview prep, outreach, salary negotiation, and application tracking. Clone into a private repo and personalize.",
       "author": { "name": "Akshey Walia" },
       "homepage": "https://github.com/aksheyw/career-command-center-template",
       "license": "MIT",

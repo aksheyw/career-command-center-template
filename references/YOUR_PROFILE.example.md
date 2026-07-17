@@ -1,8 +1,18 @@
-# YOUR PROFILE — Template
+# YOUR PROFILE — EXAMPLE skeleton (committed)
 
-**Purpose:** Single source of truth for your background, current role, and verified achievements. Auto-loaded at session start so every skill sees the same canonical you.
+**Purpose:** Single source of truth for your background, current role, and verified achievements. Your real copy is auto-loaded at session start so every skill sees the same canonical you.
 
-**How to fill in:** Replace every `{{PLACEHOLDER}}` and bracketed instruction with your own data. Delete sections that don't apply to your background. Add sections you need that aren't here.
+> **This is the committed EXAMPLE skeleton — placeholders only, safe to commit.** Your real file lives at
+> `references/YOUR_PROFILE.md`, which is **git-ignored** so your real data never reaches a public repo.
+>
+> **To use it:** copy this file to `references/YOUR_PROFILE.md` and fill in the copy —
+> `cp references/YOUR_PROFILE.example.md references/YOUR_PROFILE.md`. Fill the `.md`, never this `.example.md`.
+
+**How to fill in (the copy):** Replace every `{{PLACEHOLDER}}` and bracketed instruction with your own data. Delete sections that don't apply. Add sections you need that aren't here.
+
+> ⚠️ **PRIVACY.** Once filled, `YOUR_PROFILE.md` holds PRIVATE data — real name, contact details, employer,
+> compensation, verified metrics. The git-ignore keeps it local even in a public repo. If you want to version your
+> filled files, keep the whole clone in a **private standalone repo** — not a fork; GitHub forks of a public repo stay public (see the README "Privacy" section). Keep this `.example.md` placeholder-only.
 
 > **⭐ First time?** Fill in only the 3 sections marked **⭐ MINIMUM VIABLE** below to start using the plugin. The rest can stay as placeholders and fill in over time as your application history accumulates. See `QUICKSTART.md` for the full 5-step path.
 
@@ -67,7 +77,7 @@
 |-------------|--------|
 | {{Insight or analysis that changed company direction}} | {{Quantified or qualified business impact}} |
 
-**Always include in resume KEY ACHIEVEMENTS section — shows strategic impact, not just execution.**
+**This "KEY ACHIEVEMENTS" heading is a PROFILE storage bucket, not a resume section.** Feed this strategic-influence material into your resume's Summary and Professional Experience bullets — it shows strategic impact, not just execution. The resume itself has **no standalone "Key Achievements" section** (it duplicates Experience); the `resume-customizer` skill is authoritative on resume structure — see its "MISTAKES TO AVOID → No Key Achievements section."
 
 ### {{Current Role}} (e.g., Group PM, Jan 2023-Present)
 
@@ -234,6 +244,18 @@ CERTIFICATIONS
 - **Cash target:** {{Amount}}
 - **Total comp target:** {{Range}}
 - **Key point:** {{Negotiation angle — e.g., illiquid equity argument}}
+
+---
+
+## REFERENCES
+
+Your actual reference contacts are private — keep them here (this file is git-ignored), never in the committed
+methodology files. See `skills/resume-customizer/references/career-tools.md` → "Reference Management" for who to
+use, how to prepare them, and when to provide.
+
+| Person | Relationship | Best For |
+|--------|--------------|----------|
+| {{Name / role}} | {{Current manager / skip-level / cross-functional peer / direct report}} | {{What they can speak to}} |
 
 ---
 

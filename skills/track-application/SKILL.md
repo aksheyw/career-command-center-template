@@ -7,7 +7,7 @@ You are managing the user's job application pipeline.
 
 ## STEP 1: Read current memory
 
-Read `${CLAUDE_PLUGIN_ROOT}/references/CUSTOMIZATION_MEMORY.md` to understand current patterns and what has been learned.
+Read `${CLAUDE_PLUGIN_ROOT}/references/CUSTOMIZATION_MEMORY.md` to understand current patterns and what has been learned. This is the user's real (git-ignored) file. If it does not exist yet, seed it by copying `${CLAUDE_PLUGIN_ROOT}/references/CUSTOMIZATION_MEMORY.example.md` to that path, then proceed.
 
 ## STEP 2: Determine the action
 
@@ -49,9 +49,42 @@ Result: [screen / reject / offer / pending]
 Learning: [what this tells us for future applications]
 ```
 
-## STEP 4: Output pipeline summary
+## STEP 4: Persist the structured tracker (machine-readable — required)
 
-Always end with a pipeline summary table:
+`CUSTOMIZATION_MEMORY.md` holds the *prose* learnings. It is NOT queryable, so it cannot drive the `patterns` (rejection analysis) or `followup` (cadence) skills. Those skills read a structured tracker instead. Maintain it here.
+
+`${CLAUDE_PLUGIN_ROOT}/references/applications.md` is the user's REAL tracker. It is **git-ignored**
+(so private job-search data never reaches a public repo). Read it; if it does not exist, create it —
+seed it from `${CLAUDE_PLUGIN_ROOT}/references/applications.example.md` if that exists, and put the
+privacy header at the top (see the example file). It has exactly one table with this schema — keep the
+columns in this order:
+
+```markdown
+# Application Tracker
+
+| Num | Company | Role | Type | Status | Applied | Responded | Interview | Source | Score | Outcome reason | Contact | Follow-ups | Last follow-up |
+|-----|---------|------|------|--------|---------|-----------|-----------|--------|-------|----------------|---------|-----------|----------------|
+| 1   | Northstar AI | Director of Product | AI | applied | 2026-06-30 | — | — | referral | 4.2 | — | jane.recruiter@northstar.example | 0 | — |
+```
+
+Field rules:
+- **Num** — sequential, never reused.
+- **Type** — AI / Consumer / Enterprise / Fintech / Telco / Other.
+- **Status** — one of: `evaluated`, `applied`, `screening`, `responded`, `interview`, `offer`, `rejected`, `discarded`, `skip`. Use these exact tokens (the `patterns`/`followup` skills classify on them). `discarded` = went dead with no formal rejection; `skip` = self-filtered before applying.
+- **Applied** — `YYYY-MM-DD` you submitted the application.
+- **Responded** — `YYYY-MM-DD` the company/recruiter first responded with a real reply (not an auto-ack); `—` until it happens. Set this the moment a reply lands (even if you also move Status to `screening`/`responded`). `followup` keys its urgency off it, and `patterns` reads it as proof the row reached the screening stage.
+- **Interview** — `YYYY-MM-DD` of the first interview (scheduled or held); `—` until it happens. `followup` keys momentum off it, and `patterns` reads it as proof the row reached the interview stage.
+- **Source** — `referral` / `direct` / `recruiter`.
+- **Score** — the evaluation score (X.X/5) if the role was evaluated; else `—`.
+- **Outcome reason** — on `rejected`/`discarded`/`skip`, the stated or inferred reason (e.g. "geo-restricted", "stack mismatch", "seniority gap"). This is what `patterns` mines — never leave it blank on a negative outcome.
+- **Follow-ups** — integer count of follow-ups actually SENT (not drafted); starts at `0`. `followup` bumps it on a confirmed send and treats `2+` as COLD.
+- **Last follow-up** — `YYYY-MM-DD` of the most recent follow-up sent, else `—`.
+
+On a new application: append a row (Responded, Interview `—`; Follow-ups `0`). On an update: rewrite the existing row in place (build the new row as a fresh line, don't mutate columns piecemeal) — and when a reply or interview happens, fill the **Responded** / **Interview** date, don't just change Status. Write the file back. If the file still contains the shipped fictional example rows, delete them when appending the first real row.
+
+## STEP 5: Output pipeline summary
+
+Always end with a pipeline summary table (derived from `applications.md`):
 
 ```
 APPLICATION PIPELINE
@@ -69,4 +102,8 @@ Patterns Working: [what's getting responses]
 Patterns to Change: [what's not working]
 ```
 
+**Zero-denominator guard (mandatory — same rule as the `patterns` skill):** each conversion rate above is `numerator ÷ denominator`. If a denominator is 0 (e.g. no screens yet, so "screens to interviews" has nothing to divide), print "insufficient data for this rate" for that line — never divide by zero, and never print `0%` when what you mean is "no data yet". A `0%` reported on a zero denominator reads as a real failure signal when it is really just absence of data.
+
 If there are fewer than 5 applications, note: "Pipeline is thin — consider expanding outreach or applying to more roles."
+
+When the tracker has 5+ outcomes, suggest: "Run the `patterns` skill to analyze what's converting." When any application is aging past its cadence, suggest: "Run the `followup` skill to check follow-up cadence."

@@ -24,9 +24,9 @@ The repo ships with a `.claude-plugin/marketplace.json` so it can be installed d
 
 The marketplace name is `aksheyw-cct` and the plugin name is `career-cc`. Once installed, skills become `/career-cc:evaluate`, `/career-cc:apply`, etc. (See `.claude-plugin/marketplace.json` for the source of these names.)
 
-### Option B — Local dev install (session-only, for forks)
+### Option B — Local dev install (session-only, for customizing)
 
-For iterating on a fork before publishing it:
+For iterating on your own clone before publishing it:
 
 ```bash
 git clone https://github.com/aksheyw/career-command-center-template.git
@@ -34,7 +34,7 @@ cd career-command-center-template
 claude --plugin-dir ./
 ```
 
-This loads the plugin for the current session only. Re-run each time. Useful while customizing — once you have a working fork, set up your own marketplace using the same `marketplace.json` pattern (point `source` to your repo) and switch to Option A.
+This loads the plugin for the current session only. Re-run each time. Useful while customizing — once you have a working copy, set up your own marketplace using the same `marketplace.json` pattern (point `source` to your **private** repo) and switch to Option A. For a real job search, do this customizing inside your own private repo, not a public fork — see the README "Privacy" section for why and how.
 
 ### Either way
 
@@ -54,15 +54,23 @@ If this works, the plugin is wired correctly.
 
 ## 3. Minimum viable profile (3 minutes)
 
-Open `references/YOUR_PROFILE.md`. The full template has many sections — for your first real application you only need three.
+First **copy the committed skeleton to the real (git-ignored) filename**, then fill the copy — never edit the `.example.md`:
 
-Fill in the sections marked with **`⭐ MINIMUM VIABLE`** in `YOUR_PROFILE.md`:
+```bash
+cp references/YOUR_PROFILE.example.md references/YOUR_PROFILE.md
+```
+
+> **Doing a real job search?** Personalize in **your own private repo** so your filled files are safe to version. A GitHub fork of a public repo is always public, so don't fork to personalize — clone this template into a brand-new private repo instead (exact commands in the README "Privacy" section). In a public repo, the real filenames (and everything the skills generate into `output/`) are git-ignored so filling them can't leak your data. Either way you fill `YOUR_PROFILE.md`, not `YOUR_PROFILE.example.md`.
+
+Open `references/YOUR_PROFILE.md`. The full template has many sections — for your first real application you only need three. Fill in the sections marked with **`⭐ MINIMUM VIABLE`**:
 
 1. **Contact info** — name, email, phone, LinkedIn, location, optional portfolio
 2. **Current role & responsibilities** — title, company, scope, what you actually own
 3. **Verified achievements** — 3-5 specific metrics from your current or past roles, each with the verbatim phrasing you'd defend in an interview
 
-Leave the rest as placeholders for now. You'll fill them in as your applications create real data (STAR stories surface during interview prep, regulatory expertise gets added per JD, etc.).
+Leave the rest as placeholders for now. You'll fill them in as your applications create real data (STAR stories surface during interview prep, regulatory expertise gets added per JD, etc.). Copy the other `*.example.md` files to their real names the same way when you need them.
+
+**Optional but recommended:** if you already keep a maintained generic resume, drop it in at `references/generic-resume.docx` (git-ignored). Once it exists, `apply` builds every tailored resume by copying it and applying targeted edits — not from templates. No canonical yet? The first resume you generate and approve is saved there and becomes it.
 
 ## 4. Generate your first resume + cover letter
 
@@ -73,17 +81,17 @@ Now run:
 You'll get:
 
 - JD analysis with fit score
-- Tailored resume (`.docx`) — 2 pages, Calibri, ATS-compliant, 35-word bullets, mirrored JD keywords
+- Tailored resume (`.docx`) — 2 pages, Calibri, ATS-compliant, 40-55-word senior bullets, mirrored JD keywords
 - Cover letter (`.docx`) — 250-300 words, narrative arc, no passive language
 - 3 interview-prep "quick hits" (suggested STAR stories + likely questions)
 
-Both documents are auto-passed through the bundled humanizer skill before output.
+Both documents are auto-passed through the bundled humanizer skill before output, and both are saved into the git-ignored `output/` directory — they carry your real name, history, and target company, so they are git-ignored by design and never reach a public repo.
 
 ## 5. Track it (one line)
 
 > Run `/career-cc:track-application` for [company] [role] applied
 
-This logs the application to `references/CUSTOMIZATION_MEMORY.md`. After 3-5 applications, the memory file starts surfacing patterns ("which hooks got screens", "which company types respond"). That compounding loop is where the plugin's long-term value lives — it gets smarter per application.
+This logs the application to `references/CUSTOMIZATION_MEMORY.md` (prose learnings) AND appends a row to `references/applications.md` (the structured tracker). After 3-5 applications, the memory file starts surfacing patterns ("which hooks got screens", "which company types respond") — and once 5+ applications have real outcomes, the `patterns` skill can analyze the tracker for score thresholds and targeting changes, while `followup` watches it for applications aging past follow-up cadence. That compounding loop is where the plugin's long-term value lives — it gets smarter per application.
 
 ---
 
@@ -97,6 +105,8 @@ Once your profile has substance and you have a few applications logged:
 | `/career-cc:outreach [target]` | Cold or warm outreach messages, personalized by template |
 | `/career-cc:salary-negotiate [company]` | Negotiation prep with scripts, counter-offer handling, notice-period strategy |
 | `/career-cc:generic-letter` | Network forwarding cover letter for warm intros and alumni networks |
+| `/career-cc:followup` | When applications age — flags overdue/urgent ones and drafts the second-touch message |
+| `/career-cc:patterns` | Once 5+ applications have outcomes — what converts, what wastes time, targeting changes |
 | `/career-cc:update-memory` | After each application outcome — what worked, what didn't, what to change |
 
 ## Filling in the rest of `YOUR_PROFILE.md`
@@ -117,7 +127,7 @@ Once your profile is substantive, fill in `references/STRATEGIC_GAP_ASSESSMENT.m
 
 **"My skills aren't activating."** Check the `description` in each `SKILL.md` frontmatter — Claude Code matches skills by description against your conversation context. If a skill isn't firing, the description may not be specific enough.
 
-**"The hook isn't loading my profile at session start."** Check that `hooks/hooks.json` references the correct filename. If you renamed `YOUR_PROFILE.md` to something else, update the hook's `command` path.
+**"The hook isn't loading my profile at session start."** Check that `hooks/hooks.json` references the correct filename. If you renamed `YOUR_PROFILE.md` to something else, update the hook's `command` path — and keep the renamed file git-ignored: use a `.local.md` suffix (the `*.local.md` pattern is already in `.gitignore`) or add your custom path to `.gitignore` in the same step. `.gitignore` protects only the exact path `references/YOUR_PROFILE.md`, so a renamed profile is otherwise committable.
 
 **"Generated resume has fields I haven't filled in."** The skills are designed to ask before fabricating. If you see placeholder text in the output, that's the skill flagging a gap rather than inventing data. Fill in the missing profile section and regenerate.
 

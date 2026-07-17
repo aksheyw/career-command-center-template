@@ -5,6 +5,8 @@ description: "Paste a JD to get full analysis + tailored resume + cover letter. 
 
 You are generating job application materials. The user has pasted a job description. Follow this exact workflow.
 
+**OUTPUT LOCATION (mandatory):** every generated document — the tailored resume and the cover letter — is saved into the git-ignored `${CLAUDE_PLUGIN_ROOT}/output/` directory. These files carry the user's real name, history, and target company; `output/` is git-ignored so they never reach a public repo. Never save a generated resume/cover letter to the repo root.
+
 ## STEP 0: Quick evaluation (go/no-go check)
 
 Read the evaluation framework first:
@@ -57,28 +59,35 @@ Strategy: [which company-type template to apply and why]
 
 ## STEP 3: Complete the pre-generation checklist
 
-Work through ALL 8 steps of the pre-generation checklist from `SKILL.md` before generating any document. Do not skip.
+Work through ALL steps of the pre-generation checklist from `SKILL.md` (Step 0 through Step 9) before generating any document. Do not skip. **Step 0 — Locate Your Canonical Resume — is BLOCKING and must complete before Step 4.**
 
-## STEP 4: Generate the resume
+## STEP 4: Generate the resume from the user's canonical (NOT from templates)
 
-Apply the correct company-type strategy from `SKILL.md`:
+**This is BLOCKING.** Per `SKILL.md` STEP 0 — once the user has a canonical generic resume on disk, the tailored resume MUST be built by copying that canonical and applying minimal targeted edits. NEVER rebuild from `detailed-context.md`, `star-stories.md`, or this skill's templates. (Only if no canonical exists yet — a fresh install — generate from the templates with an explicit warning, then save the approved result as the canonical, per `SKILL.md` STEP 0.)
 
-- AI Companies: Lead with shipped-AI achievements in Experience; AI / Side Projects section after Experience; portfolio link prominent in header
-- Consumer Scale: Lead with headline scale metric, best growth multiplier
-- Enterprise / B2B: Fortune 500 / partnership work folded into Experience bullets (no standalone section)
-- Fintech: Lead with GMV / TPV, payment infra, bank partnerships
-- Telco: Lead with telco partnerships, B2B2C distribution, explicit category match in cover letter
+**Procedure:**
 
-Rules that are never optional:
+1. Copy the canonical (default path `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx`, or the user's override path per `SKILL.md` STEP 0) to the target `${CLAUDE_PLUGIN_ROOT}/output/{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`.
+2. Apply company-type-specific tilts as targeted edits ON the canonical copy:
+   - **AI Companies:** verify the AI / side-projects section position; consider promoting a shipped-AI bullet to first in the current role; portfolio link prominent in header.
+   - **Consumer Scale:** verify the headline scale metric + best growth multiplier are prominent.
+   - **Enterprise / B2B:** verify Fortune 500 / partnership content sits inside role bullets (NOT a standalone section).
+   - **Fintech:** consider promoting the GMV / TPV / payments bullet earlier in its role section.
+   - **Telco:** consider promoting telco-partnership work to the lead bullet; explicit category match in the cover letter.
+   - **Growth roles:** promote the activation / retention bullet to first in the current role.
+3. Diff against the canonical (`unzip -p` both files' `word/document.xml` and `diff`) to SURFACE unexpected drops, then render the edited `.docx` to PDF and look at it to confirm 2 pages, section order, and clickable hyperlinks. The diff flags candidates; the render is what actually proves layout and links survived.
+
+**Rules that are never optional (verified against the canonical, not regenerated):**
 
 - Exactly 2 pages
-- Bullets max ~55 words for senior roles, ~20 for early career
+- Bullets stay close to canonical lengths (40-55 words for senior bullets, 12-20 for early career)
 - No special characters (use ISO currency codes; "to" not arrow; standard hyphens only)
 - LinkedIn and portfolio as clickable hyperlinks
 - Strongest credential in summary
-- Only use verified metrics from `YOUR_PROFILE.md`'s verified-metrics tables
+- Current end dates and availability tags preserved exactly as the canonical has them (do NOT regress a real end date to "Present")
+- Only use verified metrics that exist in the canonical and `YOUR_PROFILE.md`'s verified-metrics tables
 
-Save the resume as a `.docx` file named: `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`
+Save the resume as a `.docx` file into the output directory: `${CLAUDE_PLUGIN_ROOT}/output/{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`
 
 ## STEP 5: Generate the cover letter
 
@@ -92,11 +101,31 @@ Save the resume as a `.docx` file named: `{{LastName}}_{{FirstName}}_Resume_{{Co
 - Confident close WITH phone number ("Let's connect — {{phone}}")
 - NO passive phrases: never use "I would welcome", "Please feel free", "I am open to"
 
-Save as: `{{LastName}}_{{FirstName}}_CoverLetter_{{Company}}.docx`
+Save as: `${CLAUDE_PLUGIN_ROOT}/output/{{LastName}}_{{FirstName}}_CoverLetter_{{Company}}.docx`
 
 ## STEP 6: Apply humanizer
 
 Re-read `${CLAUDE_PLUGIN_ROOT}/skills/humanizer/SKILL.md` and apply the checklist to ALL generated text in both documents before finalizing. Remove any AI-sounding patterns that slipped through. The humanizer pass is mandatory, not optional.
+
+## STEP 6.5: ATS screening questions (only if the application form has them)
+
+Many ATS forms ask inline behavioral / screening questions ("Tell us about a time you led through ambiguity", "Why this company?", "Describe a product you scaled"). If the user pasted such questions, or the application clearly has them, map each to the story bank instead of improvising.
+
+For each question:
+
+1. Pick the best-fit STAR story from `${CLAUDE_PLUGIN_ROOT}/skills/resume-customizer/references/story-bank-index.md` (already loaded in STEP 0) — match on the company TYPE row and the question's theme (scale, ambiguity, conflict, failure, data integrity, partnership).
+2. Draft a tight answer in the user's voice (apply the humanizer checklist): situation in one line, action in their words, the quantified result. Keep to the form's word/char limit if one is given.
+3. Never invent a metric — use only verified numbers from the story bank and `YOUR_PROFILE.md`.
+
+Output each as:
+
+```
+Q: [the screening question]
+Story: [story name (#n) from index]
+Answer: [drafted response]
+```
+
+If the form has no behavioral questions, skip this step silently.
 
 ## STEP 7: Output summary
 
@@ -114,9 +143,9 @@ Customizations Made:
 - [which company-type template used]
 - [any special sections added/removed]
 
-Files Generated:
-- {{LastName}}_{{FirstName}}_Resume_{{Company}}.docx
-- {{LastName}}_{{FirstName}}_CoverLetter_{{Company}}.docx
+Files Generated (in the git-ignored output/ directory):
+- output/{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx
+- output/{{LastName}}_{{FirstName}}_CoverLetter_{{Company}}.docx
 
 EVALUATION SCORE: [X.X/5] — [GO/CAUTION/SKIP]
 

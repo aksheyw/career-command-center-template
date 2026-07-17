@@ -5,6 +5,22 @@ description: Director-level / senior PM resume + cover letter toolkit. Generates
 
 # Resume Customizer — Senior PM Toolkit
 
+> **BEFORE BUILDING, MIRROR YOUR GENERIC RESUME.**
+> Once you have one, your maintained generic resume (a real `.docx` you keep current — see STEP 0
+> below) is the authoritative design benchmark. Build every tailored resume by mirroring that file —
+> render it and diff against it — NOT by copying a prior company's build script. A copied build
+> script is a *styling* starting point, never the spec; it silently drifts from your current standard.
+>
+> **The one conflict rule, split by domain (these two clauses do not overlap):**
+> - **FORMAT / layout / voice / structure** — your maintained generic resume is the benchmark of
+>   record. It is a real `.docx` you keep current, so on any disagreement about how the resume looks
+>   or reads, **the generic wins** over this skill's templates. Templates teach style; the canonical
+>   is the truth about form.
+> - **A contested factual METRIC** (a number that differs between the generic, `YOUR_PROFILE.md`, and
+>   this skill) — do NOT silently pick the generic, or any copy. Re-derive the figure from the most
+>   primary source (your own evidence / the verified-metrics table), fix every copy in one pass, and
+>   flag the conflict to the user. A resume can carry a stale number; the primary source settles it.
+
 ## QUICK REFERENCE
 
 **Core function:** Generate ATS-optimized resumes and cover letters for director-level PM roles.
@@ -20,6 +36,38 @@ description: Director-level / senior PM resume + cover letter toolkit. Generates
 - `references/referral_email_pattern.md` — forwardable referral email pattern
 
 **Profile source:** `${CLAUDE_PLUGIN_ROOT}/references/YOUR_PROFILE.md` is the single source of truth for the user's background.
+
+---
+
+## STEP 0 — START FROM CANONICAL ARTIFACT (BLOCKING)
+
+**Before generating ANY resume, find and read the user's canonical generic resume on disk. Customize via minimal targeted edits to that canonical. Do not rebuild from this skill's templates.**
+
+The skill's templates and `detailed-context.md` teach STYLE and RULES. The canonical artifact on disk is the TRUTH about content — current end dates, availability tags, header links, latest side projects, exact metric values, partner-specific phrasing already validated with real referrers. Templates drift; the canonical does not.
+
+**Canonical paths (checked in priority order — the default needs no setup beyond dropping your file in):**
+
+1. `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx` — **the default canonical.** Drop your maintained generic resume here (it is git-ignored). This fixed path is read first, so a fresh user is never blocked on an unfilled placeholder.
+2. `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.pdf` — PDF sibling at the same location, for a fast read via `pypdf`.
+3. `{{path/to/your/generic-resume.docx}}` — OPTIONAL override, only if you keep your canonical somewhere else. Leave the placeholder as-is to use the default path above. ⚠️ **A custom path must live OUTSIDE this repository** (e.g. `~/Documents/resumes/`). If you insist on a custom location inside the repo, add that exact path to `.gitignore` in the same step — only the default paths above and `output/` are ignored for you; an arbitrary in-repo path is committable.
+4. `{{path/to/prior-applications/}}<company>/` — most recent shipped customization for a similar role type. ⚠️ Same rule: keep this folder OUTSIDE the repository, or add it to `.gitignore` — prior applications are complete personal documents.
+5. If files have moved: `find ${CLAUDE_PLUGIN_ROOT}/references {{your resume folder}} -iname "*[Rr]esume*[Gg]eneric*" -o -iname "generic-resume.*"` (where `{{your resume folder}}` is a location outside this repo, per the rule above)
+
+**Procedure:**
+
+1. Open the canonical (`.docx` via `python-docx` or `.pdf` via `pypdf`). READ IT IN FULL, do not skim.
+2. **If the default canonical (path 1) is missing or out of date:** check path 2, then the optional override (path 3), then path 4, then the `find` in path 5. If ALL fail, STOP and ask the user: *"Canonical resume not found at `references/generic-resume.docx` or the other paths. Where is the current one, or should I generate the first one now?"* Only then fall back to template-based generation from `detailed-context.md`, with an explicit warning: *"WARNING: no canonical found, building from the template summary. This will likely miss recent items like updated end dates, new side projects, and exact metric values. Proceed?"* **This is the one legitimate template-first case (a fresh install with no canonical yet). When the user approves that first resume, SAVE the approved `.docx` to `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx` — it becomes the canonical every later run reads.**
+3. Copy the canonical to the target filename in the output directory (`${CLAUDE_PLUGIN_ROOT}/output/{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`).
+4. Apply minimal targeted edits for the JD. Typical edits:
+   - Promote one bullet to lead position if the JD demands it (e.g., the activation bullet first for a Growth PM role).
+   - Sharpen 1-2 bullet prefixes for JD-specific keywords.
+   - Swap 2-3 Expertise keywords for JD-specific terms.
+   - Adjust the Summary anchor line if positioning needs a tilt (rarely the whole Summary).
+5. After edits, diff against the canonical (`unzip -p` both `.docx` files' `word/document.xml` and `diff`). A diff **surfaces** what changed — it flags unexpected drops so you can eyeball them; it does NOT by itself prove the resume is semantically complete or that layout and hyperlinks survived.
+6. **Render the edited `.docx` to PDF and look at it** (e.g. LibreOffice `soffice --headless --convert-to pdf`, or open it). Confirm visually: 2 pages, every section present and in order, LinkedIn/portfolio hyperlinks still clickable, no layout break. This render-and-look step is what actually catches a dropped section or a broken link; the XML diff only points you at candidates.
+7. Verify ATS-clean (0 em dashes, 0 arrows, 0 currency symbols, 0 curly quotes).
+
+**Why this is BLOCKING:** Skipping this step causes systematic loss of validated content that a summary file cannot recover — most-recent end dates, availability tags, header links, latest side projects, exact metric values, phrasing already battle-tested with referrers. Build-from-context introduces drift; copy-and-edit preserves what is already validated.
 
 ---
 
@@ -129,6 +177,7 @@ Before outputting ANY resume or cover letter, Claude MUST:
 - **File Type:** .docx (primary), PDF if requested
 - **Font:** Calibri (not Arial)
 - **Filename:** `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`
+- **Save location:** the git-ignored `${CLAUDE_PLUGIN_ROOT}/output/` directory — always. Generated resumes and cover letters hold real personal data and must never land in a tracked path. The cover letter uses the same directory: `output/{{LastName}}_{{FirstName}}_CoverLetter_{{Company}}.docx`.
 - **Hyperlinks:** LinkedIn and portfolio must be clickable
 
 **Exact styling (match these values for golden-standard output):**
@@ -187,6 +236,8 @@ If exceeding 2 pages, cut in this order:
 - Always verify percent calculations against the underlying numbers. AND specify the metric type when a percent could be ambiguous. Example: "$10 to $15 (+25% YoY)" — clear that the percent is annualized growth, not the math result of the lifetime $5 increase. Without "YoY," readers will calculate $10→$15 lifetime as +50% and the parenthetical reads as a math error.
 - Always verify multiplier claims. Arithmetic: "{start} to N×{start}" is N times, not whatever sounds bigger. Example: "20% to 80%" is 4X (not 60% better — that's a different operation). When numbers are inherited from prior resumes, RE-VERIFY against `YOUR_PROFILE.md`. Do not trust.
 - When numbers are inherited from prior resumes, RE-VERIFY. Do not trust.
+- Keep the unit label attached to every figure (devices vs users vs DAU vs sessions vs revenue). Unit confusion is how a wrong metric becomes *self-reinforcing*: a "6M" that silently changes units survives weeks of reuse because every copy looks internally consistent.
+- **A verification rule can itself be wrong.** If a metric's guard-rule in this skill and your canonical resume / `YOUR_PROFILE.md` disagree, re-derive the number from the primary source — never let a metric's own guard become the source of truth. A wrong rule enforces the wrong number on every future generation until someone checks it against the primary.
 
 **2. Scope overclaims — verbs that overstate role**
 
@@ -223,6 +274,17 @@ If a referrer is reviewing the artifacts before forwarding, expect 4-7 iteration
 ## PRE-GENERATION CHECKLIST
 
 Before generating ANY resume or cover letter:
+
+### Step 0: Locate Canonical Artifact (MANDATORY FIRST STEP)
+
+- [ ] Read the canonical at `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx` (the default path; or its `.pdf` sibling, or your optional override path)
+- [ ] If it is missing or unclear, run `find ${CLAUDE_PLUGIN_ROOT}/references {{your resume folder}} -iname "*[Rr]esume*[Gg]eneric*" -o -iname "generic-resume.*"` (`{{your resume folder}}` = a location OUTSIDE this repo — see STEP 0's custom-path rule)
+- [ ] READ the canonical in full via `python-docx` or `pypdf` — do NOT skim, do NOT rebuild from `detailed-context.md` memory
+- [ ] If none exists (fresh install), generate from templates ONCE, and on approval SAVE it to `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx` so it becomes the canonical
+- [ ] Copy the canonical to the target filename in the git-ignored output directory: `${CLAUDE_PLUGIN_ROOT}/output/{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`
+- [ ] All subsequent steps apply TARGETED EDITS to the canonical, not rebuilds from templates
+- [ ] After final edits: diff against the canonical (`unzip -p` both `word/document.xml` and `diff`) to SURFACE unexpected drops, THEN render the `.docx` to PDF and visually confirm 2 pages, section order, and clickable hyperlinks (the diff alone does not prove completeness or layout)
+- [ ] See the STEP 0 section above for the full procedure + canonical path hierarchy (and the one legitimate no-canonical-yet exception)
 
 ### Step 1: JD Analysis
 
@@ -319,7 +381,7 @@ Pull from `YOUR_PROFILE.md`'s verified metrics tables. **If a metric is NOT in t
 - [ ] LinkedIn and Portfolio are clickable hyperlinks
 - [ ] Font: Calibri
 - [ ] Dates: "January 2023 - Present" format
-- [ ] Filename: `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`
+- [ ] Filename: `{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`, saved into the git-ignored `${CLAUDE_PLUGIN_ROOT}/output/` directory
 - [ ] Section heading: "PROFESSIONAL EXPERIENCE"
 
 ### Step 6: Page Check
@@ -638,10 +700,16 @@ Every numeric claim in a generated resume MUST trace to a row in `YOUR_PROFILE.m
 2. Ask the user whether to add it (with source) or omit it from the bullet.
 3. If the user adds it, update `YOUR_PROFILE.md`'s verified-metrics table at the same time.
 
+**Every claim traces to a source.** The verified-metrics table is a table of claims each traced to where it was verified — a profile row, a canonical-resume bullet, or explicit user input. Two rules keep it from rotting:
+
+- **When a metric is corrected, correct it in EVERY copy of YOUR data in the same pass** — the profile's verified-metrics table, your canonical resume, and any prior drafts in `output/` you intend to reuse. All of those live in git-ignored files, and that is exactly where corrections belong: NEVER write your corrected real metric into this tracked SKILL.md — its examples are fictional teaching content and stay fixed (this file is committed, so anything you write here would be published if the repo is pushed). A stale copy left behind in your data becomes the next self-reinforcing error (it will be inherited by the next resume and re-verified against itself).
+- **On a contested factual METRIC (the profile vs the canonical resume vs a prior draft): do not silently pick one** — not even the generic. Re-derive from the most primary source available, fix all copies in your git-ignored data files, and flag the conflict to the user. (This is the metric half of the STEP 0 conflict rule; FORMAT/layout/voice disagreements resolve the other way — the generic resume wins.)
+
 ---
 
 ## VERSION HISTORY
 
+- **v2.0** (Template refresh): Ported the generic mechanisms that evolved upstream: STEP 0 canonical-artifact-first generation (BLOCKING), generic-resume-as-authoritative-benchmark banner (mirror + render + diff; never copy a prior build script as spec; generic wins on conflict), and anti-self-reinforcing metric rules (unit labels stay attached; a metric's guard-rule is never its own source; corrections propagate across your git-ignored data files in one pass, never into this tracked skill).
 - **v1.0** (Template): Generic version extracted from a real director-PM job search workflow. All personal data replaced with placeholders. Methodology preserved verbatim.
 
 ---
