@@ -114,7 +114,7 @@ As shipped, every committed file is safe (placeholders and fictional rows only).
 ## Setup
 
 1. **Clone** this template — ideally into your own **private repo** (see **Privacy** above; forking a public repo keeps it public, so clone-into-private instead) — under your Claude Code plugins folder, or wherever your harness loads plugins from.
-2. **Rename the plugin** in `.claude-plugin/plugin.json` (`name`, `version`, `description`, `author`) to be yours.
+2. **Rename the plugin** in `.claude-plugin/plugin.json` (`name`, `version`, `description`) to be yours. Do NOT add an `author` field with your real identity unless you intend to PUBLISH your fork publicly — `plugin.json` is a tracked file, so anything you put there becomes public the moment the repo is pushed. For a private job-search setup (the normal case), leave `author` out entirely; it is optional publisher metadata, not required for the plugin to work.
 3. **Copy each `*.example.md` to its real filename, then fill the copy.** Every personal-data file ships as a committed placeholder skeleton; you fill the git-ignored real file, not the `.example.md`. At minimum, start with your profile:
    ```bash
    cp references/YOUR_PROFILE.example.md references/YOUR_PROFILE.md
@@ -122,7 +122,7 @@ As shipped, every committed file is safe (placeholders and fictional rows only).
    ```
    (`applications.md` is the exception — you don't copy it by hand; `track-application` creates it from `applications.example.md`.)
 4. **Drop in your canonical resume.** Once you maintain a generic resume, save it as `references/generic-resume.docx` (git-ignored). The `resume-customizer` / `apply` skills copy from this fixed path and apply targeted edits — they never rebuild from templates once it exists. No canonical yet? The first resume you generate and approve is saved there and becomes the canonical (see `resume-customizer` STEP 0).
-5. **Update `hooks/hooks.json`** only if you renamed `YOUR_PROFILE.md` to something else (this file is auto-loaded at session start; it prints a copy-me hint until the real file exists).
+5. **Update `hooks/hooks.json`** only if you renamed `YOUR_PROFILE.md` to something else (this file is auto-loaded at session start; it prints a copy-me hint until the real file exists). ⚠️ **If you rename it, the new name is NOT automatically git-ignored** — `.gitignore` protects the exact path `references/YOUR_PROFILE.md` only. Either give the new file a `.local.md` suffix (e.g. `MY_PROFILE.local.md` — the `*.local.md` pattern is already ignored), or add your custom path to `.gitignore` in the same step. A renamed profile without one of these gets committed like any other file.
 6. **Try a skill.** Paste any JD into `apply` and watch the workflow run end-to-end.
 
 No external services. No API keys. Works entirely from your local files.
@@ -179,7 +179,7 @@ The skill never fabricates JD details, never invents salary ranges — it tells 
 ## Troubleshooting
 
 - **`/career-cc:<skill>` doesn't autocomplete:** the plugin name in `.claude-plugin/plugin.json` is what gets prefixed. If you kept the default `career-command-center-template`, your skills are `/career-command-center-template:evaluate` (long but functional). Rename the plugin to something shorter (e.g., `career-cc`) before invoking.
-- **Session-start hook isn't loading `YOUR_PROFILE.md`:** check `hooks/hooks.json` references the correct filename. If you renamed `YOUR_PROFILE.md`, update the hook's path.
+- **Session-start hook isn't loading `YOUR_PROFILE.md`:** check `hooks/hooks.json` references the correct filename. If you renamed `YOUR_PROFILE.md`, update the hook's path — and make sure the new name is still git-ignored: use a `.local.md` suffix (already covered by `*.local.md` in `.gitignore`) or add the custom path to `.gitignore`, because only the exact path `references/YOUR_PROFILE.md` is ignored by default.
 - **Generated resume has placeholder text instead of your details:** the skills are designed to flag missing data rather than fabricate. Fill in the section the placeholder points to and regenerate.
 - **`/career-cc:evaluate` works but `/career-cc:apply` doesn't:** `apply` requires `YOUR_PROFILE.md` to have at least the 3 ⭐ MINIMUM VIABLE sections filled. `evaluate` works on JD alone — that's why it's the first skill to test.
 - **Plugin loaded but skills aren't namespaced:** confirm you installed it as a plugin (not by copying individual `SKILL.md` files to `~/.claude/skills/`). Plugin install gives you `/career-cc:apply`; loose-skill install gives bare `/apply` and bypasses the session-start hook.

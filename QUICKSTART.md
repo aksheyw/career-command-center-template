@@ -127,7 +127,7 @@ Once your profile is substantive, fill in `references/STRATEGIC_GAP_ASSESSMENT.m
 
 **"My skills aren't activating."** Check the `description` in each `SKILL.md` frontmatter — Claude Code matches skills by description against your conversation context. If a skill isn't firing, the description may not be specific enough.
 
-**"The hook isn't loading my profile at session start."** Check that `hooks/hooks.json` references the correct filename. If you renamed `YOUR_PROFILE.md` to something else, update the hook's `command` path.
+**"The hook isn't loading my profile at session start."** Check that `hooks/hooks.json` references the correct filename. If you renamed `YOUR_PROFILE.md` to something else, update the hook's `command` path — and keep the renamed file git-ignored: use a `.local.md` suffix (the `*.local.md` pattern is already in `.gitignore`) or add your custom path to `.gitignore` in the same step. `.gitignore` protects only the exact path `references/YOUR_PROFILE.md`, so a renamed profile is otherwise committable.
 
 **"Generated resume has fields I haven't filled in."** The skills are designed to ask before fabricating. If you see placeholder text in the output, that's the skill flagging a gap rather than inventing data. Fill in the missing profile section and regenerate.
 

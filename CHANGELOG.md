@@ -1,5 +1,24 @@
 # Changelog — Career Command Center Template
 
+## 2.0.6 — 2026-07
+
+Closes the last three workflow-leak paths found by the independent review — each was a documented
+instruction that could route a user's REAL data into a tracked (committed) file:
+
+- **Metric corrections no longer route into the tracked skill file.** `resume-customizer/SKILL.md` said to
+  correct a metric "everywhere — the profile table, this skill's examples, and any prior drafts." The skill's
+  examples are fictional teaching content in a committed file; the rule now propagates corrections only across
+  the user's git-ignored data (profile table, canonical resume, `output/` drafts) and explicitly forbids
+  writing real metrics into the tracked SKILL.md.
+- **Renaming `YOUR_PROFILE.md` no longer silently escapes `.gitignore`.** README (Setup + Troubleshooting) and
+  QUICKSTART said "if you renamed it, update the hook's path" — but `.gitignore` protects only the exact
+  default path, so a renamed profile was committable. All three spots now require either a `.local.md` suffix
+  (the `*.local.md` pattern is already ignored) or adding the custom path to `.gitignore` in the same step.
+- **The plugin-rename step no longer invites a real `author` identity into a tracked file.** README Setup said
+  to set `name`, `version`, `description`, `author` in `.claude-plugin/plugin.json`. `author` is optional
+  public-publisher metadata; the step now says a private job-search user should NOT add real identity, and that
+  anything in plugin.json becomes public if the repo is pushed.
+
 ## 2.0.5 — 2026-07
 
 Comprehensive, converging privacy sweep. Prior rounds fixed personal-data files one batch at a time and an

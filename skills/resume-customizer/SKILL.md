@@ -702,14 +702,14 @@ Every numeric claim in a generated resume MUST trace to a row in `YOUR_PROFILE.m
 
 **Every claim traces to a source.** The verified-metrics table is a table of claims each traced to where it was verified — a profile row, a canonical-resume bullet, or explicit user input. Two rules keep it from rotting:
 
-- **When a metric is corrected, correct it EVERYWHERE in the same pass** — the profile table, this skill's examples, and any prior drafts you intend to reuse. A stale copy left behind becomes the next self-reinforcing error (it will be inherited by the next resume and re-verified against itself).
-- **On a contested factual METRIC (this skill vs the profile vs the canonical resume): do not silently pick one** — not even the generic. Re-derive from the most primary source available, fix all copies, and flag the conflict to the user. (This is the metric half of the STEP 0 conflict rule; FORMAT/layout/voice disagreements resolve the other way — the generic resume wins.)
+- **When a metric is corrected, correct it in EVERY copy of YOUR data in the same pass** — the profile's verified-metrics table, your canonical resume, and any prior drafts in `output/` you intend to reuse. All of those live in git-ignored files, and that is exactly where corrections belong: NEVER write your corrected real metric into this tracked SKILL.md — its examples are fictional teaching content and stay fixed (this file is committed, so anything you write here would be published if the repo is pushed). A stale copy left behind in your data becomes the next self-reinforcing error (it will be inherited by the next resume and re-verified against itself).
+- **On a contested factual METRIC (the profile vs the canonical resume vs a prior draft): do not silently pick one** — not even the generic. Re-derive from the most primary source available, fix all copies in your git-ignored data files, and flag the conflict to the user. (This is the metric half of the STEP 0 conflict rule; FORMAT/layout/voice disagreements resolve the other way — the generic resume wins.)
 
 ---
 
 ## VERSION HISTORY
 
-- **v2.0** (Template refresh): Ported the generic mechanisms that evolved upstream: STEP 0 canonical-artifact-first generation (BLOCKING), generic-resume-as-authoritative-benchmark banner (mirror + render + diff; never copy a prior build script as spec; generic wins on conflict), and anti-self-reinforcing metric rules (unit labels stay attached; a metric's guard-rule is never its own source; corrections propagate everywhere in one pass).
+- **v2.0** (Template refresh): Ported the generic mechanisms that evolved upstream: STEP 0 canonical-artifact-first generation (BLOCKING), generic-resume-as-authoritative-benchmark banner (mirror + render + diff; never copy a prior build script as spec; generic wins on conflict), and anti-self-reinforcing metric rules (unit labels stay attached; a metric's guard-rule is never its own source; corrections propagate across your git-ignored data files in one pass, never into this tracked skill).
 - **v1.0** (Template): Generic version extracted from a real director-PM job search workflow. All personal data replaced with placeholders. Methodology preserved verbatim.
 
 ---
