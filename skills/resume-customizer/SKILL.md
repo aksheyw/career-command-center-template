@@ -49,9 +49,9 @@ The skill's templates and `detailed-context.md` teach STYLE and RULES. The canon
 
 1. `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx` — **the default canonical.** Drop your maintained generic resume here (it is git-ignored). This fixed path is read first, so a fresh user is never blocked on an unfilled placeholder.
 2. `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.pdf` — PDF sibling at the same location, for a fast read via `pypdf`.
-3. `{{path/to/your/generic-resume.docx}}` — OPTIONAL override, only if you keep your canonical somewhere else. Leave the placeholder as-is to use the default path above.
-4. `{{path/to/prior-applications/}}<company>/` — most recent shipped customization for a similar role type.
-5. If files have moved: `find ${CLAUDE_PLUGIN_ROOT}/references {{your resume folder}} -iname "*[Rr]esume*[Gg]eneric*" -o -iname "generic-resume.*"`
+3. `{{path/to/your/generic-resume.docx}}` — OPTIONAL override, only if you keep your canonical somewhere else. Leave the placeholder as-is to use the default path above. ⚠️ **A custom path must live OUTSIDE this repository** (e.g. `~/Documents/resumes/`). If you insist on a custom location inside the repo, add that exact path to `.gitignore` in the same step — only the default paths above and `output/` are ignored for you; an arbitrary in-repo path is committable.
+4. `{{path/to/prior-applications/}}<company>/` — most recent shipped customization for a similar role type. ⚠️ Same rule: keep this folder OUTSIDE the repository, or add it to `.gitignore` — prior applications are complete personal documents.
+5. If files have moved: `find ${CLAUDE_PLUGIN_ROOT}/references {{your resume folder}} -iname "*[Rr]esume*[Gg]eneric*" -o -iname "generic-resume.*"` (where `{{your resume folder}}` is a location outside this repo, per the rule above)
 
 **Procedure:**
 
@@ -278,7 +278,7 @@ Before generating ANY resume or cover letter:
 ### Step 0: Locate Canonical Artifact (MANDATORY FIRST STEP)
 
 - [ ] Read the canonical at `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx` (the default path; or its `.pdf` sibling, or your optional override path)
-- [ ] If it is missing or unclear, run `find ${CLAUDE_PLUGIN_ROOT}/references {{your resume folder}} -iname "*[Rr]esume*[Gg]eneric*" -o -iname "generic-resume.*"`
+- [ ] If it is missing or unclear, run `find ${CLAUDE_PLUGIN_ROOT}/references {{your resume folder}} -iname "*[Rr]esume*[Gg]eneric*" -o -iname "generic-resume.*"` (`{{your resume folder}}` = a location OUTSIDE this repo — see STEP 0's custom-path rule)
 - [ ] READ the canonical in full via `python-docx` or `pypdf` — do NOT skim, do NOT rebuild from `detailed-context.md` memory
 - [ ] If none exists (fresh install), generate from templates ONCE, and on approval SAVE it to `${CLAUDE_PLUGIN_ROOT}/references/generic-resume.docx` so it becomes the canonical
 - [ ] Copy the canonical to the target filename in the git-ignored output directory: `${CLAUDE_PLUGIN_ROOT}/output/{{LastName}}_{{FirstName}}_Resume_{{Company}}.docx`

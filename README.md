@@ -265,6 +265,8 @@ These rules are codified in `skills/resume-customizer/SKILL.md` and apply to eve
 
 The default templates assume a director / principal PM job search in India. To use this for a different role or geography:
 
+> ⚠️ **Privacy note before you personalize:** every file named below (except `YOUR_PROFILE.md`) is a TRACKED methodology file. Editing it to match YOUR geography, role archetypes, or seniority writes your real job-search targets into files that become public if this repo is public. Do methodology personalization only in a **private** clone (see **Privacy** above) — or leave the tracked methodology generic and keep your specifics in the git-ignored `YOUR_PROFILE.md`, which the skills always read first.
+
 - **Different geography:** edit currency formatting + phone format in `skills/resume-customizer/SKILL.md` ATS rules; set your actual target in `references/YOUR_PROFILE.md` (git-ignored), and re-theme the company-type calibration buckets in `skills/resume-customizer/references/career-tools.md` if needed
 - **Different role family:** rewrite the company-type strategies in `SKILL.md` (`AI`, `Consumer Scale`, `Enterprise/B2B`, `Fintech`, `Telco`) to match the role archetypes you target
 - **Different seniority:** adjust bullet length norms (40-55 words is calibrated for senior PM)

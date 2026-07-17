@@ -19,6 +19,19 @@ instruction that could route a user's REAL data into a tracked (committed) file:
   public-publisher metadata; the step now says a private job-search user should NOT add real identity, and that
   anything in plugin.json becomes public if the repo is pushed.
 
+Two further paths caught by the convergence re-review, same class (documented instruction routes user
+data into a committable location):
+
+- **Custom canonical/prior-application paths must live outside the repo.** `resume-customizer` STEP 0's
+  optional path overrides (`{{path/to/your/generic-resume.docx}}`, `{{path/to/prior-applications/}}`) put
+  no constraint on where those files live — an in-repo custom location was committable. The instructions
+  (and the STEP 0 checklist `find`) now require a location outside the repository, or adding the exact
+  path to `.gitignore` in the same step.
+- **Methodology personalization warns it publishes your targets.** README "Customizing the methodology"
+  tells users to edit tracked files (`SKILL.md` ATS rules and company-type strategies, `career-tools.md`
+  calibration buckets) for their geography/role-family/seniority. A privacy note now leads that section:
+  do this only in a private clone, or keep specifics in the git-ignored `YOUR_PROFILE.md`.
+
 ## 2.0.5 — 2026-07
 
 Comprehensive, converging privacy sweep. Prior rounds fixed personal-data files one batch at a time and an
