@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 348" width="1000" height="348" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif">
+  <rect x="0" y="0" width="1000" height="348" fill="#FFFFFF"/>
+
+  <text x="40" y="46" font-size="23" font-weight="600" fill="#1B2A4A">Why the tenth application is better than the first</text>
+  <text x="40" y="72" font-size="14.5" fill="#5B6169">Four of the twelve skills run on every job you apply to. The fourth one is why the loop compounds.</text>
+
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto">
+      <path d="M0,1 L8,4.5 L0,8 z" fill="#0E9384"/>
+    </marker>
+    <marker id="arw" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto">
+      <path d="M0,1 L8,4.5 L0,8 z" fill="#0B6E5F"/>
+    </marker>
+  </defs>
+
+  <rect x="40" y="106" width="200" height="72" rx="8" fill="#E6F4F1" stroke="#0E9384" stroke-width="1.5"/>
+  <text x="56" y="132" font-size="14.5" font-weight="600" fill="#0B6E5F">evaluate</text>
+  <text x="56" y="155" font-size="13" fill="#1B2A4A">Is this job worth a day</text>
+  <text x="56" y="171" font-size="13" fill="#1B2A4A">of your time?</text>
+
+  <line x1="240" y1="142" x2="277" y2="142" stroke="#0E9384" stroke-width="2" marker-end="url(#ar)"/>
+
+  <rect x="286" y="106" width="200" height="72" rx="8" fill="#E6F4F1" stroke="#0E9384" stroke-width="1.5"/>
+  <text x="302" y="132" font-size="14.5" font-weight="600" fill="#0B6E5F">apply</text>
+  <text x="302" y="155" font-size="13" fill="#1B2A4A">The tailored resume,</text>
+  <text x="302" y="171" font-size="13" fill="#1B2A4A">letter and prep.</text>
+
+  <line x1="486" y1="142" x2="523" y2="142" stroke="#0E9384" stroke-width="2" marker-end="url(#ar)"/>
+
+  <rect x="532" y="106" width="200" height="72" rx="8" fill="#E6F4F1" stroke="#0E9384" stroke-width="1.5"/>
+  <text x="548" y="132" font-size="14.5" font-weight="600" fill="#0B6E5F">track-application</text>
+  <text x="548" y="155" font-size="13" fill="#1B2A4A">Where it went, and</text>
+  <text x="548" y="171" font-size="13" fill="#1B2A4A">what came back.</text>
+
+  <line x1="732" y1="142" x2="769" y2="142" stroke="#0E9384" stroke-width="2" marker-end="url(#ar)"/>
+
+  <rect x="778" y="106" width="182" height="72" rx="8" fill="#1B2A4A" stroke="#1B2A4A" stroke-width="1.5"/>
+  <text x="794" y="132" font-size="14.5" font-weight="600" fill="#FFFFFF">update-memory</text>
+  <text x="794" y="155" font-size="13" fill="#E6F4F1">What worked, while</text>
+  <text x="794" y="171" font-size="13" fill="#E6F4F1">you still remember.</text>
+
+  <path d="M869,178 L869,224" fill="none" stroke="#0B6E5F" stroke-width="2" marker-end="url(#arw)"/>
+
+  <rect x="150" y="231" width="810" height="80" rx="8" fill="#F3F5F9" stroke="#8A8F98" stroke-width="1.5"/>
+  <text x="172" y="258" font-size="14.5" font-weight="600" fill="#1B2A4A">What the loop remembers</text>
+  <text x="172" y="282" font-size="13" fill="#1B2A4A">Which opening line a recruiter actually answered. Which story landed in the room. Where your</text>
+  <text x="172" y="300" font-size="13" fill="#1B2A4A">applications keep stalling, and which kind of role keeps rejecting you.</text>
+
+  <path d="M150,271 L110,271 L110,178" fill="none" stroke="#0B6E5F" stroke-width="2" marker-end="url(#arw)"/>
+  <text x="126" y="207" font-size="12.5" font-style="italic" fill="#0B6E5F">feeds the next one</text>
+  <text x="150" y="330" font-size="12.5" fill="#5B6169">Once installed they are invoked as /career-cc:evaluate, /career-cc:apply, and so on.</text>
+</svg>
