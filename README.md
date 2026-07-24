@@ -417,3 +417,5 @@ MIT (see [LICENSE](LICENSE)). Two components are third-party MIT and stay under 
 This template was extracted from a real director-PM job search workflow. All personal data has been replaced with skeletons; the underlying methodology is preserved.
 
 If you find this useful, share the result, or fork it and make it better.
+
+Built by [Akshey Walia](https://github.com/aksheyw).
