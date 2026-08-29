@@ -163,12 +163,13 @@ session**, not back in your shell:
 `aksheyw-cct` is the marketplace name and `career-cc` is the plugin name, both set in
 `.claude-plugin/marketplace.json`, which is why the skills arrive as `/career-cc:evaluate` and so on.
 
-Now run the one skill that needs no profile:
+Now confirm the plugin is wired:
 
 > Run `/career-cc:evaluate` on this JD: [paste a job description]
 
-If a 7-block analysis comes back with a GO, CAUTION or SKIP verdict, it is wired correctly. Stop here
-if you are only looking. **Do not fill in your real profile on this path**: the plugin lives inside
+If a 7-block analysis comes back with a GO, CAUTION or SKIP verdict, it is wired correctly. Treat that
+run as a wiring check: `evaluate` lists five files it reads, and three of them are ones you create in
+the next section. Stop here if you are only looking. **Do not fill in your real profile on this path**: the plugin lives inside
 Claude Code's own plugin directory, not in a repo you control, so none of the git-ignore protection
 below applies to anything you put there.
 
@@ -182,10 +183,13 @@ From inside that clone, in your shell:
 
 ```bash
 cp references/YOUR_PROFILE.example.md references/YOUR_PROFILE.md
+cp skills/resume-customizer/references/story-bank-index.example.md skills/resume-customizer/references/story-bank-index.md
+cp skills/resume-customizer/references/star-stories.example.md skills/resume-customizer/references/star-stories.md
 claude --plugin-dir ./
 ```
 
-The first line makes your own profile from the committed skeleton. The second starts Claude Code with
+The first three lines make your own profile and story files from the committed skeletons. The last one
+starts Claude Code with
 this clone loaded as a plugin, and it lasts for that session only, so it is how you start work each
 time. Fill the three sections marked ⭐ MINIMUM VIABLE in `YOUR_PROFILE.md`, then run
 `/career-cc:apply` on a job description to get the tailored documents.
@@ -243,9 +247,11 @@ Everything else in the repo is methodology (the rules, frameworks, templates, la
 
 1. **Clone** this template, ideally into your own **private repo** (see **Privacy** above; forking a public repo keeps it public, so clone-into-private instead), under your Claude Code plugins folder, or wherever your harness loads plugins from.
 2. **Rename the plugin** in `.claude-plugin/plugin.json` (`name`, `version`, `description`) to be yours. Do NOT add an `author` field with your real identity unless you intend to PUBLISH your fork publicly, because `plugin.json` is a tracked file, so anything you put there becomes public the moment the repo is pushed. For a private job-search setup (the normal case), leave `author` out entirely; it is optional publisher metadata, not required for the plugin to work.
-3. **Copy each `*.example.md` to its real filename, then fill the copy.** Every personal-data file ships as a committed placeholder skeleton; you fill the git-ignored real file, not the `.example.md`. At minimum, start with your profile:
+3. **Copy each `*.example.md` to its real filename, then fill the copy.** Every personal-data file ships as a committed placeholder skeleton; you fill the git-ignored real file, not the `.example.md`. At minimum, start with the three files the skills read first:
    ```bash
    cp references/YOUR_PROFILE.example.md references/YOUR_PROFILE.md
+   cp skills/resume-customizer/references/story-bank-index.example.md skills/resume-customizer/references/story-bank-index.md
+   cp skills/resume-customizer/references/star-stories.example.md skills/resume-customizer/references/star-stories.md
    ```
    (`applications.md` is the exception: you don't copy it by hand; `track-application` creates it from `applications.example.md`.)
 4. **Drop in your canonical resume.** Once you maintain a generic resume, save it as `references/generic-resume.docx` (git-ignored). The `resume-customizer` / `apply` skills copy from this fixed path and apply targeted edits, and they never rebuild from templates once it exists. No canonical yet? The first resume you generate and approve is saved there and becomes the canonical (see `resume-customizer` STEP 0).
@@ -267,7 +273,7 @@ After loading the plugin, in a fresh Claude Code session:
 - **`/career-cc:<skill>` doesn't autocomplete:** the plugin name in `.claude-plugin/plugin.json` is what gets prefixed. If you kept the default `career-command-center-template`, your skills are `/career-command-center-template:evaluate` (long but functional). Rename the plugin to something shorter (e.g., `career-cc`) before invoking.
 - **Session-start hook isn't loading `YOUR_PROFILE.md`:** check `hooks/hooks.json` references the correct filename. If you renamed `YOUR_PROFILE.md`, update the hook's path, and make sure the new name is still git-ignored: use a `.local.md` suffix (already covered by `*.local.md` in `.gitignore`) or add the custom path to `.gitignore`, because only the exact path `references/YOUR_PROFILE.md` is ignored by default.
 - **Generated resume has placeholder text instead of your details:** the skills are designed to flag missing data rather than fabricate. Fill in the section the placeholder points to and regenerate.
-- **`/career-cc:evaluate` works but `/career-cc:apply` doesn't:** `apply` requires `YOUR_PROFILE.md` to have at least the 3 ⭐ MINIMUM VIABLE sections filled. `evaluate` works on JD alone, which is why it's the first skill to test.
+- **`/career-cc:evaluate` works but `/career-cc:apply` doesn't:** `apply` reads `story-bank-index.md` at its first step and needs `YOUR_PROFILE.md` to have at least the 3 ⭐ MINIMUM VIABLE sections filled. `evaluate` is the quickest way to confirm the plugin is wired, which is why it's the first skill to test. Fill these files in before you rely on what it scores.
 - **Plugin loaded but skills aren't namespaced:** confirm you installed it as a plugin (not by copying individual `SKILL.md` files to `~/.claude/skills/`). Plugin install gives you `/career-cc:apply`; loose-skill install gives bare `/apply` and bypasses the session-start hook.
 
 </details>

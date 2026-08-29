@@ -40,27 +40,27 @@ This loads the plugin for the current session only. Re-run each time. Useful whi
 
 Once installed, the plugin's session-start hook auto-loads your `references/YOUR_PROFILE.md` so every skill sees your background as canonical context.
 
-## 2. Confirm the install — run `/career-cc:evaluate` (no profile required)
+## 2. Confirm the install: run `/career-cc:evaluate`
 
-The `evaluate` skill works on a JD alone. Test it first to confirm wiring.
+Run it once to confirm the plugin is wired.
 
 In Claude Code, paste a job description and ask:
 
 > Run `/career-cc:evaluate` on this JD: [paste here]
 
-You'll get back a 7-block analysis (CV match, compensation research, story mapping, legitimacy, etc.) with a **GO / CAUTION / SKIP** verdict. 2-3 minutes. No profile needed yet.
-
-If this works, the plugin is wired correctly.
+If a 7-block analysis comes back with a **GO / CAUTION / SKIP** verdict, the plugin is wired. 2-3 minutes. `evaluate` lists five files it reads, and three of them are ones you create in step 3, so treat this run as a wiring check rather than a real assessment.
 
 ## 3. Minimum viable profile (3 minutes)
 
-First **copy the committed skeleton to the real (git-ignored) filename**, then fill the copy — never edit the `.example.md`:
+First **copy each committed skeleton to its real (git-ignored) filename**, then fill the copies — never edit the `.example.md`:
 
 ```bash
 cp references/YOUR_PROFILE.example.md references/YOUR_PROFILE.md
+cp skills/resume-customizer/references/story-bank-index.example.md skills/resume-customizer/references/story-bank-index.md
+cp skills/resume-customizer/references/star-stories.example.md skills/resume-customizer/references/star-stories.md
 ```
 
-> **Doing a real job search?** Personalize in **your own private repo** so your filled files are safe to version. A GitHub fork of a public repo is always public, so don't fork to personalize — clone this template into a brand-new private repo instead (exact commands in the README "Privacy" section). In a public repo, the real filenames (and everything the skills generate into `output/`) are git-ignored so filling them can't leak your data. Either way you fill `YOUR_PROFILE.md`, not `YOUR_PROFILE.example.md`.
+> **Doing a real job search?** Personalize in **your own private repo** so your filled files are safe to version. A GitHub fork of a public repo is always public, so don't fork to personalize — clone this template into a brand-new private repo instead (exact commands in the README "Privacy" section). In a public repo, the real filenames (and everything the skills generate into `output/`) are git-ignored so filling them can't leak your data. Either way you fill the real filenames, not the `.example.md` ones.
 
 Open `references/YOUR_PROFILE.md`. The full template has many sections — for your first real application you only need three. Fill in the sections marked with **`⭐ MINIMUM VIABLE`**:
 
@@ -68,7 +68,7 @@ Open `references/YOUR_PROFILE.md`. The full template has many sections — for y
 2. **Current role & responsibilities** — title, company, scope, what you actually own
 3. **Verified achievements** — 3-5 specific metrics from your current or past roles, each with the verbatim phrasing you'd defend in an interview
 
-Leave the rest as placeholders for now. You'll fill them in as your applications create real data (STAR stories surface during interview prep, regulatory expertise gets added per JD, etc.). Copy the other `*.example.md` files to their real names the same way when you need them.
+Leave the rest as placeholders for now. You'll fill them in as your applications create real data (STAR stories surface during interview prep, regulatory expertise gets added per JD, etc.). Copy the remaining `*.example.md` files to their real names the same way when you need them.
 
 **Optional but recommended:** if you already keep a maintained generic resume, drop it in at `references/generic-resume.docx` (git-ignored). Once it exists, `apply` builds every tailored resume by copying it and applying targeted edits — not from templates. No canonical yet? The first resume you generate and approve is saved there and becomes it.
 
