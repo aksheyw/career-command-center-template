@@ -24,7 +24,16 @@ Select based on the user's input:
 
 If the context is ambiguous, ask which situation applies before generating.
 
-## STEP 3: Personalize the message
+## STEP 3: Check what was already sent
+
+Before writing anything, read the `Contact` and `Last follow-up` columns for this company in
+`${CLAUDE_PLUGIN_ROOT}/references/applications.md`, the tracker the `track-application` skill keeps.
+A follow-up that repeats a message already sent costs the relationship. If the row shows a recent
+touch, say so and confirm with the user before generating. If the tracker does not exist yet, or has
+no row for this company, say that there is no record of earlier contact and continue. Never treat
+the rows in `applications.example.md` as real history.
+
+## STEP 4: Personalize the message
 
 Mandatory personalizations:
 
@@ -38,7 +47,12 @@ Mandatory personalizations:
 
 Never use generic placeholders in the final output — fill them in or explicitly mark what the user needs to fill in manually before sending.
 
-## STEP 4: Output the message
+## STEP 5: Voice pass
+
+Run the `humanizer` skill in this plugin on the drafted message before you output it. An outreach
+draft that still reads as AI-written is not finished.
+
+## STEP 6: Output the message
 
 Output the ready-to-send message clearly formatted, followed by:
 

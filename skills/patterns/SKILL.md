@@ -66,7 +66,7 @@ Then compute:
 2. **Score thresholds** — compare the average / min / max evaluation **Score** of **progressed** rows (reached screening) against rows that are `rejected` and did NOT reach screening (rejected at the top of the funnel). `in_flight` rows that never progressed, and any row with no Score, are excluded. If either group is empty, report "insufficient data for a score threshold." If progressed rows cluster above a score the early-rejected rarely clear, that score is the recommended GO floor.
 3. **Archetype / company-type breakdown** — per **Type** (AI / Consumer / Enterprise / Fintech / Telco / Other): applied count (rows of that type that reached applied), progressed count (reached screening), and progression rate = progressed ÷ applied for that type. If a type's applied count is 0, print "—", not a division. Rank by rate.
 4. **Blocker analysis** — tally the **Outcome reason** column across `rejected` + `self_filtered` rows. Group into buckets (geo-restriction, stack/skill mismatch, seniority mismatch, onsite/relocation, comp, timing). Rank most-frequent first.
-5. **Source breakdown** — progression rate by **Source** (referral vs direct vs recruiter) = progressed ÷ applied for that source, same zero-denominator guard. Referrals usually progress higher; quantify the gap where the denominators allow.
+5. **Source breakdown** — progression rate by **Source** (`recruiter-outbound`, `referral-warm`, `referral-list`, `cold-direct`) = progressed ÷ applied for that source, same zero-denominator guard. Keep the two referral kinds apart: merging a warm referral with a forwarded name hides any difference between them. Quantify the gaps where the denominators allow.
 
 ## STEP 4: Write the report
 
@@ -100,7 +100,7 @@ Progression rate = progressed ÷ applied (reached screening ÷ reached applied).
 Ranked most-frequent first.
 
 ## Source Performance
-Referral {X}% vs direct {Y}% vs recruiter {Z}%.
+Recruiter-outbound {A}% · referral-warm {B}% · referral-list {C}% · cold-direct {D}%.
 
 ## Top 5 Targeting Changes
 1. [specific, actionable — e.g. "Raise GO floor to 3.5; 4 of 5 rejections scored below it"]

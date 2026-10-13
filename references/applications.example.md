@@ -23,8 +23,8 @@ skills query. The `track-application` skill maintains the real tracker for you �
 
 | Num | Company | Role | Type | Status | Applied | Responded | Interview | Source | Score | Outcome reason | Contact | Follow-ups | Last follow-up |
 |-----|---------|------|------|--------|---------|-----------|-----------|--------|-------|----------------|---------|-----------|----------------|
-| 1 | Northstar AI | Director of Product, AI Platform | AI | interview | 2026-06-10 | 2026-06-15 | 2026-06-28 | referral | 4.2 | — | jane.recruiter@northstar.example | 1 | 2026-06-20 |
-| 2 | BlueCart | Senior PM, Growth | Consumer | rejected | 2026-06-05 | — | — | direct | 3.1 | Seniority mismatch — role scoped two levels below target | — | 0 | — |
+| 1 | Northstar AI | Director of Product, AI Platform | AI | interview | 2026-06-10 | 2026-06-15 | 2026-06-28 | referral-warm | 4.2 | — | jane.recruiter@northstar.example | 1 | 2026-06-20 |
+| 2 | BlueCart | Senior PM, Growth | Consumer | rejected | 2026-06-05 | — | — | cold-direct | 3.1 | Seniority mismatch — role scoped two levels below target | — | 0 | — |
 
 ---
 
@@ -37,7 +37,7 @@ skills query. The `track-application` skill maintains the real tracker for you �
 - **Applied** — `YYYY-MM-DD` you submitted the application.
 - **Responded** — `YYYY-MM-DD` the company/recruiter first responded with a real reply (not an auto-ack). `—` until it happens. Drives `followup` urgency, and marks that the row reached the screening stage even if it later goes terminal.
 - **Interview** — `YYYY-MM-DD` of the first interview (scheduled or held). `—` until it happens. Drives `followup` momentum, and marks that the row reached the interview stage even if it later goes terminal.
-- **Source** — `referral` / `direct` / `recruiter` (who initiated: a human vouched, you applied cold, or a recruiter came to you).
+- **Source** — `recruiter-outbound` / `referral-warm` / `referral-list` / `cold-direct`. A recruiter came to you; a person who knows you vouched for you; someone forwarded your name without vouching; or you applied cold. Keep the two referral kinds apart: a warm referral and a forwarded name may convert differently, and only separate values let your tracker show it.
 - **Score** — the `evaluate` skill's score (X.X/5) if the role was evaluated; else `—`.
 - **Outcome reason** — on `rejected`/`discarded`/`skip`, the stated or inferred reason (e.g. "geo-restricted", "stack mismatch", "seniority gap"). This is what `patterns` mines — never leave it blank on a negative outcome.
 - **Follow-ups** — integer count of follow-ups you actually SENT (not drafted). Starts at `0`. `followup` treats `2+` as COLD and stops drafting.

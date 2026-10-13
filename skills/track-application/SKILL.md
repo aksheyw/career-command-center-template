@@ -15,7 +15,7 @@ Based on the user's input:
 
 **If logging a new application:**
 
-- Extract: company name, role title, date applied, source (referral / direct / recruiter)
+- Extract: company name, role title, date applied, source (recruiter-outbound / referral-warm / referral-list / cold-direct)
 - Determine company type (AI / Consumer / Enterprise / Fintech / Telco)
 - Confirm: was the resume and cover letter generated using this plugin?
 - Ask: any customizations made that worked well?
@@ -64,7 +64,7 @@ columns in this order:
 
 | Num | Company | Role | Type | Status | Applied | Responded | Interview | Source | Score | Outcome reason | Contact | Follow-ups | Last follow-up |
 |-----|---------|------|------|--------|---------|-----------|-----------|--------|-------|----------------|---------|-----------|----------------|
-| 1   | Northstar AI | Director of Product | AI | applied | 2026-06-30 | — | — | referral | 4.2 | — | jane.recruiter@northstar.example | 0 | — |
+| 1   | Northstar AI | Director of Product | AI | applied | 2026-06-30 | — | — | referral-warm | 4.2 | — | jane.recruiter@northstar.example | 0 | — |
 ```
 
 Field rules:
@@ -74,7 +74,7 @@ Field rules:
 - **Applied** — `YYYY-MM-DD` you submitted the application.
 - **Responded** — `YYYY-MM-DD` the company/recruiter first responded with a real reply (not an auto-ack); `—` until it happens. Set this the moment a reply lands (even if you also move Status to `screening`/`responded`). `followup` keys its urgency off it, and `patterns` reads it as proof the row reached the screening stage.
 - **Interview** — `YYYY-MM-DD` of the first interview (scheduled or held); `—` until it happens. `followup` keys momentum off it, and `patterns` reads it as proof the row reached the interview stage.
-- **Source** — `referral` / `direct` / `recruiter`.
+- **Source** — `recruiter-outbound` / `referral-warm` / `referral-list` / `cold-direct`.
 - **Score** — the evaluation score (X.X/5) if the role was evaluated; else `—`.
 - **Outcome reason** — on `rejected`/`discarded`/`skip`, the stated or inferred reason (e.g. "geo-restricted", "stack mismatch", "seniority gap"). This is what `patterns` mines — never leave it blank on a negative outcome.
 - **Follow-ups** — integer count of follow-ups actually SENT (not drafted); starts at `0`. `followup` bumps it on a confirmed send and treats `2+` as COLD.
